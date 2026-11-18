@@ -13,7 +13,7 @@ The first screen of the mobile site: the value line on a full-bleed temple-teal 
 
 ## 自在 composition (v1.6)
 
-- The page opens on the poem: a temple-teal field on the left two thirds, the mark in it with its dots drifting down and right onto the paper, and the value line hung in three vertical columns at the right edge. XIDING · HAIDIAN · BEIJING runs vertically below it.
+- The page opens on the poem: a temple-teal field on the left two thirds, the mark standing whole in it, and the value line hung in three vertical columns at the right edge. XIDING · HAIDIAN · BEIJING runs vertically below it.
 - The three pillars stand as stones (`xd-stones`): 大美 the largest, in teal; 大智 in black; 大礼 smallest, white with an `ink` edge; each word hung beside it.
 - 本周 is a vertical heading; the week cascades beside it (`xd-loose`): the day as a 44px figure in `teal-text`, the pillar dot and name, the title, and the action as a word on the pair dot.
 - The tab bar floats inside the frame.

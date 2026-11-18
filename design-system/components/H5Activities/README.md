@@ -14,4 +14,4 @@ The members' calendar for the year, month by month: a date, the pillar, the even
 ## 自在 composition (v1.6)
 
 - 日历 hangs at 88px against the right edge; 十一月 is the vertical heading of the month, with events cascading beside it, each day a 44px figure in `teal-text`.
-- The next month closes the page on a teal field, its name hung vertically, the dots drifting out to the right.
+- The next month closes the page on a teal field, its name hung vertically, the mark whole in it.

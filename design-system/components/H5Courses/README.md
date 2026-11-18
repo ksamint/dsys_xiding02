@@ -13,5 +13,5 @@ The Academy's list: the programme on a black field, the courses and the next ste
 ## 自在 composition (v1.6)
 
 - 学院 hangs at 88px against the right edge; XIDING ACADEMY and a three-line lede sit at its left.
-- The programme is a black field on the right two thirds with its title hung vertically in white; the mark's dots drift left out of it in teal. 报名下一期 follows as a word on the pair dot.
+- The programme is a black field on the right two thirds with its title hung vertically in white; the mark stands whole in it in teal. 报名下一期 follows as a word on the pair dot.
 - 课程 is a vertical heading with the courses cascading beside it.

@@ -11,5 +11,5 @@ An exhibition page: the title on a full-bleed black field with the mark in teal 
 
 ## 自在 composition (v1.6)
 
-- The page opens on a tall black field with the exhibition's name hung vertically at 44px; the mark stands below the name and its dots drift up and left, out of the field, in teal. EXHIBITION · XIDING runs vertically at the left edge.
+- The page opens on a tall black field with the exhibition's name hung vertically at 44px; the mark stands whole below the name, in teal. EXHIBITION · XIDING runs vertically at the left edge.
 - 鉴赏 is a vertical heading with its sessions beside it.

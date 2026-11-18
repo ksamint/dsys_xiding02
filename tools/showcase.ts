@@ -112,8 +112,8 @@ function resolver(t: Tokens) {
 // ---------- sections ----------
 function hero(X: XidingAPI, idx: Index, t: Tokens, stats: string): string {
   const art = X.scatter({
-    width: 1200, height: 300, x: 120, y: 24, size: 252, spread: 1.6, angle: 8, strays: 46, seed: 21,
-    field: { x: 0, y: 0, w: 420, h: 300 }, fieldInk: "#FFFFFF", breathe: true, title: "西顶",
+    width: 1200, height: 300, x: 120, y: 24, size: 252, spread: 0, angle: 8, strays: 0, seed: 21,
+    field: { x: 0, y: 0, w: 420, h: 300 }, fieldInk: "#FFFFFF", breathe: false, title: "西顶",
   });
   return `<header class="sc-hero" id="top">
 <div class="sc-hero__art">${art}</div>

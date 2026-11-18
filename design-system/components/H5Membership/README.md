@@ -12,4 +12,4 @@ The membership screen: the member's card as an object, what membership includes,
 ## 自在 composition (v1.6)
 
 - 会员 hangs at 88px against the right edge.
-- The card is held at an angle (−6°) and its teal dots drift off it onto the page: the one object on the screen. The facts below stay level.
+- The card is held at an angle (−6°), its teal mark whole in its corner: the one object on the screen. The facts below stay level.
