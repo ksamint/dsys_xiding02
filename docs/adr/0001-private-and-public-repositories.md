@@ -32,9 +32,10 @@ Two repositories, one direction.
 What the copy holds is decided by `public.manifest.json` in this repository:
 
 - **In:** `design-system/`, `showcase/`, `brand/` (logos, palette, brand-book page images and their extracted data),
-  `cards/`, `src/` and `scripts/` (deck, site, overview), `docs/` (this ADR included), `tools/`, `tests/`, and the
-  build files. It carries its own `README.md`, written from `docs/public-readme.md`, and its own
-  `PUBLIC_EXPORT.json`, naming the private commit it came from.
+  `cards/`, `src/` and `scripts/` (deck, site, overview), `docs/` (this ADR included), `tools/`, `tests/`, the build
+  files, `LICENSE`, `NOTICE` and `CLAUDE.md`. Two files go out in a public version (`overrides`): `README.md` from
+  `docs/public-readme.md` and `AGENTS.md` from `docs/public-agents.md`. It also gets a `PUBLIC_EXPORT.json`, naming
+  the private commit it came from.
 - **Out:** `private/`, this repository's `README.md`, the brand-book PDF, the brand inventory files with local paths
   (`brand/xiding-guangren-vi/manifest.json`, `fileye.json`), and `docs/adr/0002-member-app-moved-out.md`.
 - **New top-level folders stay private** until they are added to `include`.
@@ -73,4 +74,9 @@ The export (`tools/public-export.ts`) refuses to write anything when:
   in it reads `private/`.
 - The brand-book PDF joins the copy only once its font licences are confirmed; then remove it from `exclude` and list
   its SHA-256 under `binaries`.
-- No open-source licence has been chosen; until the owner adds one, the public copy is all rights reserved.
+- Licence (decided 2026-11-18): the code is Apache-2.0 (`LICENSE`); the brand, names, marks, design-system content,
+  showcase and the introduction's words and artwork are all rights reserved (`NOTICE`, which lists the paths). Section 6
+  of the Apache License grants no trademark rights. The same two files are in both repositories.
+- Agents: each repository has an `AGENTS.md` (read by Codex, Cursor and most agents) and a `CLAUDE.md` that imports it
+  (read by Claude Code). In `dsys_xiding01` it says how to work here; in `dsys_xiding02` it says the repository is
+  generated and must not be edited by hand.

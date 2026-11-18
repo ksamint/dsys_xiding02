@@ -1,12 +1,13 @@
 {
   "from": "private repository",
-  "commit": "ff47ac6407a6f0b6458422227a1abd964a1c83fc",
+  "commit": "807fc01fcc5778be2fed1d977768ca8340690e6d",
   "uncommittedChanges": false,
-  "files": 259,
+  "files": 262,
   "redacted": [],
   "excluded": [
     "private/",
     "docs/public-readme.md",
+    "docs/public-agents.md",
     "docs/adr/0002-member-app-moved-out.md",
     "brand/xiding-guangren-vi/品牌形象-5.pdf",
     "brand/xiding-guangren-vi/manifest.json",

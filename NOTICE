@@ -1,0 +1,32 @@
+西顶 XIDING design system, business-card editor and introduction
+Copyright 2026 西顶文化 (Xiding). All rights reserved except as stated below.
+
+1. Code: Apache License 2.0
+   The source code in this repository is licensed under the Apache License, Version 2.0 (see LICENSE):
+   - tools/, scripts/, tests/
+   - cards/xiding-card/ (the editor's TypeScript and the Rust snap engine), except the brand artwork it draws
+   - design-system/components/src/ and design-system/components/bundle.js, bundle.css, index.d.ts
+   - src/ as program code (the page renderers, clients and helpers), except the words and artwork they carry
+   - build configuration (package.json, tsconfig*.json, .editorconfig, .gitignore, .githooks/)
+
+2. Brand and content: all rights reserved
+   Not licensed under the Apache License or any other licence. They may be viewed here; they may not be copied,
+   adapted or used without written permission from 西顶文化:
+   - the names and marks 西顶, 西頂, Xiding, XIDING, 西顶文化, 西顶艺术, 西顶学院, 西顶时光, Xiding Arts,
+     Xiding Academy, Xiding Lifestyle, 西頂廣仁宮, Xiding Guangren Temple, and the dot mark, in any form;
+   - brand/ (the visual identity of 西頂廣仁宮: logos, wordmarks, palette, brand-book pages and text);
+   - design-system/ apart from the component code listed above: tokens, assets, previews, the brand book
+     (intro.md, voice.md, README.md), decisions and references;
+   - showcase/;
+   - the words, photographs, picture briefs and artwork of the introduction (src/shared/content.ts, catalog.ts,
+     events.ts, photo.ts, the copy in src/deck, src/site, src/onepager) and docs/.
+   Section 6 of the Apache License applies: it grants no permission to use these trade names or trademarks.
+
+3. Third-party material
+   - The outlined lettering in design-system/assets is drawn from Noto Serif SC, under the SIL Open Font License 1.1.
+   - The pages load Noto Serif, Noto Serif SC/TC, Instrument Sans and Cormorant Garamond from Google Fonts at run
+     time, each under the SIL Open Font License 1.1. No font files are kept in this repository.
+   - npm and Cargo dependencies keep their own licences.
+
+4. People on the business cards
+   The people in cards/xiding-card/people.sample.json (张三, 李四, 王小五) are fictional.

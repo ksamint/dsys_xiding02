@@ -4,6 +4,7 @@
   "private": true,
   "type": "module",
   "description": "Xiding design system, the business-card editor, and the introduction (slide deck, official site and one-page overview) in English, Traditional and Simplified Chinese.",
+  "license": "SEE LICENSE IN NOTICE",
   "engines": {
     "node": ">=22.13"
   },

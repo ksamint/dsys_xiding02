@@ -46,4 +46,12 @@ opened here is read, and its change is made there.
 
 ## Licence
 
-No open-source licence has been chosen yet: all rights are reserved by the owner.
+The code is licensed under the Apache License 2.0 (`LICENSE`). The brand and content are not: the names and marks
+(西顶, Xiding, 西顶文化, 西顶艺术, 西顶学院, 西顶时光, 西頂廣仁宮 and the dot mark), `brand/`, the design system's
+tokens, assets and brand book, `showcase/`, and the introduction's words and artwork are all rights reserved, and may be
+read here but not reused. `NOTICE` lists exactly what is which.
+
+## For agents
+
+Read `AGENTS.md` first (Claude Code reads it through `CLAUDE.md`). In short: this repository is generated; do not
+edit it by hand.
