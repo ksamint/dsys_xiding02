@@ -115,12 +115,6 @@ export const brands = {
     "西頂以文化為底蘊，以教育為動力，以生活方式為連接，整合藝術、學術、商業與跨界資源，構建集文化體驗、知識成長、企業賦能與品質生活於一體的多元平台。",
     "西顶以文化为底蕴，以教育为动力，以生活方式为连接，整合艺术、学术、商业与跨界资源，构建集文化体验、知识成长、企业赋能与品质生活于一体的多元平台。",
   ),
-  /** What the three share, after them. */
-  shared: t(
-    "The three brands share one cultural foundation, professional resources and a network across fields, creating lasting value for personal growth, business development and a good life.",
-    "三個品牌，共享文化底蘊、專業資源與跨界網絡，為個人成長、企業發展與美好生活創造持續價值。",
-    "三个品牌，共享文化底蕴、专业资源与跨界网络，为个人成长、企业发展与美好生活创造持续价值。",
-  ),
   items: [
     {
       id: "arts",

@@ -127,7 +127,6 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .brand--zhi .brand__services li::before { background: var(--ink); }
 .brand--li .brand__services li::before { background: var(--surface); box-shadow: inset 0 0 0 1.2px var(--ink); }
 .brand__lines { margin-top: 8px; font: 500 15px/1.85 var(--font-display); letter-spacing: .06em; }
-.brands__shared { margin-top: clamp(32px, 4vw, 48px); padding-top: 20px; border-top: 1px solid var(--line); max-width: 46em; font-size: 14px; line-height: 1.85; color: var(--muted); }
 :root[lang="en"] .brands__tagline, :root[lang="en"] .brands__lead, :root[lang="en"] .brand__name { letter-spacing: .01em; }
 :root[lang="en"] .brand__latin { font: 500 14px/1.4 var(--font-serif); letter-spacing: .3em; }
 :root[lang="en"] .brand__services li, :root[lang="en"] .brand__lines, :root[lang="en"] .brands__intro { letter-spacing: 0; }

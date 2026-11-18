@@ -14,7 +14,7 @@
 | 西顶学院 | Xiding Academy | XIDING ACADEMY | 教育 / 学习 | 课程研修、战略咨询、人才发展 | 以教育启发认知，以咨询推动变革，以人才驱动未来。 |
 | 西顶时光 | Xiding Lifestyle | XIDING LIFESTYLE | 生活方式 / 会员 | 会员生活、品质社交、精致体验 | 以时光沉淀价值，以品味连接彼此，以社群丰富生活。 |
 
-三个品牌，共享文化底蕴、专业资源与跨界网络，为个人成长、企业发展与美好生活创造持续价值。对外的介绍页：https://claude.ai/artifact/EmhEzgmXoCQuTV1GL5VRHV（西顶文化｜艺术 · 教育 · 生活方式，草稿，图片待替换）。
+对外的介绍页：https://claude.ai/artifact/EmhEzgmXoCQuTV1GL5VRHV（西顶文化｜艺术 · 教育 · 生活方式，草稿，图片待替换）。
 
 ## 三个板块
 
