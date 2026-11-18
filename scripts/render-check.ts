@@ -57,6 +57,16 @@ async function slidesFit(page: Page, where: string): Promise<void> {
         }
         if (el.scrollWidth > el.clientWidth + 1 && getComputedStyle(el).overflow !== "visible") return `${el.className} is clipped`;
       }
+      // Side-by-side columns (the brands, the modules) keep their words inside their own column.
+      for (const col of frame.querySelectorAll<HTMLElement>(".bp__item")) {
+        const c = col.getBoundingClientRect();
+        for (const el of col.querySelectorAll<HTMLElement>("*")) {
+          const range = document.createRange();
+          range.selectNodeContents(el);
+          const r = range.getBoundingClientRect();
+          if (r.width && (r.right > c.right + 1 || r.left < c.left - 1)) return `${el.className || el.tagName} runs past its column`;
+        }
+      }
       // The words of a slide must stay clear of its corners.
       for (const el of frame.querySelectorAll<HTMLElement>(".panel__body, .index, .pair, .words, .say, .modhead, .mods4, .qr, .lockup__web, .st, .syshead, .sys")) {
         const r = el.getBoundingClientRect();

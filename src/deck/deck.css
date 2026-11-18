@@ -113,8 +113,8 @@ html, body { height: 100%; }
 .band__n { font: 500 120u/.8 var(--font-figure); font-variant-numeric: lining-nums; }
 .band__name { font: 500 30u/1.3 var(--font-display); letter-spacing: .14em; }
 
-/* 1 · the two brands, under who we are: side by side, a hairline between */
-.bp { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: 34u; border-top: 1u solid var(--rule); }
+/* 1 · the brands, under who we are: side by side, hairlines between */
+.bp { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 34u; border-top: 1u solid var(--rule); }
 .bp__item { display: grid; gap: 8u; padding: 18u 0 0; }
 .bp__item + .bp__item { padding-left: 22u; border-left: 1u solid var(--rule); }
 .bp__name { font: 500 21u/1.2 var(--font-display); letter-spacing: .14em; }
@@ -122,15 +122,15 @@ html, body { height: 100%; }
 :root[lang="en"] .bp__name { font-size: 22u; letter-spacing: .01em; }
 :root[lang="en"] .bp__alt { font: 500 11u/1.4 var(--font-serif); letter-spacing: .3em; text-transform: none; }
 
-/* 2 · what we do: the two brands, large, a hairline between */
+/* 2 · what we do: the three brands, large, hairlines between */
 .what { position: absolute; inset: 0; display: grid; align-content: center; padding: 0 96u; }
 .what .fig { margin-bottom: 44u; }
 .what .bp { margin-top: 0; border-top: 1u solid var(--ink); }
 .what .bp__item { gap: 18u; padding-top: 30u; }
 .what .bp__item + .bp__item { padding-left: 48u; }
-.what .bp__name { font-size: 54u; letter-spacing: .12em; }
+.what .bp__name { font-size: 42u; letter-spacing: .12em; white-space: nowrap; }
 .what .bp__alt { font-size: 11u; letter-spacing: .4em; }
-:root[lang="en"] .what .bp__name { font-size: 46u; letter-spacing: .01em; white-space: nowrap; }
+:root[lang="en"] .what .bp__name { font-size: 42u; line-height: 1.05; letter-spacing: .01em; text-wrap: balance; }
 :root[lang="en"] .what .bp__alt { font-size: 16u; }
 
 /* X · the whole system, 一底三柱 */

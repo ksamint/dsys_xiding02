@@ -62,7 +62,7 @@ test("1 who we are, 2 the brands, 3 the pillars, X the ecosystem with the module
   const who = hans[3]?.html ?? "";
   assert.ok(who.includes("春秋百载，贯通东西。") && !who.includes("西顶艺术"), "1 is Xiding alone");
   const what = hans[5]?.html ?? "";
-  assert.ok(what.includes("我们做什么") && what.includes("西顶艺术") && what.includes("西顶学院"), "2 is the two brands");
+  assert.ok(what.includes("我们做什么") && what.includes("西顶艺术") && what.includes("西顶学院") && what.includes("西顶时光"), "2 is the three brands");
   const how = hans[6]?.html ?? "";
   assert.ok(how.includes("我们怎么做") && how.includes("空间 × 活动") && how.includes("课程 × 服务") && how.includes("会员 × 定制") && !how.includes("场地服务"), "3 is the three pillars");
   const x = hans[7]?.html ?? "";
@@ -89,9 +89,10 @@ test("the three languages really differ, and each uses its own script", () => {
   assert.ok(en.includes(opening("Xiding", "A world at ease, of legacy and beauty")));
   assert.ok(hant.includes(opening("西頂", "一方傳承大美的自在天地")));
   assert.ok(hans.includes(opening("西顶", "一方传承大美的自在天地")));
-  // The two brands sit side by side as 2, each with its name in the other script.
+  // The three brands sit side by side as 2, each with its name in the other script.
   assert.ok(hans.includes('<span class="bp__name">西顶艺术</span><span class="bp__alt">XIDING ARTS</span>'));
   assert.ok(en.includes('<span class="bp__name">Xiding Academy</span><span class="bp__alt">西顶学院</span>'));
+  assert.ok(hans.includes('<span class="bp__name">西顶时光</span><span class="bp__alt">XIDING LIFESTYLE</span>'));
   assert.ok(hant.includes("春秋百載，貫通東西。") && hans.includes("春秋百载，贯通东西。"));
   for (const html of [en, hant, hans]) assert.ok(!/人生|>Life</.test(html), "life is no longer one of the things");
   // The logo is artwork and keeps 西顶 in every language; the words around it follow the reader's script.
@@ -99,6 +100,16 @@ test("the three languages really differ, and each uses its own script", () => {
   assert.ok(hant.includes("xd-lockup") && hans.includes("xd-lockup"), "the cover carries the master lockup");
   assert.ok(!words(hant).includes("西顶") && words(hant).includes("西頂"));
   assert.ok(!words(hans).includes("西頂") && words(hans).includes("西顶"));
+});
+
+test("the site gives each brand its field, its three services and its three lines", () => {
+  const hans = renderSite("zh-Hans", { deck: "", members: "" }, "2026-11-13");
+  assert.ok(hans.includes("艺术 · 教育 · 生活方式") && hans.includes("旗下设立三大业务品牌"));
+  assert.equal((hans.match(/<article class="brand brand--/g) ?? []).length, 3);
+  for (const w of ["ART / CULTURE", "私享定制", "以艺术连接文化，", "战略咨询", "以人才驱动未来。", "会员生活", "以社群丰富生活。", "三个品牌，共享文化底蕴"]) assert.ok(hans.includes(w), w);
+  const en = renderSite("en", { deck: "", members: "" }, "2026-11-13");
+  assert.ok(en.includes("Art · Education · Lifestyle") && en.includes("Bespoke experiences") && en.includes("Community that enriches life."));
+  assert.ok(hans.includes("西顶艺术　西顶学院　西顶时光"), "the footer names the three brands");
 });
 
 test("lines that were cut stay cut, on the deck and on the site", () => {

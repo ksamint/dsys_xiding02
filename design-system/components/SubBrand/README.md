@@ -6,9 +6,9 @@ A sub-brand is named on the brand row of the master lockup, under the one mark. 
 
 - **西顶学院 · XIDING ACADEMY** — `subBrand({ latin: 'XIDING ACADEMY', brands: ['西顶学院'] })`. The Latin line is fitted to the width of 西顶.
 - **西顶艺术 · XIDING ARTS** — `subBrand({ latin: 'XIDING ARTS', brands: ['西顶艺术'] })`.
-- **西顶时光 · XIDING LIFESTYLE**, the name of membership — `subBrand({ latin: 'XIDING LIFESTYLE', brands: ['西顶时光'] })`.
+- **西顶时光 · XIDING LIFESTYLE** — `subBrand({ latin: 'XIDING LIFESTYLE', brands: ['西顶时光'] })`.
 - **The three lines of work** are named the same way: `subBrand({ brands: ['西顶智行'] })`, `['西顶美成']`, `['西顶礼遇']`. Xiding Praxis is the suggested English name for 西顶智行; the other two are still open.
-- **Both** — `subBrand({ brands: ['西顶学院', '西顶艺术'] })`, joined by the pair dot, as on the business card.
+- **All three** — `subBrand({ brands: ['西顶艺术', '西顶学院', '西顶时光'] })`, joined by the pair dot, as on the business card.
 - **Wide** follows the card front: 西顶 spans dot rows B to E, the Latin line sits on row G, the brand row on row H, so every line of type rests on a row of dots. **Stacked** puts the brand row one step under the Latin line.
 - The brand row is `brand-row`: serif semibold, tracked 0.28em.
 

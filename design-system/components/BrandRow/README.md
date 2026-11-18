@@ -1,6 +1,6 @@
 # BrandRow
 
-Names joined by the pair dot, the mark's own two overlapping dots used as a separator. `Xiding.brandRow(['西顶学院', '西顶艺术'], { size, color })` returns inline HTML that takes the surrounding colour.
+Names joined by the pair dot, the mark's own two overlapping dots used as a separator. `Xiding.brandRow(['西顶艺术', '西顶学院', '西顶时光'], { size, color })` returns inline HTML that takes the surrounding colour.
 
 **You provide** the names, in order, and a font size.
 

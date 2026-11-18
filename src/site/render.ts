@@ -6,7 +6,6 @@ import { lockupSvg, markSvg } from "../shared/mark";
 import { photo } from "../shared/photo";
 import { systemHtml } from "../shared/system";
 import { qrSvg } from "../shared/qr";
-import { brandPairHtml } from "../shared/brand-pair";
 import { copyButton } from "../shared/plain";
 
 /* The official website: the same 1 – 2 – 3 – X introduction as the deck, as one quiet page.
@@ -87,11 +86,27 @@ function sectionPillars(locale: Locale): string {
 </section>`;
 }
 
-/** 2: what we do, the two brands. */
+/** 2: what we do, the three brands: each with its field, its three services and its three lines. */
 function sectionBrands(locale: Locale): string {
+  const n = brands.items.length;
+  const items = brands.items
+    .map(
+      (b, i) => `<article class="brand brand--${b.ink}">
+<p class="brand__field"><span>${b.field}</span><span>${i + 1} / ${n}</span></p>
+<h3 class="brand__name">${tr(b.name, locale)}</h3>
+<p class="brand__latin">${locale === "en" ? b.name.hans : b.latin}</p>
+<ul class="brand__services">${b.services.map((s) => `<li>${tr(s, locale)}</li>`).join("")}</ul>
+<p class="brand__lines">${b.lines.map((l) => tr(l, locale)).join("<br>")}</p>
+</article>`,
+    )
+    .join("");
   return `<section class="sec" id="brands" aria-labelledby="brands-title"><div class="wrap">
 ${eyebrow("2", tr(brands.label, locale), "brands")}
-<div class="what">${brandPairHtml(locale)}</div>
+<p class="brands__tagline">${tr(brand.tagline, locale)}</p>
+<p class="brands__intro">${tr(brands.intro, locale)}</p>
+<p class="brands__lead">${tr(brands.lead, locale)}</p>
+<div class="brands3">${items}</div>
+<p class="brands__shared">${tr(brands.shared, locale)}</p>
 </div></section>`;
 }
 
@@ -139,7 +154,7 @@ ${qr}
 
 function footer(locale: Locale): string {
   return `<footer class="foot"><div class="foot__field"><div class="foot__mark">${markSvg()}</div><p class="foot__where">${lines(closing.headline[key(locale)])}</p><a class="foot__web" href="https://${brand.web}" target="_blank" rel="noopener">${brand.web}</a></div>
-<div class="wrap foot__end"><span>© ${brand.year} ${tr(brand.org, locale)}</span><span>${tr(brand.arts, locale)}　${tr(brand.academy, locale)}</span>${copyButton(locale)}<output class="foot__status" id="site-status" aria-live="polite"></output><a href="#top">${tr(ui.top, locale)}</a></div></footer>`;
+<div class="wrap foot__end"><span>© ${brand.year} ${tr(brand.org, locale)}</span><span>${tr(brand.arts, locale)}　${tr(brand.academy, locale)}　${tr(brand.lifestyle, locale)}</span>${copyButton(locale)}<output class="foot__status" id="site-status" aria-live="polite"></output><a href="#top">${tr(ui.top, locale)}</a></div></footer>`;
 }
 
 /** `now`: minutes at the site, so today's sessions that have begun are not offered; the build's first drawing omits it. */

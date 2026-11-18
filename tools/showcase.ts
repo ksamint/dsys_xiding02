@@ -171,7 +171,7 @@ function ipSection(X: XidingAPI): string {
   const steps = X.STEPS.map((st) => `<li>${st.map(esc).join("")}</li>`).join("");
   const arch = (theme: string) => X.toSVG(X.art.architecture(theme));
   return `<section class="sc-section" id="ip">
-<div class="sc-head"><span class="sc-latin">IP SYSTEM</span><h2>IP 体系</h2><p class="sc-lede">一套班子，两个牌子，三个板块；三柱立在一条价值线上。以下全部读自 <code>Xiding.PILLARS</code>、<code>BRANDS</code>、<code>SCENES</code>、<code>STEPS</code>。</p></div>
+<div class="sc-head"><span class="sc-latin">IP SYSTEM</span><h2>IP 体系</h2><p class="sc-lede">一套班子，三个牌子，三个板块；三柱立在一条价值线上。以下全部读自 <code>Xiding.PILLARS</code>、<code>BRANDS</code>、<code>SCENES</code>、<code>STEPS</code>。</p></div>
 <p class="sc-valueline">${esc(X.LINE)}</p>
 <div class="sc-ip-grid">
   <div class="sc-panel"><h3>品牌架构</h3><p class="sc-root">根 <b>${esc(X.ROOT.zh)}</b> <span class="sc-muted">${esc(X.ROOT.en)} · 西顶庙</span></p>${tree}</div>

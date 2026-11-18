@@ -12,12 +12,14 @@ export type Ink = "mei" | "zhi" | "li";
 export const brand = {
   name: t("Xiding", "西頂", "西顶"),
   latin: "XIDING",
-  /** 西顶文化: the one short name Xiding goes by to the outside, over its two brands. In English, Xiding. */
+  /** 西顶文化: the one short name Xiding goes by to the outside, over its three brands. In English, Xiding. */
   org: t("Xiding", "西頂文化", "西顶文化"),
   arts: t("Xiding Arts", "西頂藝術", "西顶艺术"),
   academy: t("Xiding Academy", "西頂學院", "西顶学院"),
-  /** 西顶时光 (Xiding Lifestyle) is the name of membership. */
-  membership: t("Xiding Lifestyle", "西頂時光", "西顶时光"),
+  /** 西顶时光 (Xiding Lifestyle): the third brand, membership and the life around it. */
+  lifestyle: t("Xiding Lifestyle", "西頂時光", "西顶时光"),
+  /** The three brands in three words. */
+  tagline: t("Art · Education · Lifestyle", "藝術 · 教育 · 生活方式", "艺术 · 教育 · 生活方式"),
   address: t(
     "西顶庙, north side of Xiding Road, Shuguang Subdistrict, Haidian District, Beijing",
     "北京市海淀區曙光街道西頂路北側，西頂廟",
@@ -46,7 +48,7 @@ export const overview = {
   /** 1 who we are, 2 what we do, 3 how we do it, X the Xiding ecosystem. */
   figures: [
     { figure: "1", label: t("Who we are", "我們是誰", "我们是谁"), line: t("Xiding", "西頂", "西顶") },
-    { figure: "2", label: t("What we do", "我們做什麼", "我们做什么"), line: t("Arts, Academy", "藝術、學院", "艺术、学院") },
+    { figure: "2", label: t("What we do", "我們做什麼", "我们做什么"), line: t("Arts, Academy, Lifestyle", "藝術、學院、時光", "艺术、学院、时光") },
     { figure: "3", label: t("How we do it", "我們怎麼做", "我们怎么做"), line: t("Space, Courses, Members", "空間、課程、會員", "空间、课程、会员") },
     { figure: "X", label: t("Xiding ecosystem", "西頂生態", "西顶生态"), line: t("Modules, ecosystem, foundation", "模組、生態、底座", "模块、生态、底座") },
   ] satisfies readonly Figure[],
@@ -87,19 +89,78 @@ export const values = {
   ] satisfies readonly Value[],
 } as const;
 
-/* 2 — what we do: the two brands. */
+/* 2 — what we do: the three brands, in the words of the public introduction
+   (https://claude.ai/artifact/EmhEzgmXoCQuTV1GL5VRHV, built from the member-app repository's about page). */
 export interface Brand {
-  readonly id: "arts" | "academy";
+  readonly id: "arts" | "academy" | "lifestyle";
   readonly name: L;
   readonly latin: string;
+  /** The field the brand works in, as a small Latin line: ART / CULTURE. */
+  readonly field: string;
+  readonly ink: Ink;
+  /** Three services. */
+  readonly services: readonly [L, L, L];
+  /** Three lines, one sentence over three. */
+  readonly lines: readonly [L, L, L];
 }
 
 export const brands = {
   /** 2: what we do. */
   label: t("What we do", "我們做什麼", "我们做什么"),
+  /** How the brands are introduced. */
+  lead: t("Three brands", "旗下設立三大業務品牌", "旗下设立三大业务品牌"),
+  /** What 西顶文化 is, before the three brands. */
+  intro: t(
+    "Xiding is grounded in culture, driven by education and connected through lifestyle. It brings art, scholarship, business and partners from other fields together in one place for cultural experience, learning, business development and quality of life.",
+    "西頂以文化為底蘊，以教育為動力，以生活方式為連接，整合藝術、學術、商業與跨界資源，構建集文化體驗、知識成長、企業賦能與品質生活於一體的多元平台。",
+    "西顶以文化为底蕴，以教育为动力，以生活方式为连接，整合艺术、学术、商业与跨界资源，构建集文化体验、知识成长、企业赋能与品质生活于一体的多元平台。",
+  ),
+  /** What the three share, after them. */
+  shared: t(
+    "The three brands share one cultural foundation, professional resources and a network across fields, creating lasting value for personal growth, business development and a good life.",
+    "三個品牌，共享文化底蘊、專業資源與跨界網絡，為個人成長、企業發展與美好生活創造持續價值。",
+    "三个品牌，共享文化底蕴、专业资源与跨界网络，为个人成长、企业发展与美好生活创造持续价值。",
+  ),
   items: [
-    { id: "arts", name: brand.arts, latin: "XIDING ARTS" },
-    { id: "academy", name: brand.academy, latin: "XIDING ACADEMY" },
+    {
+      id: "arts",
+      name: brand.arts,
+      latin: "XIDING ARTS",
+      field: "ART / CULTURE",
+      ink: "mei",
+      services: [t("Art and cultural curation", "藝術策展", "艺术策展"), t("Brand collaboration", "品牌共創", "品牌共创"), t("Bespoke experiences", "私享訂製", "私享定制")],
+      lines: [
+        t("Art that connects cultures.", "以藝術連接文化，", "以艺术连接文化，"),
+        t("Creativity that strengthens brands.", "以創意賦能品牌，", "以创意赋能品牌，"),
+        t("Experiences that create value.", "以體驗創造價值。", "以体验创造价值。"),
+      ],
+    },
+    {
+      id: "academy",
+      name: brand.academy,
+      latin: "XIDING ACADEMY",
+      field: "EDUCATION / LEARNING",
+      ink: "zhi",
+      services: [t("Learning and executive education", "課程研修", "课程研修"), t("Strategy consulting", "戰略諮詢", "战略咨询"), t("Talent development", "人才發展", "人才发展")],
+      lines: [
+        t("Education that opens minds.", "以教育啟發認知，", "以教育启发认知，"),
+        t("Consulting that drives change.", "以諮詢推動變革，", "以咨询推动变革，"),
+        t("Talent that shapes the future.", "以人才驅動未來。", "以人才驱动未来。"),
+      ],
+    },
+    {
+      id: "lifestyle",
+      name: brand.lifestyle,
+      latin: "XIDING LIFESTYLE",
+      field: "LIFESTYLE / MEMBERSHIP",
+      ink: "li",
+      services: [t("Membership", "會員生活", "会员生活"), t("Social gatherings", "品質社交", "品质社交"), t("Curated experiences", "精緻體驗", "精致体验")],
+      lines: [
+        t("Time that deepens value.", "以時光沉澱價值，", "以时光沉淀价值，"),
+        t("Taste that brings people together.", "以品味連接彼此，", "以品味连接彼此，"),
+        t("Community that enriches life.", "以社群豐富生活。", "以社群丰富生活。"),
+      ],
+    },
   ] satisfies readonly Brand[],
 } as const;
 

@@ -64,7 +64,7 @@ test("the architecture is 1 who we are, 2 what we do (the brands), 3 how we do i
   assert.deepEqual(content.foundation.more.map((m) => m.hans), ["开源知识库", "A2A智能体生态"]);
   assert.equal(content.overview.figures.map((f) => f.figure).join(""), "123X");
   assert.deepEqual(content.overview.figures.map((f) => f.label.hans), ["我们是谁", "我们做什么", "我们怎么做", "西顶生态"]);
-  assert.equal(content.brands.items.length, 2);
+  assert.equal(content.brands.items.length, 3);
   assert.deepEqual(content.pillars.items.map((p) => [p.n, p.id, p.name.hans, p.ink]), [
     [1, "space", "空间 × 活动", "mei"],
     [2, "courses", "课程 × 服务", "zhi"],
@@ -92,7 +92,7 @@ test("a reader's language list picks the right locale", () => {
   assert.equal(matchLocale("de"), null);
 });
 
-test("the brands: 西顶文化 over 西顶艺术 and 西顶学院; 西顶时光 names membership only", () => {
+test("the brands, as the public introduction sets them: 西顶文化 over 西顶艺术, 西顶学院 and 西顶时光", () => {
   const { brand, brands } = content;
   assert.deepEqual([brand.org.hans, brand.org.hant, brand.org.en], ["西顶文化", "西頂文化", "Xiding"]);
   assert.deepEqual(
@@ -100,8 +100,15 @@ test("the brands: 西顶文化 over 西顶艺术 and 西顶学院; 西顶时光 
     [
       ["arts", "西顶艺术", "西頂藝術", "Xiding Arts", "XIDING ARTS"],
       ["academy", "西顶学院", "西頂學院", "Xiding Academy", "XIDING ACADEMY"],
+      ["lifestyle", "西顶时光", "西頂時光", "Xiding Lifestyle", "XIDING LIFESTYLE"],
     ],
   );
-  assert.deepEqual([brand.membership.hans, brand.membership.hant, brand.membership.en], ["西顶时光", "西頂時光", "Xiding Lifestyle"]);
-  assert.ok(brands.items.every((b) => !/lifestyle|时光|時光/i.test(`${b.name.en} ${b.name.hans} ${b.name.hant} ${b.latin}`)), "Lifestyle names membership, not a brand");
+  assert.deepEqual([brand.tagline.hans, brand.tagline.en], ["艺术 · 教育 · 生活方式", "Art · Education · Lifestyle"]);
+  assert.deepEqual(brands.items.map((b) => b.field), ["ART / CULTURE", "EDUCATION / LEARNING", "LIFESTYLE / MEMBERSHIP"]);
+  for (const b of brands.items) {
+    assert.equal(b.services.length, 3, `${b.id}: three services`);
+    assert.equal(b.lines.length, 3, `${b.id}: three lines`);
+    assert.ok(b.lines[2].hans.endsWith("。") && b.lines[0].hans.endsWith("，"), `${b.id}: one sentence over three lines`);
+  }
+  assert.deepEqual(brands.items.map((b) => b.services.map((s) => s.hans).join("·")), ["艺术策展·品牌共创·私享定制", "课程研修·战略咨询·人才发展", "会员生活·品质社交·精致体验"]);
 });

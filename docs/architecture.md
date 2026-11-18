@@ -1,6 +1,6 @@
 # Xiding introduction: architecture
 
-Status: agreed for now on 2026-11-14; the brands updated on 2026-11-17. The place is about legacy and beauty; 人生 (life) was removed on 2026-11-13. The words live in `src/shared/content.ts`; this note explains the shape.
+Status: agreed for now on 2026-11-14; the brands updated on 2026-11-17 and, after the public introduction, on 2026-11-18. The place is about legacy and beauty; 人生 (life) was removed on 2026-11-13. The words live in `src/shared/content.ts`; this note explains the shape.
 
 ## The opening
 
@@ -12,7 +12,7 @@ opens the deck (slide 2), the site and the overview.
 | Count | What | 简体 | English |
 | --- | --- | --- | --- |
 | 1 | Who we are | 我们是谁：西顶，春秋百载，贯通东西 | Who we are |
-| 2 | What we do: the two brands | 我们做什么：西顶艺术、西顶学院 | What we do |
+| 2 | What we do: the three brands | 我们做什么：西顶艺术、西顶学院、西顶时光 | What we do |
 | 3 | How we do it: the three pillars | 我们怎么做：空间 × 活动、课程 × 服务、会员 × 定制 | How we do it |
 | X | The Xiding ecosystem: modules, ecosystem, foundation | 西顶生态 | Xiding ecosystem |
 
@@ -22,12 +22,19 @@ opens the deck (slide 2), the site and the overview.
 
 ### 2: what we do
 
-西顶文化 is the one short name Xiding uses to the outside (Xiding in English). It has two institutions, one team and two
-brands. The two brands stand side by side, a hairline between them: 西顶艺术 (XIDING ARTS) and 西顶学院 (XIDING ACADEMY).
-The site's footer names 西顶文化 and the two brands.
+西顶文化 is the one short name Xiding uses to the outside (Xiding in English): art, education and lifestyle
+(艺术 · 教育 · 生活方式). It is one team with three brands, as the public introduction sets them
+([https://claude.ai/artifact/EmhEzgmXoCQuTV1GL5VRHV](https://claude.ai/artifact/EmhEzgmXoCQuTV1GL5VRHV), a draft whose pictures are still to come):
 
-西顶时光 (Xiding Lifestyle) is the name of membership, on the member card in the member app. It used to be the first
-brand, which is now 西顶艺术.
+| Brand | Field | Services | Lines |
+| --- | --- | --- | --- |
+| 西顶艺术 Xiding Arts | ART / CULTURE | 艺术策展, 品牌共创, 私享定制 | 以艺术连接文化，以创意赋能品牌，以体验创造价值。 |
+| 西顶学院 Xiding Academy | EDUCATION / LEARNING | 课程研修, 战略咨询, 人才发展 | 以教育启发认知，以咨询推动变革，以人才驱动未来。 |
+| 西顶时光 Xiding Lifestyle | LIFESTYLE / MEMBERSHIP | 会员生活, 品质社交, 精致体验 | 以时光沉淀价值，以品味连接彼此，以社群丰富生活。 |
+
+The deck and the overview set the three side by side, hairlines between them. The site's "What we do" adds the
+introduction's opening paragraph, each brand's field, services and lines, and the sentence on what the three share; its
+footer names 西顶文化 and the three brands. The words are in `src/shared/content.ts` (`brand`, `brands`).
 
 ### 3: the pillars, and their modules under X
 
@@ -74,7 +81,8 @@ In X, the foundation's second row (开源知识库, A2A智能体生态) is set a
 - The modules are a first list. Rename, strike or add in `src/shared/content.ts`.
 - The design system's own introduction (西顶是什么) still describes the earlier three lines of work, 智行、美成、礼遇, on the base 大美、大智、大礼. This repository follows the plan above. One of the two should be updated.
 - 春秋百载 reads as "a hundred years"; the design system dates the temple to the Ming dynasty, about four hundred years.
-- The roles of the two brands (which looks after people, which after content) were taken out on 2026-11-17, to be written again.
+- The public introduction uses 平台 and 赋能, which the design system's voice guide (`design-system/voice.md`) lists as
+  words to cut. Its wording was adopted as it stands on 2026-11-18; one of the two should be updated.
 
 ## Components and their languages
 

@@ -1,6 +1,6 @@
 西顶 (Xiding) takes its name from 西顶庙 in Haidian, Beijing, a Ming temple known since 1712 as 广仁宫.
 
-西顶文化 is the one short name Xiding goes by to the outside; in English it is Xiding. It has two institutions, one team and two brands, 西顶艺术 (Xiding Arts) and 西顶学院 (Xiding Academy), and three lines of work. 西顶时光 (Xiding Lifestyle) is the name of membership. The three lines carry 大美, 大智 and 大礼 to members and partners.
+西顶文化 is the one short name Xiding goes by to the outside; in English it is Xiding. It is one team with three brands, 西顶艺术 (Xiding Arts), 西顶学院 (Xiding Academy) and 西顶时光 (Xiding Lifestyle): art, education and lifestyle (艺术 · 教育 · 生活方式). It has three lines of work. The three lines carry 大美, 大智 and 大礼 to members and partners.
 
 The value line is 以美成人，以智行事，以礼相遇。
 
@@ -18,7 +18,7 @@ Read **西顶是什么** for the full introduction and the names, and **文案 �
 - Headlines state a fact or an act, in one or two lines, broken at a comma. A last line holds three characters or more.
 - Sentences end with a full stop. The system uses no exclamation marks and no emoji.
 - The name is 西顶 in Chinese and Xiding in English text: one word, capital X. The Latin line of a lockup is set in capitals: XIDING, XIDING ARTS, XIDING ACADEMY, XIDING LIFESTYLE. The site is 西顶庙.
-- 西顶文化 is Xiding, 西顶艺术 is Xiding Arts, 西顶学院 is Xiding Academy and 西顶时光 (membership) is Xiding Lifestyle. The English names of the three lines of work are suggestions awaiting sign-off: see 西顶是什么.
+- 西顶文化 is Xiding, 西顶艺术 is Xiding Arts, 西顶学院 is Xiding Academy and 西顶时光 is Xiding Lifestyle. The English names of the three lines of work are suggestions awaiting sign-off: see 西顶是什么.
 - Tone: restrained, concrete, sourced (克制、具体、有出处). Business results stay in case studies; every figure carries its source.
 - Interface text is plain sentence case, verb first: "Download SVG", "Show construction lines", "Leave empty to hide".
 
