@@ -117,8 +117,14 @@ export function todayAtSite(now: Date = new Date()): string {
   return new Date(now.getTime() + 8 * 3600 * 1000).toISOString().slice(0, 10);
 }
 
-export function upcoming(today: string, events: readonly CalEvent[] = EVENTS): CalEvent[] {
-  return events.filter((e) => e.date >= today).sort((a, b) => (a.date + a.time).localeCompare(b.date + b.time));
+/** The sessions from today on, in order. With `now` (minutes at the site), today's sessions that have begun drop out. */
+export function upcoming(today: string, events: readonly CalEvent[] = EVENTS, now?: number): CalEvent[] {
+  const begun = (e: CalEvent): boolean => {
+    if (now === undefined || e.date !== today) return false;
+    const [h, m] = e.time.split(":").map(Number);
+    return (h ?? 0) * 60 + (m ?? 0) <= now;
+  };
+  return events.filter((e) => e.date >= today && !begun(e)).sort((a, b) => (a.date + a.time).localeCompare(b.date + b.time));
 }
 
 export function eventTitle(e: CalEvent, locale: Locale, sampleWord: L): string {

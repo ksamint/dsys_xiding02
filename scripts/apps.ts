@@ -9,7 +9,8 @@ import { renderSite } from "../src/site/render";
 export const PRERENDER_DAY: string = (() => {
   const v = (process.env["XIDING_BUILD_DATE"] ?? "").trim();
   if (v) {
-    if (!/^\d{4}-\d{2}-\d{2}$/.test(v) || Number.isNaN(Date.parse(v))) throw new Error("XIDING_BUILD_DATE must be a day, YYYY-MM-DD");
+    const real = /^\d{4}-\d{2}-\d{2}$/.test(v) && !Number.isNaN(Date.parse(`${v}T00:00:00Z`)) && new Date(`${v}T00:00:00Z`).toISOString().slice(0, 10) === v;
+    if (!real) throw new Error("XIDING_BUILD_DATE must be a real day, YYYY-MM-DD");
     return v;
   }
   const first = EVENTS.map((e) => e.date).sort()[0];

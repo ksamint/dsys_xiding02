@@ -53,3 +53,12 @@ test("picks follow what the member cares about, skip full and past sessions, and
   assert.equal(pickFor(["art"], "2028-01-01").length, 0);
   assert.equal(upcoming("2027-01-10").length, 1);
 });
+
+test("today's sessions that have begun are not offered as coming up", () => {
+  const today = EVENTS[0]!.date, first = EVENTS.filter((e) => e.date === today).sort((a, b) => a.time.localeCompare(b.time))[0]!;
+  const [h, m] = first.time.split(":").map(Number);
+  const start = (h ?? 0) * 60 + (m ?? 0);
+  assert.ok(upcoming(today, EVENTS, start - 1).some((e) => e.id === first.id), "before it starts, it is offered");
+  assert.ok(!upcoming(today, EVENTS, start).some((e) => e.id === first.id), "once it starts, it is not");
+  assert.ok(upcoming(today).some((e) => e.id === first.id), "without the time, the whole day counts");
+});

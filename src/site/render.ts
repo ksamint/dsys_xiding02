@@ -32,6 +32,7 @@ const ui = {
   menu: t("Sections", "欄目", "栏目"),
   calendarTitle: t("On the calendar", "日曆上", "日历上"),
   calendarNote: t("By invitation. Sample sessions.", "邀請制。以下為範例場次。", "邀请制。以下为示例场次。"),
+  calendarEmpty: t("No sessions on this calendar now. The member calendar has what comes next.", "這份日曆上暫時沒有場次。會員日曆上有接下來的安排。", "这份日历上暂时没有场次。会员日历上有接下来的安排。"),
   openCalendar: t("Member calendar", "會員日曆", "会员日历"),
   openDeck: t("Introduction slides", "介紹簡報", "介绍幻灯片"),
   openProgrammes: t("Courses and activities", "課程與活動", "课程与活动"),
@@ -115,8 +116,8 @@ ${systemHtml(locale)}
 </div></section>`;
 }
 
-function sectionCalendar(locale: Locale, links: SiteLinks, today: string): string {
-  const next = upcoming(today, EVENTS).slice(0, 3);
+function sectionCalendar(locale: Locale, links: SiteLinks, today: string, now?: number): string {
+  const next = upcoming(today, EVENTS, now).slice(0, 3);
   const rows = next
     .map((e) => {
       const d = dateParts(e.date);
@@ -130,8 +131,7 @@ function sectionCalendar(locale: Locale, links: SiteLinks, today: string): strin
   const qr = links.events ? `<a class="cal__qr" href="${esc(links.events)}" target="_blank" rel="noopener">${qrSvg(links.events, tr(closing.events, locale))}<span class="xd-whisper">${tr(closing.events, locale)}</span></a>` : "";
   return `<section class="sec" id="calendar" aria-labelledby="calendar-title"><div class="wrap narrow cal">
 <div class="cal__main">${eyebrow("", tr(ui.calendarTitle, locale), "calendar")}
-<div class="events">${rows}</div>
-<p class="note">${tr(ui.calendarNote, locale)}</p>
+${next.length ? `<div class="events">${rows}</div>\n<p class="note">${tr(ui.calendarNote, locale)}</p>` : `<p class="note">${tr(ui.calendarEmpty, locale)}</p>`}
 <div class="actions">${programmes}${members}${deck}</div></div>
 ${qr}
 </div></section>`;
@@ -142,7 +142,8 @@ function footer(locale: Locale): string {
 <div class="wrap foot__end"><span>© ${brand.year} ${tr(brand.org, locale)}</span><span>${tr(brand.arts, locale)}　${tr(brand.academy, locale)}</span>${copyButton(locale)}<output class="foot__status" id="site-status" aria-live="polite"></output><a href="#top">${tr(ui.top, locale)}</a></div></footer>`;
 }
 
-export function renderSite(locale: Locale, links: SiteLinks, today: string): string {
+/** `now`: minutes at the site, so today's sessions that have begun are not offered; the build's first drawing omits it. */
+export function renderSite(locale: Locale, links: SiteLinks, today: string, now?: number): string {
   return `${header(locale)}
 <main>
 ${hero(locale)}
@@ -150,7 +151,7 @@ ${sectionWho(locale)}
 ${sectionBrands(locale)}
 ${sectionPillars(locale)}
 ${sectionSystem(locale)}
-${sectionCalendar(locale, links, today)}
+${sectionCalendar(locale, links, today, now)}
 </main>
 ${footer(locale)}`;
 }

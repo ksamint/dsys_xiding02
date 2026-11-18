@@ -25,6 +25,9 @@ const HEX = /^#(?:[0-9a-fA-F]{3,4}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})$/;
 const FN = /^(?:rgba?|hsla?|oklch|oklab|lab|lch|color)\([0-9a-z.,%\s/+-]*\)$/i;
 const ALIAS = /^\{([A-Za-z0-9][A-Za-z0-9_.-]{0,63})\}$/;
 const LENGTH = /^(?:-?\d*\.?\d+(?:px|rem|em|%|mm)?|0)$/;
+/** A value the stylesheet takes as written: no way to end a declaration, a rule, a comment or the <style> it sits in. */
+const PLAIN = /^[^<>{};\\\r\n]*$/;
+const plain = (v: unknown): boolean => (typeof v === "number" && Number.isFinite(v)) || (typeof v === "string" && PLAIN.test(v) && !v.includes("*/"));
 
 export function loadTokens(path: string): Tokens {
   return JSON.parse(readFileSync(path, "utf8")) as Tokens;
@@ -40,6 +43,7 @@ function otherFamilies(t: Tokens): [string, Family][] {
 export function validate(t: Tokens): string[] {
   const errs: string[] = [];
   const seen = new Set<string>();
+  if (!plain(t.name)) errs.push(`name "${t.name}" cannot sit in a CSS comment`);
   const colorNames = new Set(t.color.tokens.map((x) => x.name));
   const themes = t.color.themes.map((x) => x.id);
   const claim = (fam: string, name: string) => {
@@ -66,7 +70,13 @@ export function validate(t: Tokens): string[] {
       if (!tok.usage) errs.push(`${fam}: ${tok.name} has no usage note`);
       if ((fam === "spacing" || fam === "radius") && typeof tok.value === "string" && !LENGTH.test(tok.value))
         errs.push(`${fam}: ${tok.name} is not a length "${tok.value}"`);
+      const values = typeof tok.value === "string" ? [tok.value] : Object.values(tok.value ?? {});
+      for (const v of values) if (!ALIAS.test(v) && !plain(v)) errs.push(`${fam}: ${tok.name} has a value CSS cannot take as written "${v}"`);
     }
+  }
+  for (const [k, v] of Object.entries(t.type.families)) {
+    if (!NAME.test(k)) errs.push(`type: bad family name "${k}"`);
+    if (!plain(v)) errs.push(`type: family ${k} has a value CSS cannot take as written "${v}"`);
   }
   const styleNames = new Set<string>();
   for (const g of t.type.groups) {
@@ -76,6 +86,8 @@ export function validate(t: Tokens): string[] {
       styleNames.add(s.name);
       if (!LENGTH.test(s.fontSize)) errs.push(`type: ${s.name} fontSize "${s.fontSize}"`);
       if (s.family && !(s.family in t.type.families)) errs.push(`type: ${s.name} uses unknown family "${s.family}"`);
+      for (const [k, v] of [["lineHeight", s.lineHeight], ["fontWeight", s.fontWeight], ["letterSpacing", s.letterSpacing]] as const)
+        if (v !== undefined && !plain(v)) errs.push(`type: ${s.name} ${k} "${String(v)}"`);
     }
   }
   return errs;

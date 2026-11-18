@@ -81,3 +81,41 @@ test("no personal details: the card's sources and its public build carry no real
     assert.ok(!staffMail.test(text), `${f} contains a staff email`);
   }
 });
+
+test("a saved or imported design is taken only in the shape the editor writes: nothing reaches the markup", () => {
+  const src = (f: string): string => stripTypeScriptTypes(readFileSync(`cards/xiding-card/src/${f}`, "utf8"));
+  const main = readFileSync("cards/xiding-card/src/main.ts", "utf8");
+  const sliders = stripTypeScriptTypes(main.slice(main.indexOf("const SLIDERS"), main.indexOf("};", main.indexOf("const SLIDERS")) + 2));
+  const o = cardOutlines(readFileSync("brand/xiding-guangren-vi/brand-assets/logo-lockup-teal.svg", "utf8"));
+  const people = JSON.parse(readFileSync("cards/xiding-card/people.sample.json", "utf8")) as unknown[];
+  const ctx: Record<string, unknown> = { VI: o.geometry, PEOPLE_INIT: people, SNAP_WASM_B64: "", document: { createElement: () => ({ getContext: () => null }) } };
+  runInNewContext(`${src("card.ts")}\n${sliders}\n${src("store.ts")}\n;globalThis.__t = { applySaved, S, state, front };`, ctx);
+  const t = ctx.__t as { applySaved(v: unknown): void; S: Record<string, unknown>; state: { person: number; data: Record<string, string>[]; ov: Record<string, unknown>; texts: Record<string, unknown>; extras: Record<string, unknown> }; front(...a: unknown[]): string };
+  const evil = '6"><img src=x onerror=alert(1)>';
+  t.applySaved({
+    settings: { name: evil, small: 99, co: -5, icons: "yes", fieldW: Number.NaN, extra: evil },
+    ov: { "grid:front:name": { dx: evil, dy: 2, s: 1e9, r: "9" }, bad: "x" },
+    texts: { "a#0": "plain", "b#0": 42 },
+    extras: { "grid:front": [{ id: "x~1", src: "name", label: evil }, { id: 3 }] },
+    person: 99,
+    data: [{ nameZh: evil, phone: 13 }],
+  });
+  assert.equal(t.S.name, 6, "a text in a number's place keeps the default");
+  assert.equal(t.S.small, 2.8, "a number above its slider is held at the top");
+  assert.equal(t.S.co, 2, "and below it at the bottom");
+  assert.equal(t.S.icons, false, "a switch is only true or false");
+  assert.equal(t.S.fieldW, 36, "NaN keeps the default");
+  assert.ok(!("extra" in t.S), "unknown settings are dropped");
+  const plain = (v: unknown): unknown => JSON.parse(JSON.stringify(v)); // objects from the sandbox have its prototypes
+  assert.deepEqual(plain(t.state.ov["grid:front:name"]), { dx: 0, dy: 2, s: 20 }, "moves are numbers in range");
+  assert.ok(!("bad" in t.state.ov));
+  assert.deepEqual(plain(t.state.texts), { "a#0": "plain" });
+  assert.equal((t.state.extras["grid:front"] as unknown[]).length, 1);
+  assert.equal(t.state.person, 0, "the person is one of the people");
+  assert.equal(t.state.data[0]?.phone, (people[0] as Record<string, string>).phone, "a number in a text's place keeps the sample");
+  for (const layout of ["grid", "seal2", "axis"]) {
+    const svg = t.front(t.state.data[0], 3, layout, false, "gold");
+    assert.ok(!/<img/i.test(svg), `${layout}: no markup from the design file`);
+    assert.ok(svg.includes("&lt;img"), `${layout}: the name is drawn as text`);
+  }
+});

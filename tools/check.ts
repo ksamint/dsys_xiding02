@@ -52,7 +52,8 @@ for (const c of comps) {
   const html = readFileSync(prev, "utf8");
   if (!/^<!-- @dsCard\b[^>]*-->/.test(html)) fail(`${c}: preview line 1 is not an @dsCard marker`);
   if (/<(iframe|frame|object|embed|portal|noscript)\b/i.test(html)) fail(`${c}: preview uses a forbidden element`);
-  for (const m of html.matchAll(/(?:src|href)="(https?:[^"]+)"/g)) if (!ALLOWED.test(m[1] ?? "")) fail(`${c}: loads ${m[1] ?? ""}`);
+  for (const m of html.matchAll(/(?:\bsrc|\bhref|\bimport\s*\(|\bfetch\s*\(|\burl\s*\()\s*=?\s*["'`]?\s*((?:https?:)?\/\/[^"'`\s)>]+)/gi))
+    if (!ALLOWED.test((m[1] ?? "").replace(/^\/\//, "https://"))) fail(`${c}: loads ${m[1] ?? ""}`);
   if (statSync(prev).size > 256 * 1024) fail(`${c}: preview over 256 KB`);
 }
 ok(`${comps.length} components checked`);

@@ -32,6 +32,7 @@
   ],
   "exclude": [
     "tests/card.test.ts",
+    "tests/ds.test.ts",
     "tests/public.test.ts"
   ]
 }

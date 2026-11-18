@@ -142,6 +142,13 @@ test("the site shows a link only when it has somewhere to go", () => {
   assert.ok(both.includes('href="../members/index.html"') && both.includes('href="../deck/index.html"'));
 });
 
+test("the site's calendar says so when nothing is coming up", () => {
+  for (const locale of ["en", "zh-Hant", "zh-Hans"] as const) {
+    const html = renderSite(locale, { deck: "", members: "https://example.org/members/#calendar" }, "2099-01-01");
+    assert.ok(!html.includes('class="event"') && /這份日曆上暫時沒有場次|这份日历上暂时没有场次|No sessions on this calendar now/.test(html), locale);
+  }
+});
+
 test("slide units expand to scaled lengths", () => {
   assert.equal(expandSlideUnits("padding: 48u 56u; margin: -24u 0; border: 2u solid;"), "padding: calc(var(--u) * 48) calc(var(--u) * 56); margin: calc(var(--u) * -24) 0; border: calc(var(--u) * 2) solid;");
   assert.equal(expandSlideUnits("color: #628F8A; width: 100cqw; --u: 1px;"), "color: #628F8A; width: 100cqw; --u: 1px;");
