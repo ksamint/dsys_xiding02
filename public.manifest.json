@@ -4,6 +4,10 @@
     ".editorconfig",
     ".gitignore",
     "README.md",
+    "NOTICE",
+    "LICENSE",
+    "CLAUDE.md",
+    "AGENTS.md",
     ".githooks/",
     "package.json",
     "package-lock.json",
@@ -25,12 +29,16 @@
   "exclude": [
     "private/",
     "docs/public-readme.md",
+    "docs/public-agents.md",
     "docs/adr/0002-member-app-moved-out.md",
     "brand/xiding-guangren-vi/品牌形象-5.pdf",
     "brand/xiding-guangren-vi/manifest.json",
     "brand/xiding-guangren-vi/fileye.json"
   ],
-  "readme": "docs/public-readme.md",
+  "overrides": {
+    "README.md": "docs/public-readme.md",
+    "AGENTS.md": "docs/public-agents.md"
+  },
   "redactWith": "cards/xiding-card/people.sample.json",
   "privatePeople": "private/people.json",
   "readmeNote": "This repository is the public copy of a private one. It is generated, not edited: the real people on the business cards are replaced by fictional samples (张三, 李四, 王小五), and private/ is left out. Changes go to the private repository and reach this one through tools/public-sync.ts.",

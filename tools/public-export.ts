@@ -18,8 +18,9 @@ export interface Manifest {
   redactWith: string;
   privatePeople: string;
   readmeNote: string;
-  /** The public copy's README: this file is written as README.md, in place of the private README. */
-  readme?: string;
+  /** Files the public copy carries in a public version: published path → source file in this repository (the
+      private README.md is replaced by docs/public-readme.md, AGENTS.md by docs/public-agents.md). */
+  overrides?: Record<string, string>;
   /** Every binary file the copy may carry, with the SHA-256 of the reviewed bytes. */
   binaries?: Record<string, string>;
   binariesNote?: string;
@@ -130,10 +131,11 @@ export function exportPublic(root: string, outDir: string): { files: number; red
   mkdirSync(out, { recursive: true });
   const files = publicFiles(root, m), redacted: string[] = [], findings: Finding[] = [];
   const reviewed = m.binaries ?? {};
-  // In the public copy itself the README is already the public one, and its source file is not there.
-  const readme = m.readme && existsSync(join(root, m.readme)) ? m.readme : undefined;
+  // In the public copy itself these files are already the public versions, and their sources are not there.
+  const overrides = Object.entries(m.overrides ?? {}).filter(([, src]) => existsSync(join(root, src)));
+  const replaced = new Set(overrides.map(([dest]) => dest));
   for (const f of files) {
-    if (readme && f === "README.md") continue;
+    if (replaced.has(f)) continue;
     const bytes = readFileSync(join(root, f)), dest = join(out, f);
     mkdirSync(dirname(dest), { recursive: true });
     if (BINARY.test(f) || bytes.includes(0)) {
@@ -149,15 +151,16 @@ export function exportPublic(root: string, outDir: string): { files: number; red
     const clean = redact(text, real, samples);
     if (clean !== text) redacted.push(f);
     text = clean;
-    if (!m.readme && f === "README.md") text = `> ${m.readmeNote}\n\n` + text;
+    if (!m.overrides && f === "README.md") text = `> ${m.readmeNote}\n\n` + text;
     findings.push(...scan(f, text, real));
     writeFileSync(dest, text);
   }
   for (const f of Object.keys(reviewed)) if (!files.includes(f)) findings.push({ file: f, what: "listed in binaries but not published (remove it from the list)", sample: "" });
-  if (readme) {
-    const text = readFileSync(join(root, readme), "utf8");
-    findings.push(...scan("README.md", text, real));
-    writeFileSync(join(out, "README.md"), text);
+  for (const [dest, src] of overrides) {
+    const text = readFileSync(join(root, src), "utf8");
+    findings.push(...scan(dest, text, real));
+    mkdirSync(dirname(join(out, dest)), { recursive: true });
+    writeFileSync(join(out, dest), text);
   }
   if (findings.length) {
     rmSync(out, { recursive: true, force: true });
@@ -166,7 +169,7 @@ export function exportPublic(root: string, outDir: string): { files: number; red
   const commit = execFileSync("git", ["rev-parse", "HEAD"], { cwd: root, encoding: "utf8" }).trim();
   const dirty = execFileSync("git", ["status", "--porcelain", "--", ...m.include], { cwd: root, encoding: "utf8" }).trim() !== "";
   writeFileSync(join(out, "PUBLIC_EXPORT.json"), JSON.stringify({
-    from: "private repository", commit, uncommittedChanges: dirty, files: files.length + (readme ? 1 : 0), redacted,
+    from: "private repository", commit, uncommittedChanges: dirty, files: files.length + overrides.filter(([dest]) => !files.includes(dest)).length, redacted,
     excluded: m.exclude, note: m.readmeNote,
   }, null, 2) + "\n");
   return { files: files.length, redacted, commit };

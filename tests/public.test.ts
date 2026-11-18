@@ -86,6 +86,13 @@ test("public copy: no private folder, nothing personal, its own README", () => {
   const readme = readFileSync(join(out, "README.md"), "utf8");
   assert.match(readme, /generated/i, "the public README says the repository is generated");
   assert.ok(!readme.includes("private/people.json"), "the private README stays private");
+  const agents = readFileSync(join(out, "AGENTS.md"), "utf8");
+  assert.match(agents, /generated/i, "the public AGENTS.md says the repository is generated");
+  assert.match(agents, /Do not edit, commit or push here by hand/);
+  assert.ok(!agents.includes("private/people.json") && !agents.includes("xidinglife01"), "the private AGENTS.md stays private");
+  assert.match(readFileSync(join(out, "CLAUDE.md"), "utf8"), /@AGENTS\.md/, "Claude Code is pointed at AGENTS.md");
+  assert.match(readFileSync(join(out, "LICENSE"), "utf8"), /Apache License\s+Version 2\.0/);
+  assert.match(readFileSync(join(out, "NOTICE"), "utf8"), /all rights reserved/i);
   const info = JSON.parse(readFileSync(join(out, "PUBLIC_EXPORT.json"), "utf8")) as { commit: string };
   assert.match(info.commit, /^[0-9a-f]{40}$/);
   const real = existsSync("private/people.json") ? (JSON.parse(readFileSync("private/people.json", "utf8")) as Record<string, string>[]) : [];
