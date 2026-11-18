@@ -106,7 +106,8 @@ test("the site gives each brand its field, its three services and its three line
   const hans = renderSite("zh-Hans", { deck: "", members: "" }, "2026-11-13");
   assert.ok(hans.includes("艺术 · 教育 · 生活方式") && hans.includes("旗下设立三大业务品牌"));
   assert.equal((hans.match(/<article class="brand brand--/g) ?? []).length, 3);
-  for (const w of ["ART / CULTURE", "私享定制", "以艺术连接文化，", "战略咨询", "以人才驱动未来。", "会员生活", "以社群丰富生活。", "三个品牌，共享文化底蕴"]) assert.ok(hans.includes(w), w);
+  assert.ok(!hans.includes("三个品牌，共享文化底蕴"), "the three-brands strap was removed (owner, 2026-11-18)");
+  for (const w of ["ART / CULTURE", "私享定制", "以艺术连接文化，", "战略咨询", "以人才驱动未来。", "会员生活", "以社群丰富生活。"]) assert.ok(hans.includes(w), w);
   const en = renderSite("en", { deck: "", members: "" }, "2026-11-13");
   assert.ok(en.includes("Art · Education · Lifestyle") && en.includes("Bespoke experiences") && en.includes("Community that enriches life."));
   assert.ok(hans.includes("西顶艺术　西顶学院　西顶时光"), "the footer names the three brands");

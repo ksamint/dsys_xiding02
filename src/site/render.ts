@@ -106,7 +106,6 @@ ${eyebrow("2", tr(brands.label, locale), "brands")}
 <p class="brands__intro">${tr(brands.intro, locale)}</p>
 <p class="brands__lead">${tr(brands.lead, locale)}</p>
 <div class="brands3">${items}</div>
-<p class="brands__shared">${tr(brands.shared, locale)}</p>
 </div></section>`;
 }
 
