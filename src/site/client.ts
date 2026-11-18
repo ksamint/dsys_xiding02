@@ -1,4 +1,4 @@
-import { todayAtSite } from "../shared/events";
+import { minutesAtSite, todayAtSite } from "../shared/events";
 import { type Locale, matchLocale } from "../shared/l10n";
 import { applyLocale, initialLocale, saveLocale } from "../shared/locale-client";
 import { loadPhotoSources } from "../shared/photo-client";
@@ -15,7 +15,7 @@ let locale: Locale = initialLocale();
 function draw(): void {
   if (!root) return;
   applyLocale(locale);
-  root.innerHTML = renderSite(locale, links, todayAtSite());
+  root.innerHTML = renderSite(locale, links, todayAtSite(), minutesAtSite());
 }
 
 root?.addEventListener("click", (ev) => {

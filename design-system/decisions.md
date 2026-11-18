@@ -6,7 +6,7 @@ These differences between the pages and this system were left as they are, for t
 
 - **Xiding App** uses its own `ap-*` kit: 18–24px radii, pill buttons, blur bars and chips, against this system's 3–4px corners.
 
-- **Dot**: the shared page kit's `xd-dot` (`src/shared/base.css`) has no round corner, so the member page's pillar tags show square dots. This system keeps the dot round. The member page is developed in a separate repository since 2026-11-18; the fix belongs there.
+- **Dot** (settled 2026-11-18): the shared page kit's `xd-dot` (`src/shared/base.css`) is round again, as this system has it. The member page that drew its pillar tags with it is developed in a separate repository, which takes the same fix.
 
 - **Brand teal**: the source VI's teal is `#559895` (`vi-teal`); this system's `brand-teal` is `#628F8A`. One of them should become the brand's teal.
 

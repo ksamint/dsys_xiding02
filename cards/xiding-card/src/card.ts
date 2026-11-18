@@ -101,7 +101,7 @@ function textW(t: string, size: number, family: string, weight: number, spacingE
 
 interface TextOpts { family?: string; weight?: number; spacing?: number; anchor?: "start" | "middle" | "end"; fill?: string }
 function text(t: string, x: number, y: number, size: number, o: TextOpts = {}): string {
-  return `<text xml:space="preserve" x="${f2(x)}" y="${f2(y)}" font-family="${esc(o.family ?? SANS)}" font-size="${size}" font-weight="${o.weight ?? 400}"` +
+  return `<text xml:space="preserve" x="${f2(x)}" y="${f2(y)}" font-family="${esc(o.family ?? SANS)}" font-size="${f2(size)}" font-weight="${Math.round(Number(o.weight ?? 400)) || 400}"` +
     (o.spacing ? ` letter-spacing="${o.spacing}em"` : "") + (o.anchor ? ` text-anchor="${o.anchor}"` : "") +
     ` fill="${o.fill ?? "#000"}">${esc(t)}</text>`;
 }

@@ -2,7 +2,8 @@ import { type Locale, localeFromTags, matchLocale } from "./l10n";
 
 const KEY = "xiding.locale";
 
-/** A reader's own choice wins, then `?lang=`, then the browser's language list. */
+/** `?lang=` first (a link can open a page in one language), then the reader's own saved choice, then the browser's
+    language list. When the reader switches, saveLocale drops `?lang=` from the address, so their choice stays. */
 export function initialLocale(): Locale {
   try {
     const fromQuery = new URLSearchParams(location.search).get("lang");
@@ -27,6 +28,15 @@ export function saveLocale(locale: Locale): void {
     localStorage.setItem(KEY, locale);
   } catch {
     /* the choice lasts for this visit only */
+  }
+  try {
+    const url = new URL(location.href);
+    if (url.searchParams.has("lang")) {
+      url.searchParams.delete("lang");
+      history.replaceState(history.state, "", url.toString());
+    }
+  } catch {
+    /* a frame that cannot change its address keeps it */
   }
 }
 

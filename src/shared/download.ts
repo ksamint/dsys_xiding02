@@ -18,14 +18,18 @@ export async function offerFile(path: string, filename: string): Promise<Offered
     // Download from an in-memory copy: a browser may open an image or a PDF in place rather than save it.
     let href = path;
     let blobUrl = "";
+    let response: Response | null = null;
     try {
-      const response = await fetch(path);
-      if (response.ok) {
-        blobUrl = URL.createObjectURL(await response.blob());
-        href = blobUrl;
-      }
+      response = await fetch(path);
     } catch {
       /* a page opened from disk cannot fetch: link to the file itself */
+    }
+    // The file is not there (a preview published without its exports, the showcase's frame): say so, rather than
+    // handing over the error page under the file's name.
+    if (response && !response.ok) return "failed";
+    if (response) {
+      blobUrl = URL.createObjectURL(await response.blob());
+      href = blobUrl;
     }
     const a = document.createElement("a");
     a.href = href;

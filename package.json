@@ -21,7 +21,7 @@
     "public:sync": "node --experimental-strip-types --no-warnings tools/public-sync.ts",
     "build:tools": "mkdir -p out && npm run build:card && npm run build:card:public",
     "test:app": "tsx --test tests/content.test.ts tests/events.test.ts tests/render.test.ts",
-    "test:tools": "node --experimental-strip-types --no-warnings --test tests/card.test.ts tests/public.test.ts",
+    "test:tools": "node --experimental-strip-types --no-warnings --test tests/card.test.ts tests/ds.test.ts tests/public.test.ts",
     "build:bundle": "node --experimental-strip-types --no-warnings tools/bundle.ts",
     "check:ds": "node --experimental-strip-types --no-warnings tools/check.ts",
     "gallery": "node --experimental-strip-types --no-warnings tools/gallery.ts",
