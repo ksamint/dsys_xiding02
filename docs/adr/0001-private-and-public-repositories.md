@@ -24,7 +24,7 @@ Two repositories, one direction.
 
 | | `dsys_xiding01` | `dsys_xiding02` |
 | --- | --- | --- |
-| Visibility | private | public (the owner switches it on in GitHub's settings once the first sync has been reviewed) |
+| Visibility | private | public since 2026-11-18 (switched on by the owner after the first sync was reviewed) |
 | Role | the one source: every change is made, reviewed and merged here | a generated copy for publishing: never edited by hand |
 | History | its own | one commit per sync, `Sync from private <sha>`; the private history never travels |
 | People on the cards | the real ones, from `private/people.json` | the fictional samples 张三, 李四, 王小五 |
@@ -65,6 +65,12 @@ The export (`tools/public-export.ts`) refuses to write anything when:
    with the export.
 
 ## Consequences
+
+- Everything merged into `dsys_xiding02`, its whole history included, is public and cannot be taken back: a leak
+  there is fixed by removing the data here and syncing, but the earlier commit stays readable. The export's checks and
+  the pull request's check are the last gate before that.
+- Commits there record the committer's email. Accounts that merge there should keep "Keep my email addresses private"
+  on in GitHub's settings.
 
 - Issues or pull requests opened on `dsys_xiding02` are read there and the change is made here; the next sync carries it
   back.
