@@ -1,0 +1,495 @@
+<title>西頂廣仁宮 名片</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Noto+Sans+SC:wght@400;500&family=Noto+Serif+SC:wght@500;600;700&family=Noto+Serif+TC:wght@700&display=swap">
+<style>
+/* Layout: one column on the system's paper. The two printed sides lead, controls sit above them,
+   then the lockup construction, the before/after against v1.8's BusinessCard, and the print spec.
+   Page tokens are 西顶设计系统 v1.8's own; the card itself uses the v1.8 vi-* tokens. */
+:root {
+  --paper: #EEF2F1; --surface: #FFFFFF; --ink: #000000; --muted: #4E5A58; --line: #CDD6D4;
+  --teal-text: #3D6560; --focus: #2F5B56;
+  --guide-trim: #E0457B; --guide-safe: #2F8FD8;
+  --shadow-card: 0 1px 2px rgba(0,0,0,.18), 0 10px 28px -10px rgba(0,0,0,.35);
+  --vi-teal: #559895; --vi-red: #A14A49; --vi-sand: #C3A585; --vi-mauve: #8A7E84; --vi-ivory: #F3F1E8; --vi-charcoal: #404041;
+  --font-serif: "Noto Serif SC", "Songti SC", SimSun, serif;
+  --font-serif-tc: "Noto Serif TC", "Noto Serif SC", "Songti TC", serif;
+  --font-sans: "Instrument Sans", "Noto Sans SC", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) { --paper: #000000; --surface: #141B1A; --ink: #FFFFFF; --muted: #A9B6B3; --line: #2C3836; --teal-text: #9CC2BC; --focus: #9CC2BC; --shadow-card: 0 0 0 1px #2C3836, 0 10px 28px -10px rgba(0,0,0,.8); color-scheme: dark; }
+}
+:root[data-theme="dark"] { --paper: #000000; --surface: #141B1A; --ink: #FFFFFF; --muted: #A9B6B3; --line: #2C3836; --teal-text: #9CC2BC; --focus: #9CC2BC; --shadow-card: 0 0 0 1px #2C3836, 0 10px 28px -10px rgba(0,0,0,.8); color-scheme: dark; }
+
+body { background: var(--paper); color: var(--ink); font: 400 15px/1.55 var(--font-sans); -webkit-font-smoothing: antialiased; }
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
+.wrap { max-width: 1040px; margin: 0 auto; padding-block: 40px 64px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); display: grid; gap: 56px; }
+.wrap > * { min-width: 0; }
+
+.eyebrow { font: 500 12px/1.4 var(--font-sans); letter-spacing: .24em; text-transform: uppercase; color: var(--muted); }
+h1 { margin: 10px 0 0; font: 700 44px/1.15 var(--font-serif-tc); letter-spacing: .06em; text-wrap: balance; }
+h2 { margin: 0; font: 700 26px/1.2 var(--font-serif); letter-spacing: .04em; text-wrap: balance; }
+h2 small { display: block; margin-top: 6px; font: 500 12px/1.4 var(--font-sans); letter-spacing: .24em; text-transform: uppercase; color: var(--muted); }
+.lede { margin: 14px 0 0; max-width: 64ch; color: var(--muted); }
+.lede b { color: var(--ink); font-weight: 600; }
+section { display: grid; gap: 24px; }
+section > header { display: grid; gap: 10px; padding-top: 14px; border-top: 2px solid var(--ink); }
+section > header p { margin: 0; max-width: 66ch; color: var(--muted); }
+
+/* controls: the system's Segmented and Check */
+.controls { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 16px 20px; align-items: end; }
+.ctl { display: grid; gap: 8px; min-width: 0; }
+.ctl > span { font-weight: 600; font-size: 13px; }
+.seg { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; border: 1px solid var(--line); border-radius: 3px; overflow: hidden; background: var(--surface); }
+.seg label { position: relative; }
+.seg input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+.seg span { display: flex; align-items: center; justify-content: center; min-height: 40px; padding: 0 6px; font-size: 14px; text-align: center; border-right: 1px solid var(--line); margin-right: -1px; transition: background-color .15s, color .15s; white-space: nowrap; }
+.seg input:checked + span { background: var(--ink); color: var(--surface); }
+.seg input:focus-visible + span { outline: 2px solid var(--focus); outline-offset: -4px; }
+.check { display: flex; align-items: center; gap: 10px; min-height: 42px; font-size: 14px; cursor: pointer; }
+.check input { width: 18px; height: 18px; accent-color: var(--teal-text); margin: 0; }
+
+/* stage */
+.stage { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px 40px; }
+.side { margin: 0; display: grid; gap: 12px; align-content: start; min-width: 0; }
+.side svg { display: block; width: 100%; height: auto; max-width: 100%; box-shadow: var(--shadow-card); }
+.guides .side svg { box-shadow: none; }
+.side figcaption { display: flex; justify-content: space-between; gap: 12px; font-size: 13px; color: var(--muted); }
+.side figcaption b { color: var(--ink); font-weight: 600; }
+.edit { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 10px 14px; padding: 16px; background: var(--surface); border: 1px solid var(--line); border-radius: 4px; }
+.edit label { display: grid; gap: 4px; font-size: 12px; color: var(--muted); min-width: 0; }
+.edit input { font: 400 14px/1.3 var(--font-sans); padding: 8px 10px; border: 1px solid var(--line); border-radius: 3px; background: var(--paper); color: var(--ink); min-width: 0; }
+.edit p { grid-column: 1 / -1; margin: 0; font-size: 12px; color: var(--muted); }
+
+/* construction */
+.diagram { overflow-x: auto; background: var(--surface); border: 1px solid var(--line); border-radius: 4px; padding: 20px; }
+.diagram svg { display: block; width: 100%; min-width: 560px; height: auto; }
+.dg-line { stroke: var(--guide-safe); stroke-width: .8; fill: none; }
+.dg-clear { stroke: var(--guide-trim); stroke-width: .8; stroke-dasharray: 4 3; fill: none; }
+.dg-dim { stroke: var(--muted); stroke-width: .8; fill: none; }
+.dg-txt { fill: var(--muted); font: 500 8.5px var(--font-sans); letter-spacing: .04em; }
+.dg-txt.k { fill: var(--ink); font-weight: 600; }
+.rules { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 20px 28px; margin: 0; padding: 0; list-style: none; }
+.rules li { display: grid; gap: 4px; font-size: 14px; color: var(--muted); }
+.rules b { color: var(--ink); font: 700 17px/1.3 var(--font-serif); letter-spacing: .04em; }
+.sizes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.size { display: grid; gap: 10px; justify-items: start; padding: 16px; background: var(--surface); border: 1px solid var(--line); border-radius: 4px; min-width: 0; }
+.size svg { display: block; height: 64px; width: auto; max-width: 100%; }
+.size span { font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.size b { color: var(--ink); font-weight: 600; }
+
+/* before / after */
+.compare { display: grid; grid-template-columns: 88px repeat(2, minmax(0, 1fr)); gap: 16px 24px; align-items: center; }
+.compare .tag { font: 600 13px/1.3 var(--font-sans); letter-spacing: .12em; }
+.compare .tag span { display: block; font-weight: 400; letter-spacing: 0; color: var(--muted); }
+.compare svg { display: block; width: 100%; height: auto; box-shadow: var(--shadow-card); }
+.changes { display: grid; margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--line); }
+.changes li { display: grid; grid-template-columns: minmax(120px, 200px) minmax(0, 1fr); gap: 4px 24px; padding: 14px 0; border-bottom: 1px solid var(--line); }
+.changes b { font: 700 16px/1.4 var(--font-serif); letter-spacing: .04em; }
+.changes span { color: var(--muted); }
+
+/* spec */
+.spec { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 22px 32px; margin: 0; }
+.spec div { min-width: 0; }
+.spec dt { font-weight: 600; font-size: 13px; letter-spacing: .08em; margin-bottom: 6px; }
+.spec dd { margin: 0; font-size: 14px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.spec dd + dd { margin-top: 2px; }
+.sw { display: flex; align-items: center; gap: 8px; }
+.sw i { width: 14px; height: 14px; border-radius: 50%; flex: none; box-shadow: inset 0 0 0 1px rgba(0,0,0,.18); }
+code { font: 400 12.5px/1.4 var(--font-mono); }
+.open { display: grid; gap: 10px; margin: 0; padding: 16px 18px; background: var(--surface); border: 1px solid var(--line); border-radius: 4px; font-size: 14px; color: var(--muted); }
+.open li { margin-left: 18px; }
+.open b { color: var(--ink); }
+footer { font-size: 13px; color: var(--muted); }
+footer a { color: var(--teal-text); }
+
+@media (max-width: 720px) {
+  h1 { font-size: 34px; }
+  .stage { grid-template-columns: minmax(0, 1fr); }
+  .compare { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .compare .tag { grid-column: 1 / -1; }
+  .changes li { grid-template-columns: minmax(0, 1fr); }
+  .sizes { grid-template-columns: minmax(0, 1fr); }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+
+<style>
+.fields-wrap { display: grid; gap: 12px; }
+.fields-h { margin: 0; font: 700 17px/1.3 var(--font-serif); letter-spacing: .04em; }
+.fields { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 14px; }
+@media (max-width: 720px) { .fields { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.alts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+.alt { margin: 0; display: grid; gap: 10px; min-width: 0; }
+.alt svg { display: block; width: 100%; height: auto; box-shadow: var(--shadow-card); }
+.alt figcaption { font-size: 13px; }
+.bench { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+.bench article { display: grid; gap: 8px; align-content: start; min-width: 0; }
+.bench h3 { margin: 0; font: 700 17px/1.3 var(--font-serif); letter-spacing: .04em; }
+.bench p { margin: 0; font-size: 14px; color: var(--muted); }
+.bench .src { color: var(--ink); }
+.bench a { color: var(--teal-text); }
+@media (max-width: 720px) { .alts, .bench { grid-template-columns: minmax(0, 1fr); } }
+/* in-place text editing: an input laid over the line of type */
+.side > div { position: relative; }
+.text-edit { position: absolute; z-index: 3; padding: 2px 4px; border: 1.5px solid #2F8FD8; border-radius: 3px; background: rgba(64, 64, 65, .96); outline: none; box-shadow: 0 4px 14px rgba(0,0,0,.3); }
+/* history panel and export */
+.aux-col { display: grid; gap: 12px; min-width: 0; }
+.undo-panel { border: 1px solid var(--line); border-radius: 4px; background: var(--paper); padding: 8px; min-width: 0; }
+.undo-panel small { font-weight: 400; letter-spacing: 0; margin-left: 6px; }
+.undo-list { list-style: none; margin: 0; padding: 0; max-height: 220px; overflow-y: auto; display: grid; gap: 1px; }
+.hstep button { display: flex; justify-content: space-between; gap: 8px; width: 100%; border: 0; background: transparent; color: var(--ink); font: 400 13px/1.3 var(--font-sans); padding: 6px 8px; border-radius: 3px; cursor: pointer; text-align: left; }
+.hstep button:hover { background: var(--surface); }
+.hstep small { color: var(--muted); font-variant-numeric: tabular-nums; }
+.hstep.is-now button { background: color-mix(in srgb, #2F8FD8 18%, transparent); font-weight: 600; }
+.hstep.is-future button { color: var(--muted); }
+.xport { display: grid; gap: 8px; padding-top: 18px; border-top: 1px solid var(--line); }
+.xport__note { margin: 0; font-size: 12.5px; color: var(--muted); max-width: 90ch; }
+.file-btn { display: inline-flex; align-items: center; position: relative; overflow: hidden; }
+.file-btn input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+/* layers and shortcuts */
+.edit-aux { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); gap: 16px 24px; align-items: start; }
+.layers { border: 1px solid var(--line); border-radius: 4px; background: var(--paper); padding: 8px; min-width: 0; }
+.layers__side { margin: 2px 4px 6px; font-size: 12px; font-weight: 600; letter-spacing: .08em; color: var(--muted); }
+.layers ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; }
+.layer { display: grid; grid-template-columns: minmax(0, 1fr) auto auto; gap: 4px; align-items: center; border-radius: 3px; }
+.layer.is-on { background: color-mix(in srgb, #2F8FD8 16%, transparent); }
+.layer.is-hidden .layer__name { color: var(--muted); text-decoration: line-through; }
+.layer__name { text-align: left; border: 0; background: transparent; color: var(--ink); font: 400 13px/1.3 var(--font-sans); padding: 7px 8px; cursor: pointer; min-width: 0; overflow-wrap: anywhere; }
+.layer__name em { font-style: normal; font-size: 11px; color: var(--teal-text); margin-left: 4px; }
+.layer__btn { min-width: 32px; min-height: 30px; border: 1px solid var(--line); border-radius: 3px; background: var(--surface); color: var(--ink); font: 500 12px/1 var(--font-sans); cursor: pointer; }
+.layer__btn[aria-pressed="true"][data-lock] { background: var(--ink); color: var(--surface); }
+.keys { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 8px 16px; margin: 0; font-size: 13px; }
+.keys div { display: grid; gap: 2px; }
+.keys dt { font: 600 12px/1.3 var(--font-mono); }
+.keys dd { margin: 0; color: var(--muted); }
+@media (max-width: 720px) { .edit-aux { grid-template-columns: minmax(0, 1fr); } }
+/* position panel */
+.pos { display: grid; gap: 10px; padding: 14px; border: 1px solid var(--line); border-radius: 4px; background: var(--paper); }
+.pos__label { font: 600 14px/1.3 var(--font-sans); }
+.pos__fields { display: flex; flex-wrap: wrap; align-items: end; gap: 10px; }
+.pos__fields label { display: grid; gap: 3px; font-size: 12px; color: var(--muted); }
+.pos__fields input { width: 76px; font: 400 14px/1.3 var(--font-sans); padding: 7px 8px; border: 1px solid var(--line); border-radius: 3px; background: var(--surface); color: var(--ink); font-variant-numeric: tabular-nums; }
+.pos__fields input:disabled { opacity: .5; }
+.pos__s { font-size: 13px; color: var(--muted); padding-bottom: 8px; font-variant-numeric: tabular-nums; }
+.pos__btns { display: flex; flex-wrap: wrap; gap: 6px; }
+.ib { min-width: 38px; min-height: 34px; border: 1px solid var(--line); border-radius: 3px; background: var(--surface); color: var(--ink); font: 500 16px/1 var(--font-sans); cursor: pointer; }
+.ib:hover:not(:disabled) { border-color: var(--ink); }
+.ib:disabled, .btn--ghost:disabled { opacity: .45; cursor: default; }
+.sl em { font-style: normal; font-size: 11px; letter-spacing: .04em; color: var(--teal-text); margin-left: 4px; }
+.side svg { cursor: default; }
+.side svg [data-el]:not([data-locked]) { cursor: move; }
+/* engine section */
+.bench-dl { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px 28px; margin: 0; }
+.bench-dl dt { font-weight: 600; font-size: 13px; letter-spacing: .04em; margin-bottom: 4px; }
+.bench-dl dd { margin: 0; font-size: 15px; color: var(--ink); font-variant-numeric: tabular-nums; }
+.bench-note { margin: 0; font-size: 14px; color: var(--muted); display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+.cmp-wrap { overflow-x: auto; }
+.cmp { border-collapse: collapse; width: 100%; min-width: 560px; font-size: 14px; }
+.cmp th, .cmp td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid var(--line); }
+.cmp thead th { font-weight: 600; font-size: 13px; letter-spacing: .04em; }
+.cmp tbody th { font-weight: 600; }
+.cmp td { color: var(--muted); }
+.cmp td:last-child { color: var(--ink); }
+/* editor: sliders, toggles, saved versions */
+.adjust { display: grid; gap: 22px; padding: 20px; background: var(--surface); border: 1px solid var(--line); border-radius: 4px; }
+.adjust__head { display: grid; gap: 4px; }
+.adjust h3, .hist h3 { margin: 0; font: 700 18px/1.3 var(--font-serif); letter-spacing: .04em; }
+.adjust__head p { margin: 0; font-size: 14px; color: var(--muted); }
+.adjust__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px 28px; }
+.adjust fieldset { border: 0; margin: 0; padding: 0; min-width: 0; display: grid; gap: 12px; align-content: start; }
+.adjust legend { padding: 0; margin-bottom: 4px; font-weight: 600; font-size: 13px; letter-spacing: .08em; }
+.sl { display: grid; gap: 12px; }
+.sl label { display: grid; gap: 6px; font-size: 13px; color: var(--muted); }
+.sl label span { display: flex; justify-content: space-between; gap: 8px; }
+.sl output { color: var(--ink); font-variant-numeric: tabular-nums; }
+.sl input[type=range] { width: 100%; margin: 0; accent-color: var(--teal-text); }
+.toggles { display: grid; gap: 0; }
+.btn { font: 600 14px/1 var(--font-sans); min-height: 42px; padding: 0 16px; border-radius: 3px; border: 1px solid var(--ink); background: var(--ink); color: var(--surface); cursor: pointer; }
+.btn:hover { background: var(--teal-text); border-color: var(--teal-text); }
+.btn:disabled { background: transparent; color: var(--muted); border-color: var(--line); cursor: default; }
+.btn--ghost { background: transparent; color: var(--ink); justify-self: start; }
+.btn--sm { min-height: 34px; padding: 0 12px; font-size: 13px; }
+.save { display: grid; gap: 8px; padding-top: 18px; border-top: 1px solid var(--line); }
+.save__label { font-weight: 600; font-size: 13px; }
+.save__row { display: flex; flex-wrap: wrap; gap: 10px; }
+.save__row input { flex: 1 1 220px; min-width: 0; font: 400 14px/1.3 var(--font-sans); padding: 10px 12px; border: 1px solid var(--line); border-radius: 3px; background: var(--paper); color: var(--ink); }
+.save__msg { margin: 0; min-height: 1.4em; font-size: 13px; color: var(--muted); }
+.hist { display: grid; gap: 12px; }
+.hist__list { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; }
+.hist__empty { margin: 0; font-size: 14px; color: var(--muted); grid-column: 1 / -1; }
+.ver { display: grid; gap: 8px; padding: 10px; border: 1px solid var(--line); border-radius: 4px; background: var(--paper); min-width: 0; }
+.ver svg { display: block; width: 100%; height: auto; }
+.ver b { font-size: 14px; overflow-wrap: anywhere; }
+.ver small { font-size: 12px; color: var(--muted); }
+.ver__btns { display: flex; gap: 8px; }
+.ver.is-current { border-color: var(--ink); box-shadow: inset 0 0 0 1px var(--ink); }
+.side svg { color: var(--ink); }
+@media (max-width: 720px) { .adjust__grid { grid-template-columns: minmax(0, 1fr); } }
+/* v2: one card on vi-charcoal. Panels that show the card's inks carry their own fixed charcoal ground. */
+.ink-panel { background: #404041; color: #F3F1E8; border-radius: 4px; }
+.diagram.ink-panel { border: 0; }
+.dg-line { stroke: #6FA9D8; }
+.dg-clear { stroke: #E8799E; }
+.dg-dim { stroke: #A8A69E; }
+.dg-txt { fill: #C9C6BC; }
+.dg-txt.k { fill: #F3F1E8; }
+.size.ink-panel { border: 0; }
+.size.ink-panel span { color: #C9C6BC; }
+.size.ink-panel b { color: #F3F1E8; }
+.inks { display: flex; flex-wrap: wrap; gap: 8px 18px; font-size: 13px; color: var(--muted); }
+.inks span { display: inline-flex; align-items: center; gap: 7px; }
+.inks i { width: 12px; height: 12px; border-radius: 50%; box-shadow: inset 0 0 0 1px rgba(0,0,0,.2); }
+</style>
+
+<!-- The VI's own vectors, from brand/xiding-guangren-vi (品牌形象-5.pdf): the symbol's dots and the word unit,
+     recoloured through fill. Coordinates are the VI's, in PDF points. -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+{{DEFS}}
+</defs></svg>
+
+<div class="wrap">
+  <header>
+    <div class="eyebrow">西顶设计系统 v1.8 · BusinessCard · 90 × 54 mm</div>
+    <h1>西頂廣仁宮 名片</h1>
+    <p class="lede">One card on <b>vi-charcoal</b>, both sides in <b>vi-ivory</b>. The back carries the brand: the whole dot mark and 西顶学院 · 西顶艺术. The front carries the person in one of three layouts, G, H or I. Click any element on the large cards to move it, drag a corner to resize it, and use the sliders for the whole layout. Save a version to keep it.</p>
+  </header>
+
+  <section aria-label="Card">
+    <div class="controls">
+      <div class="ctl"><span id="l-person">人 · Person</span>
+        <div class="seg" role="radiogroup" aria-labelledby="l-person" id="seg-person"></div></div>
+      <div class="ctl"><span id="l-inks">色 · Inks</span>
+        <div class="seg" role="radiogroup" aria-labelledby="l-inks">
+          <label><input type="radio" name="inks" id="i-2" value="2"><span>双色 Two</span></label>
+          <label><input type="radio" name="inks" id="i-3" value="3" checked><span>三色 Three</span></label>
+        </div></div>
+      <div class="ctl"><span id="l-logo">正面方案 · Front</span>
+        <div class="seg" role="radiogroup" aria-labelledby="l-logo">
+          <label><input type="radio" name="logo" id="g-grid" value="grid"><span>G 格</span></label>
+          <label><input type="radio" name="logo" id="g-seal2" value="seal2" checked><span>H 印</span></label>
+          <label><input type="radio" name="logo" id="g-axis" value="axis"><span>I 中轴</span></label>
+        </div></div>
+      <div class="ctl"><span id="l-dots">圆点 · Mark</span>
+        <div class="seg" role="radiogroup" aria-labelledby="l-dots">
+          <label><input type="radio" name="dots" id="d-ring" value="ring"><span>圆环 Rings</span></label>
+          <label><input type="radio" name="dots" id="d-dot" value="dot" checked><span>实点 Dots</span></label>
+        </div></div>
+      <div class="ctl"><span id="l-field">H 色块 · Field</span>
+        <div class="seg" role="radiogroup" aria-labelledby="l-field">
+          <label><input type="radio" name="field" id="fl-gold" value="gold" checked><span>金</span></label>
+          <label><input type="radio" name="field" id="fl-red" value="red"><span>红</span></label>
+          <label><input type="radio" name="field" id="fl-teal" value="teal"><span>青</span></label>
+          <label><input type="radio" name="field" id="fl-mauve" value="mauve"><span>灰紫</span></label>
+          <label><input type="radio" name="field" id="fl-goldInk" value="goldInk"><span>金·墨</span></label>
+        </div></div>
+      <label class="check" for="guides"><input type="checkbox" id="guides"> 参考线 · trim, 4 mm safe area, 2 mm bleed</label>
+    </div>
+    <div class="stage" id="stage">
+      <figure class="side"><div id="front"></div><figcaption><b id="cap-front">正面 · 名字</b><span id="cap-inks"></span></figcaption></figure>
+      <figure class="side"><div id="back"></div><figcaption><b>背面 · 标志</b><span>Shared by every card</span></figcaption></figure>
+    </div>
+    <div class="inks" id="inks"></div>
+    <div class="adjust" id="adjust">
+      <div class="adjust__head"><h3>调整 · Adjust</h3><p>Click an element on either large card to select it; Shift-click, or drag a box on empty card, to select several. Drag to move; pink lines show when an edge or centre lines up, and the selection snaps there (hold Alt to move freely). Drag a corner to resize, the round handle to rotate. Double-click text to retype it. Add dotted reference lines and everything snaps to them first. Sliders change the whole layout; the chip beside each says which layouts it moves.</p></div>
+      <div class="pos" aria-label="Position">
+        <b id="p-label" class="pos__label">点选卡片上的元素 · Click an element on a card</b>
+        <div class="pos__fields">
+          <label for="p-x">X<input id="p-x" data-prop type="number" step="0.1" inputmode="decimal"></label>
+          <label for="p-y">Y<input id="p-y" data-prop type="number" step="0.1" inputmode="decimal"></label>
+          <label for="p-w">W<input id="p-w" data-prop type="number" step="0.1" inputmode="decimal"></label>
+          <label for="p-h">H<input id="p-h" data-prop type="number" step="0.1" inputmode="decimal"></label>
+          <label for="p-r">°<input id="p-r" data-prop type="number" step="1" inputmode="decimal"></label>
+          <span class="pos__s" id="p-s"></span>
+        </div>
+        <div class="pos__btns">
+          <button type="button" class="ib" data-prop data-align="l" title="Align left to the margin" aria-label="Align left">⇤</button>
+          <button type="button" class="ib" data-prop data-align="c" title="Centre horizontally" aria-label="Centre horizontally">↔</button>
+          <button type="button" class="ib" data-prop data-align="r" title="Align right to the margin" aria-label="Align right">⇥</button>
+          <button type="button" class="ib" data-prop data-align="t" title="Align to the top margin" aria-label="Align top">⤒</button>
+          <button type="button" class="ib" data-prop data-align="m" title="Centre vertically" aria-label="Centre vertically">↕</button>
+          <button type="button" class="ib" data-prop data-align="b" title="Align to the bottom line" aria-label="Align bottom">⤓</button>
+          <button type="button" class="ib" data-prop id="p-dist-h" title="Equal horizontal gaps (3 or more)" aria-label="Distribute horizontally">⇹</button>
+          <button type="button" class="ib" data-prop id="p-dist-v" title="Equal vertical gaps (3 or more)" aria-label="Distribute vertically">⇳</button>
+          <button type="button" class="btn btn--sm btn--ghost" data-prop id="p-reset">复位 Reset element</button>
+          <button type="button" class="btn btn--sm btn--ghost" data-prop id="p-hide">隐藏 Hide</button>
+          <button type="button" class="btn btn--sm btn--ghost" data-prop id="p-group">编组 Group</button>
+          <button type="button" class="btn btn--sm btn--ghost" data-prop id="p-ungroup">取消编组 Ungroup</button>
+          <button type="button" class="btn btn--sm btn--ghost" data-prop id="p-lock">锁定 Lock</button>
+          <button type="button" class="btn btn--sm btn--ghost" data-prop id="p-rot90">↻ 旋转 90°</button>
+          <button type="button" class="btn btn--sm btn--ghost" data-prop id="p-edit">✎ 改字 Edit text</button>
+          <button type="button" class="btn btn--sm btn--ghost" data-prop id="p-copy">复制 Copy</button>
+          <button type="button" class="btn btn--sm btn--ghost" id="p-paste">粘贴 Paste</button>
+          <button type="button" class="btn btn--sm btn--ghost" data-prop id="p-dup">创建副本 Duplicate</button>
+        </div>
+        <div class="pos__btns">
+          <button type="button" class="btn btn--sm btn--ghost" id="undo">↶ 撤销 Undo</button>
+          <button type="button" class="btn btn--sm btn--ghost" id="redo">↷ 重做 Redo</button>
+          <button type="button" class="btn btn--sm btn--ghost" id="p-all">全选 Select all</button>
+          <button type="button" class="btn btn--sm btn--ghost" id="ref-x">┆ 加竖向参考线 Vertical guide</button>
+          <button type="button" class="btn btn--sm btn--ghost" id="ref-y">┄ 加横向参考线 Horizontal guide</button>
+          <button type="button" class="btn btn--sm btn--ghost" id="ref-clear">清除参考线 Clear guides</button>
+          <button type="button" class="btn btn--sm btn--ghost" id="p-showall">显示全部 Show hidden</button>
+          <button type="button" class="btn btn--sm btn--ghost" id="p-resetall">复位此版式 Reset this layout's moves</button>
+        </div>
+      </div>
+      <div class="edit-aux">
+        <div class="aux-col">
+          <div class="layers" id="layers" aria-label="Layers"></div>
+          <div class="undo-panel"><p class="layers__side">历史记录 · History <small>点一步回到那里 · click a step to go back to it</small></p><ol class="undo-list" id="undo-list"></ol></div>
+        </div>
+        <dl class="keys">
+          <div><dt>Shift + 点击</dt><dd>加选 · Add to or remove from the selection</dd></div>
+          <div><dt>拖框</dt><dd>框选 · Drag on empty card to box-select</dd></div>
+          <div><dt>Ctrl/⌘ + A</dt><dd>全选 · Select all</dd></div>
+          <div><dt>Ctrl/⌘ + G</dt><dd>编组 · Group; add Shift to ungroup</dd></div>
+          <div><dt>Ctrl/⌘ + L</dt><dd>锁定 · Lock</dd></div>
+          <div><dt>← → ↑ ↓</dt><dd>微移 0.1 mm · Shift 1 mm</dd></div>
+          <div><dt>Alt + 拖动</dt><dd>不吸附 · Move without snapping</dd></div>
+          <div><dt>Delete</dt><dd>隐藏 · Hide</dd></div>
+          <div><dt>Ctrl/⌘ + Z</dt><dd>撤销 · Undo; add Shift to redo</dd></div>
+          <div><dt>Esc</dt><dd>取消选择 · Deselect</dd></div>
+          <div><dt>双击 · Enter</dt><dd>改字 · Retype text on the card</dd></div>
+          <div><dt>Ctrl/⌘ + C · V · D</dt><dd>复制 · 粘贴 · 创建副本 · Copy, paste, duplicate</dd></div>
+          <div><dt>旋转手柄</dt><dd>旋转 · Rotate; Shift steps by 15°</dd></div>
+          <div><dt>参考线</dt><dd>拖动移位，拖出卡片或双击删除 · Drag to move; drag off or double-click to remove</dd></div>
+        </dl>
+      </div>
+      <div class="adjust__grid">
+        <fieldset><legend>正面 · Front</legend><div class="sl" id="sl-front"></div></fieldset>
+        <fieldset><legend>文字 · Type</legend><div class="sl" id="sl-type"></div></fieldset>
+        <fieldset><legend>背面 · Back</legend><div class="sl" id="sl-back"></div>
+          <div class="toggles">
+            <label class="check" for="t-icons"><input type="checkbox" id="t-icons"> 联系方式图标 · Contact icons</label>
+            <label class="check" for="t-crop"><input type="checkbox" id="t-crop"> 裁切线 · Crop marks</label>
+            <label class="check" for="t-align"><input type="checkbox" id="t-align"> 对齐线 · Alignment lines</label>
+          </div>
+          <button type="button" class="btn btn--ghost" id="reset">恢复默认 · Reset to defaults</button>
+        </fieldset>
+      </div>
+      <div class="xport">
+        <b class="save__label">导出 · Export</b>
+        <div class="pos__btns">
+          <button type="button" class="btn btn--sm" id="x-pdf">打印 PDF · Print PDF</button>
+          <button type="button" class="btn btn--sm btn--ghost" id="x-svg">SVG 正反面 · Both sides as SVG</button>
+          <button type="button" class="btn btn--sm btn--ghost" id="x-page">当前页面 · This page (HTML)</button>
+          <button type="button" class="btn btn--sm btn--ghost" id="x-json">设计数据 · Design (JSON)</button>
+          <label class="btn btn--sm btn--ghost file-btn" for="x-import">导入设计 · Import design<input type="file" id="x-import" accept=".json,application/json"></label>
+        </div>
+        <p class="save__msg" id="x-msg" role="status"></p>
+        <p class="xport__note">The print PDF holds both sides as they stand now: 90 × 54 mm trim, 2 mm bleed and crop marks, with trim and bleed boxes set, each side drawn at 600 dpi in RGB. Ask your printer whether they want CMYK. The SVGs are vector, with 2 mm bleed and crop marks; their type names Noto Serif SC and Instrument Sans, so convert it to outlines before print. The HTML is this page with your design inside; it opens anywhere, without the saved versions.</p>
+      </div>
+      <div class="save">
+        <label for="v-label" class="save__label">版本名称 · Version name</label>
+        <div class="save__row"><input id="v-label" maxlength="60" placeholder="例如 金色 · 标志加大"><button type="button" class="btn" id="v-save">保存版本 · Save version</button></div>
+        <p class="save__msg" id="v-msg" role="status"></p>
+      </div>
+      <div class="hist">
+        <h3>历史版本 · Version history</h3>
+        <div id="hist" class="hist__list"><p class="hist__empty">正在读取历史版本 · Loading saved versions…</p></div>
+      </div>
+    </div>
+    <div class="fields-wrap"><h3 class="fields-h">H · 色块 Field colours</h3><div class="fields" id="fields"></div></div>
+    <form class="edit" id="edit" autocomplete="off">
+      <label for="e-nameZh">姓名<input id="e-nameZh" name="nameZh"></label>
+      <label for="e-nameEn">Name<input id="e-nameEn" name="nameEn"></label>
+      <label for="e-company">机构<input id="e-company" name="company"></label>
+      <label for="e-titleEn">Title<input id="e-titleEn" name="titleEn"></label>
+      <label for="e-titleZh">职务<input id="e-titleZh" name="titleZh"></label>
+      <label for="e-phone">M · 电话<input id="e-phone" name="phone" inputmode="tel"></label>
+      <label for="e-email">E · 邮箱<input id="e-email" name="email" inputmode="email"></label>
+      <label for="e-web">W · 网址<input id="e-web" name="web"></label>
+      <label for="e-address">A · 地址<input id="e-address" name="address"></label>
+      <p>The three people are the cards the design system already holds, each under 西顶文化. Edit any line to try a name or title; an empty field hides it. Saving a version keeps these lines with it.</p>
+    </form>
+  </section>
+
+  <section>
+    <header><h2>编辑器与引擎<small>Editor and engine, against Canva</small></h2>
+      <p>The editing model follows Canva's editor: select on the canvas, drag with smart guides, corner handles, arrow-key nudges, a position panel. Snapping runs in a Rust engine compiled to WebAssembly, with a TypeScript twin that gives the same answers wherever the page is not allowed to run WebAssembly. A drag moves one element and redraws nothing else; the card is redrawn once, when you let go.</p></header>
+    <dl class="bench-dl">
+      <div><dt>引擎 Engine in use</dt><dd id="b-engine">—</dd></div>
+      <div><dt>Rust · WebAssembly, per snap</dt><dd id="b-wasm">—</dd></div>
+      <div><dt>TypeScript, per snap</dt><dd id="b-ts">—</dd></div>
+      <div><dt>相同结果 Same answers</dt><dd id="b-parity">—</dd></div>
+      <div><dt>测试量 Workload</dt><dd id="b-cases">—</dd></div>
+      <div><dt>拖动 Drag, on your device</dt><dd id="b-drag">Drag something on the card to measure</dd></div>
+    </dl>
+    <p class="bench-note">A screen refreshes every 16.7 ms at 60 Hz, so each drag step has that long. <button type="button" class="btn btn--sm btn--ghost" id="b-run">重新测量 Run again</button></p>
+    <div class="cmp-wrap"><table class="cmp">
+      <thead><tr><th scope="col">Editing</th><th scope="col">Canva (from published guides)</th><th scope="col">This card editor</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">Select and drag on the canvas</th><td>Yes</td><td>Yes, every element on both sides</td></tr>
+        <tr><th scope="row">Smart guides while dragging</th><td>Pink dashed lines when centred on the page or on nearby elements</td><td>Pink dashed lines; snaps to card edges, margins, centre lines, the field and every other element</td></tr>
+        <tr><th scope="row">Arrow-key nudge</th><td>1 px, Shift for 10 px</td><td>0.1 mm, Shift for 1 mm</td></tr>
+        <tr><th scope="row">Resize</th><td>Corner and side handles</td><td>Corner handles, proportional, snapping the dragged corner</td></tr>
+        <tr><th scope="row">Exact position</th><td>Position panel</td><td>Position panel in mm, with align buttons</td></tr>
+        <tr><th scope="row">Undo and redo</th><td>Yes</td><td>Ctrl or ⌘ + Z, Shift to redo, 200 steps</td></tr>
+        <tr><th scope="row">Version history</th><td>Yes, on paid plans</td><td>Named versions saved for everyone with access</td></tr>
+        <tr><th scope="row">Print guides</th><td>Bleed and margins</td><td>2 mm bleed, 4 mm safe area, crop marks, alignment lines</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section>
+    <header><h2>三个方案<small>Three fronts, each from one benchmark</small></h2>
+      <p>Each direction takes one concrete device from a piece of award-winning or canonical work. All three show the full mark (rings or solid dots, switch above) and set 西顶文化 directly under 西頂廣仁宮. The back stays as it is.</p></header>
+    <div class="alts" id="alts"></div>
+    <div class="bench">
+      <article><h3>G · 点阵为格 Grid</h3><p class="src">From Kazunari Hattori's identity for the <a href="https://tokyotypedirectorsclub.org/en/award/2021_special_02/" target="_blank" rel="noopener">Hirosaki Museum of Contemporary Art</a>, Tokyo TDC Special Prize 2021: no separate symbol, the identity is the arrangement of the name.</p>
+        <p>The mark stands the full height of the type area, and its eight rows become the card's grid. 西頂廣仁宮 spans rows 1 and 2, 西顶文化 sits on row 3, the name's cap top and baseline sit on rows 4 and 5, and the contacts sit on rows 6 to 8. Every line of type sits on a row of dots. To fit, the website is left off the front: the email carries the domain.</p></article>
+      <article><h3>H · 印 Seal, refined</h3><p class="src">From Pentagram's identity for the <a href="https://www.pentagram.com/work/museum-of-chinese-in-america/story" target="_blank" rel="noopener">Museum of Chinese in America</a> (Michael Bierut): a square logo combining the name with a modified Chinese chop, restrained, no cliché.</p>
+        <p>No frame. The left 36 mm of the card is one field in a VI colour, edge to edge, like a chop's colour on paper: gold by default, or red, teal or mauve grey. On it, centred on one axis, the full dot mark (21 mm) and 西頂廣仁宮. On the charcoal, 西顶文化 holds the top right; the name sits on the top line and the contacts on the bottom line.</p></article>
+      <article><h3>I · 中轴 Axis</h3><p class="src">From the temple itself: a Chinese temple compound is laid out on one central axis, its halls in order along it.</p>
+        <p>Everything stands on the card's vertical centre line, in the order a formal card gives: the mark, 西頂廣仁宮, 西顶文化, then the person, then two lines of contacts on the bottom line.</p></article>
+    </div>
+  </section>
+
+  <section>
+    <header><h2>改动<small>Against v1.8's BusinessCard</small></h2>
+      <p>Before is the system's own <code>Xiding.card()</code>, drawn live from the v1.8 bundle. After is this card at the same size. The 6 mm margin, the type sizes and the contact block are the system's.</p></header>
+    <div class="compare" id="compare"></div>
+    <ul class="changes">
+      <li><b>Two jobs, two sides</b><span>The back is the brand: the whole dot mark and 西顶学院 · 西顶艺术, nothing else. The front is the person.</span></li>
+      <li><b>Ground</b><span>A teal side and a white side become one charcoal ground, <code>vi-charcoal</code>, the field of the temple's nameplate.</span></li>
+      <li><b>Back</b><span>The VI's dot mark whole, 16 mm high, and 西顶学院 · 西顶艺术 at 2.8 mm, both in <code>vi-ivory</code>.</span></li>
+      <li><b>Dots, front</b><span>The full mark, as rings (the system's Circle style) or as solid dots. Ring strokes at least 0.18 mm so they print.</span></li>
+      <li><b>Lettering</b><span>西頂廣仁宮 in the VI's brush lettering, on the front only, next to the rings, with 西顶文化 directly under it. No English line.</span></li>
+      <li><b>Person</b><span>Name at 6 mm; romanisation, CEO 首席执行官 and the contacts at 2.2 mm on 3.5 mm. The last line always sits 6 mm from the bottom edge.</span></li>
+      <li><b>Inks</b><span>Charcoal and ivory. The optional third, <code>vi-sand</code>, marks only the organisations: 西顶学院, 西顶艺术, 西顶文化.</span></li>
+    </ul>
+  </section>
+
+  <section>
+    <header><h2>印制规格<small>Print spec</small></h2></header>
+    <dl class="spec">
+      <div><dt>尺寸 Size</dt><dd>Trim 90 × 54 mm</dd><dd>Bleed 2 mm each side, 94 × 58 mm file</dd><dd>Safe area 4 mm, margin 6 mm</dd><dd>Last baseline 6 mm above the bottom, both sides</dd></div>
+      <div><dt>字 Type</dt><dd>Name: Noto Serif SC SemiBold, 6 mm, 0.1 em</dd><dd>西顶文化: Noto Serif SC SemiBold, 3 mm, 0.2 em</dd><dd>Other lines: Instrument Sans, 2.2 mm on 3.5 mm</dd><dd>Brand line, back: Noto Serif SC SemiBold, 2.8 mm, 0.3 em</dd></div>
+      <div><dt>标志 Logo</dt><dd>Back: whole dot mark 16 mm high, dots 0.63 mm</dd><dd>Front: the whole mark as rings, stroke 0.18 mm or more</dd><dd>H: field 36 mm, mark 21 mm, 西頂廣仁宮 26 mm; 西顶文化 2.6 mm, top right</dd><dd>G: mark 42 mm · I: 11 mm</dd><dd>西頂廣仁宮 26 to 30 mm wide, 西顶文化 2.6 mm under it</dd></div>
+      <div><dt>颜色 Colour</dt>
+        <dd class="sw"><i style="background:#404041"></i><code>vi-charcoal</code> #404041, ground</dd>
+        <dd class="sw"><i style="background:#F3F1E8"></i><code>vi-ivory</code> #F3F1E8, logo and type</dd>
+        <dd class="sw"><i style="background:#A14A49"></i><code>vi-red</code> #A14A49, H field; ivory on it 5.5:1</dd>
+        <dd class="sw"><i style="background:#559895"></i><code>vi-teal</code> #559895, H field; ivory on it 2.9:1</dd>
+        <dd class="sw"><i style="background:#8A7E84"></i><code>vi-mauve</code> #8A7E84, H field; ivory on it 3.4:1</dd>
+        <dd class="sw"><i style="background:#C3A585"></i><code>vi-sand</code> #C3A585, gold field or organisations; ivory on it only 1.9:1</dd></div>
+      <div><dt>印前 Pre-press</dt><dd>Convert all text to outlines</dd><dd>On ivory stock, charcoal is the one printed ink; logo and type knock out to the paper</dd><dd>No tints: every element is one solid ink</dd></div>
+    </dl>
+    <ul class="open">
+      <li><b>Reverse type.</b> 2.2 mm type and 0.6 mm dots knock out of a dark flood. Ask the printer to confirm they hold on the chosen stock.</li>
+      <li><b>Print colours.</b> The hex values are the PDF renderer's conversions. Get Pantone or CMYK values from the VI's designer before printing.</li>
+      <li><b>Company name.</b> 西顶文化 has no English name yet, so the card carries the Chinese only.</li>
+    </ul>
+  </section>
+
+  <footer>Built on <a href="https://claude.ai/artifact/6rgrKNpvGvJoz7wXE3gX5o" target="_blank" rel="noopener">西顶设计系统 v1.8</a> and the 西頂廣仁宮 VI, <code>品牌形象-5.pdf</code> (2026-08-28).</footer>
+</div>
+
+<script>
+/* 西顶 XIDING bundle v1.8 — window.Xiding, used here only to draw the "before" card. */
+{{BUNDLE}}
+</script>
+<script>
+{{SCRIPT}}
+</script>

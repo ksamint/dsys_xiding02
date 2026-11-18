@@ -1,0 +1,45 @@
+<!-- @dsCard group="Layouts" height=320 width=960 -->
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+<meta charset="utf-8">
+<title>Slide — preview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Instrument+Sans:wght@400;500;600&family=Noto+Sans+SC:wght@400;500&family=Noto+Sans+TC:wght@400;500&family=Noto+Serif+SC:wght@500;600;700&family=Noto+Serif+TC:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+.sl { display: grid; grid-template-columns: repeat(2, 448px); gap: var(--space-24); }
+.sl__fit { width: 448px; height: 252px; overflow: hidden; border: 1px solid var(--line); }
+.sl__fit .xd-slide { transform: scale(.4667); transform-origin: 0 0; }
+</style>
+</head>
+<body>
+<div class="xd-pad sl">
+  <div class="sl__fit"><section class="xd-slide">
+    <header class="xd-slide__top"><span id="r1"></span><span>01</span></header>
+    <div class="xd-slide__body xd-slide__split">
+      <div><h2 class="xd-slide__title">大美是眼光。</h2><p class="xd-slide__lead">AI 交来十个方案，<br>你看得出哪一个对。</p></div>
+      <div class="xd-slide__plate"><span>眼光</span><b>大美</b></div>
+    </div>
+    <footer class="xd-slide__foot"><span id="m1"></span><span class="xd-slide__latin">XIDING ACADEMY</span></footer>
+  </section></div>
+  <div class="sl__fit"><section class="xd-slide">
+    <header class="xd-slide__top"><span id="r2"></span><span>02</span></header>
+    <div class="xd-slide__body">
+      <h2 class="xd-slide__take">一套班子，两个牌子，三个板块。</h2>
+      <div class="xd-slide__cols">
+        <div><div class="xd-slide__num">1</div><div class="xd-slide__label">班子</div><div class="xd-slide__detail">西顶文化</div></div>
+        <div><div class="xd-slide__num">2</div><div class="xd-slide__label">牌子</div><div class="xd-slide__detail">西顶艺术、西顶学院</div></div>
+        <div><div class="xd-slide__num">3</div><div class="xd-slide__label">板块</div><div class="xd-slide__detail">美成、智行、礼遇</div></div>
+      </div>
+    </div>
+    <footer class="xd-slide__foot"><span>来源：西顶 IP 体系</span><span class="xd-slide__latin">XIDING ACADEMY</span></footer>
+  </section></div>
+</div>
+<script>
+  var X = window.Xiding;
+  document.getElementById('r1').innerHTML = X.brandRow(['西顶学院']);
+  document.getElementById('r2').innerHTML = X.brandRow(['西顶学院']);
+  document.getElementById('m1').innerHTML = X.mark({ ink: 'currentColor', ground: 'none', title: '西顶' });
+</script>
+</body>
+</html>

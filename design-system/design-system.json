@@ -1,0 +1,402 @@
+{
+ "v": 3,
+ "layout": "files",
+ "createdOnFiles": {
+  "v": 1,
+  "at": "2026-11-11T06:43:28Z"
+ },
+ "title": "西顶 XIDING",
+ "namespace": "Xiding",
+ "libraries": [],
+ "sections": {},
+ "groups": [
+  "Logos",
+  "Wordmarks",
+  "Pillars",
+  "Intro",
+  "Cards",
+  "VI",
+  "Reference"
+ ],
+ "assetGroups": {
+  "Logos": {
+   "name": "Logos",
+   "tile": "l",
+   "order": [
+    "xiding-mark-teal-dot.svg",
+    "xiding-mark-ink-dot.svg",
+    "xiding-mark-night-dot.svg",
+    "xiding-mark-tealInk-ring.svg",
+    "xiding-mark-ink-ring.svg",
+    "xiding-mark-night-ring.svg",
+    "xiding-mark-ink-point.svg",
+    "xiding-mark-night-point.svg",
+    "xiding-mark-ink-dot-transparent.svg",
+    "xiding-mark-night-dot-transparent.svg",
+    "xiding-mark-tealInk-dot-transparent.svg",
+    "xiding-avatar-teal.svg",
+    "xiding-avatar-teal.png",
+    "xiding-mark-teal-dot.png"
+   ],
+   "files": {
+    "xiding-mark-teal-dot.svg": {
+     "name": "xiding-mark-teal-dot.svg",
+     "blob": "19e28459304509e22acec332de85db0a",
+     "size": 2647,
+     "type": "image/svg+xml"
+    },
+    "xiding-mark-ink-dot.svg": {
+     "name": "xiding-mark-ink-dot.svg",
+     "blob": "11be58a9186040fbd22d3659eec4602a",
+     "size": 2647,
+     "type": "image/svg+xml"
+    },
+    "xiding-mark-night-dot.svg": {
+     "name": "xiding-mark-night-dot.svg",
+     "blob": "2aaeaf9e9e37c511996ac2d0dcc92a64",
+     "size": 2647,
+     "type": "image/svg+xml"
+    },
+    "xiding-mark-tealInk-ring.svg": {
+     "name": "xiding-mark-tealInk-ring.svg",
+     "blob": "bbf26793be4806d413fcd2676f8b1b81",
+     "size": 3887,
+     "type": "image/svg+xml"
+    },
+    "xiding-mark-ink-ring.svg": {
+     "name": "xiding-mark-ink-ring.svg",
+     "blob": "33dd49bebd2bc8d68fcd68751321123d",
+     "size": 3887,
+     "type": "image/svg+xml"
+    },
+    "xiding-mark-night-ring.svg": {
+     "name": "xiding-mark-night-ring.svg",
+     "blob": "2963616befde977a0914741f79b9ddd4",
+     "size": 3887,
+     "type": "image/svg+xml"
+    },
+    "xiding-mark-ink-point.svg": {
+     "name": "xiding-mark-ink-point.svg",
+     "blob": "2ba17bff0a80a5e84cadb1bb31b7e5a2",
+     "size": 2607,
+     "type": "image/svg+xml"
+    },
+    "xiding-mark-night-point.svg": {
+     "name": "xiding-mark-night-point.svg",
+     "blob": "3a5b54a3a220d125f2b64b025c14b828",
+     "size": 2607,
+     "type": "image/svg+xml"
+    },
+    "xiding-mark-ink-dot-transparent.svg": {
+     "name": "xiding-mark-ink-dot-transparent.svg",
+     "blob": "4d783b5fba7aecc9ae326bd421d79ce8",
+     "size": 2576,
+     "type": "image/svg+xml"
+    },
+    "xiding-mark-night-dot-transparent.svg": {
+     "name": "xiding-mark-night-dot-transparent.svg",
+     "blob": "b387ec85c452faf7172a798bf9b109ea",
+     "size": 2576,
+     "type": "image/svg+xml"
+    },
+    "xiding-mark-tealInk-dot-transparent.svg": {
+     "name": "xiding-mark-tealInk-dot-transparent.svg",
+     "blob": "53456313a1a2a7f5eb0844ea07bb5a73",
+     "size": 2576,
+     "type": "image/svg+xml"
+    },
+    "xiding-avatar-teal.svg": {
+     "name": "xiding-avatar-teal.svg",
+     "blob": "3d2cf5a68c255bb6424e098a82f231f7",
+     "size": 10386,
+     "type": "image/svg+xml"
+    },
+    "xiding-avatar-teal.png": {
+     "name": "xiding-avatar-teal.png",
+     "blob": "b8525478886c7fb0ad7b5812fd4198cf",
+     "size": 33887,
+     "type": "image/png"
+    },
+    "xiding-mark-teal-dot.png": {
+     "name": "xiding-mark-teal-dot.png",
+     "blob": "9e44724be061cab14af8d3f8a8ff5756",
+     "size": 35009,
+     "type": "image/png"
+    }
+   }
+  },
+  "Wordmarks": {
+   "name": "Wordmarks",
+   "tile": "l",
+   "order": [
+    "xiding-wordmark-zh-black.svg",
+    "xiding-wordmark-zh-white.svg",
+    "xiding-wordmark-zh-teal.svg",
+    "xiding-name-wenhua-black.svg",
+    "xiding-name-yishu-black.svg",
+    "xiding-name-xueyuan-black.svg",
+    "xiding-name-shiguang-black.svg",
+    "xiding-name-zhixing-black.svg",
+    "xiding-name-meicheng-black.svg",
+    "xiding-name-liyu-black.svg"
+   ],
+   "files": {
+    "xiding-wordmark-zh-black.svg": {
+     "name": "xiding-wordmark-zh-black.svg",
+     "blob": "985ea66136fac4f78e09c83d3a2b2a48",
+     "size": 1399,
+     "type": "image/svg+xml"
+    },
+    "xiding-wordmark-zh-white.svg": {
+     "name": "xiding-wordmark-zh-white.svg",
+     "blob": "e69239647c0eb893e492d5d83f6a4f38",
+     "size": 1482,
+     "type": "image/svg+xml"
+    },
+    "xiding-wordmark-zh-teal.svg": {
+     "name": "xiding-wordmark-zh-teal.svg",
+     "blob": "7b899a49e17d511244bcc156cfa25325",
+     "size": 1398,
+     "type": "image/svg+xml"
+    },
+    "xiding-name-wenhua-black.svg": {
+     "name": "xiding-name-wenhua-black.svg",
+     "blob": "1a986d0f9eb4b2db541771b7f9d631f1",
+     "size": 2515,
+     "type": "image/svg+xml"
+    },
+    "xiding-name-yishu-black.svg": {
+     "name": "xiding-name-yishu-black.svg",
+     "blob": "ba517faaa35f6dd425b775e1ceb59348",
+     "size": 4578,
+     "type": "image/svg+xml"
+    },
+    "xiding-name-xueyuan-black.svg": {
+     "name": "xiding-name-xueyuan-black.svg",
+     "blob": "1e3dfa06e486c7e022719b7379261c2b",
+     "size": 3361,
+     "type": "image/svg+xml"
+    },
+    "xiding-name-shiguang-black.svg": {
+     "name": "xiding-name-shiguang-black.svg",
+     "blob": "86d474f8585a69e7754164b44b5368ca",
+     "size": 2582,
+     "type": "image/svg+xml"
+    },
+    "xiding-name-zhixing-black.svg": {
+     "name": "xiding-name-zhixing-black.svg",
+     "blob": "f096fd741ec0d72def35a937fbee73c5",
+     "size": 2910,
+     "type": "image/svg+xml"
+    },
+    "xiding-name-meicheng-black.svg": {
+     "name": "xiding-name-meicheng-black.svg",
+     "blob": "641d875ee109a61b92b52bd9c5c871a6",
+     "size": 3125,
+     "type": "image/svg+xml"
+    },
+    "xiding-name-liyu-black.svg": {
+     "name": "xiding-name-liyu-black.svg",
+     "blob": "716bda03f7d8042abd2c0b68ec4b1cee",
+     "size": 3077,
+     "type": "image/svg+xml"
+    }
+   }
+  },
+  "Pillars": {
+   "name": "Pillars",
+   "tile": "l",
+   "order": [
+    "xiding-pillars-light.svg",
+    "xiding-pillars-dark.svg",
+    "xiding-pillar-mei.svg",
+    "xiding-pillar-zhi.svg",
+    "xiding-pillar-li.svg"
+   ],
+   "files": {
+    "xiding-pillars-light.svg": {
+     "name": "xiding-pillars-light.svg",
+     "blob": "96ba6e3e0537f6658c6500e2bcd4cf8a",
+     "size": 21024,
+     "type": "image/svg+xml"
+    },
+    "xiding-pillars-dark.svg": {
+     "name": "xiding-pillars-dark.svg",
+     "blob": "f909a4eb9cca1b6e1b8f1310d994d13a",
+     "size": 21023,
+     "type": "image/svg+xml"
+    },
+    "xiding-pillar-mei.svg": {
+     "name": "xiding-pillar-mei.svg",
+     "blob": "6e0e969e4a14e5045565efbe85bfd7df",
+     "size": 2645,
+     "type": "image/svg+xml"
+    },
+    "xiding-pillar-zhi.svg": {
+     "name": "xiding-pillar-zhi.svg",
+     "blob": "0f5072efb31a2f3f8152a2892acd2e3a",
+     "size": 3136,
+     "type": "image/svg+xml"
+    },
+    "xiding-pillar-li.svg": {
+     "name": "xiding-pillar-li.svg",
+     "blob": "e56b552659612e20393faf3a2f9640ee",
+     "size": 2253,
+     "type": "image/svg+xml"
+    }
+   }
+  },
+  "Cards": {
+   "name": "Cards",
+   "tile": "l",
+   "order": [
+    "xiding-card-front.svg"
+   ],
+   "files": {
+    "xiding-card-front.svg": {
+     "name": "xiding-card-front.svg",
+     "blob": "4e1629a6f09e9987f956436a51c59f9b",
+     "size": 8721,
+     "type": "image/svg+xml"
+    }
+   }
+  },
+  "Intro": {
+   "name": "Intro",
+   "tile": "l",
+   "order": [
+    "xiding-intro-architecture-light.svg",
+    "xiding-intro-steps-light.svg"
+   ],
+   "files": {
+    "xiding-intro-architecture-light.svg": {
+     "name": "xiding-intro-architecture-light.svg",
+     "blob": "4c89ec1634ec8f2715f7edb1a9e533ae",
+     "size": 60138,
+     "type": "image/svg+xml"
+    },
+    "xiding-intro-steps-light.svg": {
+     "name": "xiding-intro-steps-light.svg",
+     "blob": "944bd0f52cd988fee259cbd0d3f13a23",
+     "size": 79235,
+     "type": "image/svg+xml"
+    }
+   }
+  },
+  "Reference": {
+   "name": "Reference",
+   "tile": "l",
+   "order": [],
+   "files": {}
+  },
+  "VI": {
+   "name": "VI",
+   "tile": "l",
+   "order": [
+    "chinese-wordmark-ivory.svg",
+    "chinese-wordmark-sand.svg",
+    "chinese-wordmark-teal.svg",
+    "chinese-wordmark-white.svg",
+    "chinese-wordmark.svg",
+    "color-palette.svg",
+    "english-wordmark.svg",
+    "logo-lockup-ivory.svg",
+    "logo-lockup-sand.svg",
+    "logo-lockup-teal.svg",
+    "logo-lockup-white.svg",
+    "logo-lockup.svg",
+    "logo-symbol.svg"
+   ],
+   "files": {
+    "chinese-wordmark-ivory.svg": {
+     "name": "chinese-wordmark-ivory.svg",
+     "blob": "",
+     "size": 82095,
+     "type": "image/svg+xml"
+    },
+    "chinese-wordmark-sand.svg": {
+     "name": "chinese-wordmark-sand.svg",
+     "blob": "",
+     "size": 82092,
+     "type": "image/svg+xml"
+    },
+    "chinese-wordmark-teal.svg": {
+     "name": "chinese-wordmark-teal.svg",
+     "blob": "",
+     "size": 82092,
+     "type": "image/svg+xml"
+    },
+    "chinese-wordmark-white.svg": {
+     "name": "chinese-wordmark-white.svg",
+     "blob": "",
+     "size": 82092,
+     "type": "image/svg+xml"
+    },
+    "chinese-wordmark.svg": {
+     "name": "chinese-wordmark.svg",
+     "blob": "",
+     "size": 111271,
+     "type": "image/svg+xml"
+    },
+    "color-palette.svg": {
+     "name": "color-palette.svg",
+     "blob": "",
+     "size": 111317,
+     "type": "image/svg+xml"
+    },
+    "english-wordmark.svg": {
+     "name": "english-wordmark.svg",
+     "blob": "",
+     "size": 111310,
+     "type": "image/svg+xml"
+    },
+    "logo-lockup-ivory.svg": {
+     "name": "logo-lockup-ivory.svg",
+     "blob": "",
+     "size": 198731,
+     "type": "image/svg+xml"
+    },
+    "logo-lockup-sand.svg": {
+     "name": "logo-lockup-sand.svg",
+     "blob": "",
+     "size": 198728,
+     "type": "image/svg+xml"
+    },
+    "logo-lockup-teal.svg": {
+     "name": "logo-lockup-teal.svg",
+     "blob": "",
+     "size": 198728,
+     "type": "image/svg+xml"
+    },
+    "logo-lockup-white.svg": {
+     "name": "logo-lockup-white.svg",
+     "blob": "",
+     "size": 198728,
+     "type": "image/svg+xml"
+    },
+    "logo-lockup.svg": {
+     "name": "logo-lockup.svg",
+     "blob": "",
+     "size": 111239,
+     "type": "image/svg+xml"
+    },
+    "logo-symbol.svg": {
+     "name": "logo-symbol.svg",
+     "blob": "",
+     "size": 111248,
+     "type": "image/svg+xml"
+    }
+   }
+  }
+ },
+ "blobs": {},
+ "docs": {
+  "sections": []
+ },
+ "lastChange": {
+  "by": "Claude",
+  "at": "2026-11-15T00:00:00Z",
+  "via": "Claude Code",
+  "note": "v1.8 lifted into source files: the page kit and nine components from v1.7 (Ink, LockupMotion, Photo, Whisper, Export, Go, Lang, FieldBlock, Ecosystem), the source VI of 西頂廣仁宮 as vi-* tokens, the VI asset group and TempleSign; three-locale fonts."
+ }
+}

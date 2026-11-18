@@ -1,0 +1,36 @@
+# Secrets and local configuration
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# macOS and editors
+.DS_Store
+.idea/
+.vscode/
+
+# TypeScript and frontend build output
+node_modules/
+dist/
+coverage/
+*.tsbuildinfo
+
+# Rust build output
+/target/
+
+# Local logs
+*.log
+
+# Media made by the media server, and its local state
+media/out/
+media/.lovart-state.json
+
+# The service's records: people's names and phones. Never in git.
+data/store.json
+data/store.json.tmp
+# The development database (npm run db): its data stays on this machine.
+data/pg/
+
+# Build output of the design-system, Introduction and card tools
+/out/

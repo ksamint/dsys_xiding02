@@ -1,0 +1,23 @@
+<!-- @dsCard group="Brand" height=400 width=960 -->
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+<meta charset="utf-8">
+<title>Pillars — preview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Instrument+Sans:wght@400;500;600&family=Noto+Sans+SC:wght@400;500&family=Noto+Sans+TC:wght@400;500&family=Noto+Serif+SC:wght@500;600;700&family=Noto+Serif+TC:wght@500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="xd-pad"><div id="root" class="xd-pillars"></div></div>
+<script>
+  var X = window.Xiding, root = document.getElementById('root');
+  var br = function (s) { var i = s.lastIndexOf('，'); return i < 0 ? s : s.slice(0, i + 1) + '<br>' + s.slice(i + 1); };
+  root.innerHTML =
+    X.PILLARS.map(function (p) { return '<div class="xd-pillars__cap">' + p.line + '</div>'; }).join('') +
+    X.PILLARS.map(function (p) { return '<div class="xd-pillar xd-pillar--' + p.id + '"><span class="xd-pillar__word">' + p.word + '</span><span class="xd-pillar__name">' + p.zh + '</span></div>'; }).join('') +
+    '<div class="xd-pillars__base"></div>' +
+    X.PILLARS.map(function (p) { return '<div class="xd-pillars__motto">' + p.motto + '</div>'; }).join('') +
+    X.PILLARS.map(function (p) { return '<p class="xd-pillars__sentence">' + br(p.sentence) + '</p>'; }).join('');
+</script>
+</body>
+</html>

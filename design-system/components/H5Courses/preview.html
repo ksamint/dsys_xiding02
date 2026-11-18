@@ -1,0 +1,34 @@
+<!-- @dsCard group="H5" height=1468 -->
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+<meta charset="utf-8">
+<title>H5Courses — preview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Instrument+Sans:wght@400;500;600&family=Noto+Sans+SC:wght@400;500&family=Noto+Sans+TC:wght@400;500&family=Noto+Serif+SC:wght@500;600;700&family=Noto+Serif+TC:wght@500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="xd-pad"><div class="xd-h5 xd-h5--art">
+<header class="xd-h5__bar"><span class="xd-h5__brand" data-mark>西顶</span><span class="xd-h5__link">会员</span></header>
+<main class="xd-h5__body">
+<section class="xd-scroll"><div class="xd-scroll__lede"><small>XIDING ACADEMY</small><p>西顶学院出内容。<br>每期四问，<br>嘉宾轮换。</p></div><h1 class="xd-vert">学院</h1></section>
+<div class="xd-picks"><span class="is-on">全部</span><span><i class="xd-dot xd-dot--mei"></i>大美</span><span><i class="xd-dot xd-dot--zhi"></i>大智</span><span><i class="xd-dot xd-dot--li"></i>大礼</span></div>
+<section class="xd-poem" id="prog" style="height:360px">
+<p class="xd-vert xd-poem__on" style="top:28px;right:22px;font-size:28px">听 XX 讲<br>大美大智大礼</p>
+</section>
+<span class="xd-act">报名下一期</span>
+<section class="xd-loose"><h2 class="xd-vert">课程</h2><div class="xd-loose__items">
+<article class="xd-note"><span class="xd-tag"><i class="xd-dot xd-dot--mei"></i>大美　眼光</span><h3>旗舰课（名称待定）</h3><p>西顶学院　时间待定</p><span class="xd-act">报名</span></article>
+<article class="xd-note"><span class="xd-tag"><i class="xd-dot xd-dot--zhi"></i>大智　章法</span><h3>落地陪跑对接</h3><p>西顶智行　培训之后的下一步</p><span class="xd-act">咨询</span></article>
+<article class="xd-note"><span class="xd-tag"><i class="xd-dot xd-dot--li"></i>大礼　分寸</span><h3>会员闭门交流（示例）</h3><p>西顶艺术　邀请制</p><span class="xd-act is-off">已满</span></article>
+</div></section>
+</main>
+<nav class="xd-tabbar xd-tabbar--float"><span class="">首页</span><span class="is-on">学院</span><span class="">时光</span><span class="">会员</span></nav>
+</div></div>
+<script>
+  var X = window.Xiding;
+  document.querySelectorAll('[data-mark]').forEach(function (el) { el.innerHTML = X.mark({ ink: 'currentColor', ground: 'none', title: '西顶' }) + el.innerHTML; });
+  document.querySelector('#prog').insertAdjacentHTML('afterbegin', X.scatter({"width": 375, "height": 360, "x": 134, "y": 60, "size": 200, "spread": 0.9, "angle": 165, "avoid": [{"x": 250, "y": 16, "w": 125, "h": 270}], "strays": 14, "seed": 5, "field": {"x": 130, "y": 0, "w": 245, "h": 330}, "fieldFill": "#000000", "fieldInk": "#628F8A", "breathe": true}));
+</script>
+</body>
+</html>

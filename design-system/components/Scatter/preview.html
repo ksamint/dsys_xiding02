@@ -1,0 +1,31 @@
+<!-- @dsCard group="Brand" height=314 width=960 -->
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+<meta charset="utf-8">
+<title>Scatter — preview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Instrument+Sans:wght@400;500;600&family=Noto+Sans+SC:wght@400;500&family=Noto+Sans+TC:wght@400;500&family=Noto+Serif+SC:wght@500;600;700&family=Noto+Serif+TC:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  .row { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-24); padding: var(--space-24); }
+  figure { margin: 0; }
+  .xd-stage { width: 288px; height: 220px; }
+  figcaption { margin-top: var(--space-8); font-size: 13px; line-height: 1.45; color: var(--muted); }
+</style>
+</head>
+<body>
+<div class="row">
+  <figure><div class="xd-stage" id="a"></div><figcaption>spread 0: the mark, held</figcaption></figure>
+  <figure><div class="xd-stage" id="b"></div><figcaption>spread 0.8, hold 0.5: the leading dots leave the field</figcaption></figure>
+  <figure><div class="xd-stage" id="c"></div><figcaption>spread 1.4, strays 24, on black: a wind across the page</figcaption></figure>
+</div>
+<script>
+  var X = window.Xiding;
+  var base = { width: 288, height: 220, x: 40, y: 20, size: 180, field: { x: 0, y: 0, w: 168, h: 220 }, fieldInk: '#FFFFFF', breathe: true };
+  function put(id, o) { document.getElementById(id).innerHTML = X.scatter(Object.assign({}, base, o)); }
+  put('a', { spread: 0, title: '西顶' });
+  put('b', { spread: 0.8, angle: 10, strays: 8, seed: 4 });
+  put('c', { spread: 1.4, angle: -14, strays: 24, seed: 12, fieldFill: '#000000', fieldInk: '#628F8A' });
+</script>
+</body>
+</html>
