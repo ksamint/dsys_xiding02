@@ -64,8 +64,8 @@ Read **西顶是什么** for the full introduction and the names, and **文案 �
 Covers, heroes and the first screen of every page are composed like a hanging scroll, not a form.
 
 - **Hang the words.** Titles and the value line may be set vertically (`xd-vert`, right to left): page titles at 88px against the right edge, the value line in three columns. Latin lines run vertically beside them in capitals, tracked 0.42em (`xd-vert--latin`), and never carry Chinese characters.
-- **Leave the space empty.** A composition holds one field, one block of words and the dots. Nothing fills the rest.
-- **Let the dots go.** `Xiding.scatter()` draws the mark in its field and lets the dots past its middle drift out across the paper, white turning teal at the field's edge. The trailing half of the mark is never moved. Drifting dots stay off the words (`avoid`).
+- **Leave the space empty.** A composition holds one field, one block of words and the mark. Nothing fills the rest.
+- **Keep the mark whole.** In its field the mark stands as drawn, all 40 dots in place, drawn large and cropped by the field's edge where the layout wants it. Dots never drift out of the mark or scatter across the paper (decided by the owner on 2026-11-18): call `Xiding.scatter()` with `spread: 0` and no `strays`, or use `Xiding.mark()`.
 - **Pillars as stones.** On a first screen 大美, 大智 and 大礼 may stand as three dots of three sizes, set loosely like stones in a courtyard, each with its word hung beside it (`xd-stones`).
 - **Lists cascade.** Under a vertical heading, entries sit in a loose column, every other one stepped in (`xd-loose`, `xd-note`); the action is a word ending on the pair dot (`xd-act`).
 - Forms, rows of facts and buttons stay plain and level: the art is in the composition, never in the controls.
@@ -98,7 +98,7 @@ Covers, heroes and the first screen of every page are composed like a hanging sc
 
 - The mark may assemble once, dot by dot, when it first appears: `Xiding.assemble(el)` staggers the dots row by row, top first. Dots respond to a pointer with a 0.18s ease-out scale.
 - Fields change colour over 0.35s; controls over 0.15s.
-- In a scatter, each drifted dot breathes (the held part of the mark stays still): it drifts about one radius back and forth on its own slow period (5–12 s). Everything else holds still.
+- After it has assembled the mark holds still. Dots do not drift or breathe.
 - With reduced motion set, everything appears in place.
 
 ## Using the files
@@ -123,5 +123,6 @@ These were added to the mark studio's inventory so XIDING ACADEMY material can b
 - Button hover in `teal-text`, so the label holds 4.5:1.
 - v1.8: the source VI of 西頂廣仁宮 (`brand/xiding-guangren-vi/`, 品牌形象-5): its six swatches as `vi-*` tokens, its 13 logo files as the VI asset group, and its nameplate as TempleSign. The brand teal is an open decision (see 尚未统一 · Open decisions).
 - v1.7: the page kit the five live Xiding pages share (Ink, LockupMotion, Photo, Whisper, Export, Go, Lang, FieldBlock, Ecosystem), Cormorant Garamond figures (`--font-figure`), CJK sans fallbacks, and font swaps for `<html lang="en">` and `lang="zh-Hant"`. The full-bleed field is `.xd-fieldblock--bleed`; `.xd-field` is the form Field's alone.
+- 2026-11-18: the mark stays whole. The drifting, scattered dots of v1.6 are retired from every composition (Cover, Hero, the H5 screens, the showcase); `scatter()` keeps its options for compatibility, and every composition calls it with `spread: 0`.
 - The art layer (v1.6): vertical type, `Xiding.scatter()` with `hold`, `avoid` and breathing, the stones, the loose list, the floating tab bar, the held membership card, and the Cover and Hero recomposed on it.
 - The expressive mobile layer (v1.5): full-bleed fields with the cropped mark, the pillar band, ruled numbered lists, action dots, round pillar dots, the black tab bar, `brand-black` on `brand-teal` for dots and buttons, and `Xiding.assemble()`. No hue was added.

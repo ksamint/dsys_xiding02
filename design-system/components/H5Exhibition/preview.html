@@ -26,7 +26,7 @@
 <script>
   var X = window.Xiding;
   document.querySelectorAll('[data-mark]').forEach(function (el) { el.innerHTML = X.mark({ ink: 'currentColor', ground: 'none', title: '西顶' }) + el.innerHTML; });
-  document.querySelector('#show').insertAdjacentHTML('afterbegin', X.scatter({"width": 375, "height": 600, "x": 150, "y": 330, "size": 250, "spread": 1.0, "angle": 200, "strays": 22, "seed": 23, "field": {"x": 110, "y": 0, "w": 265, "h": 520}, "fieldFill": "#000000", "fieldInk": "#628F8A", "breathe": true}));
+  document.querySelector('#show').insertAdjacentHTML('afterbegin', X.scatter({"width": 375, "height": 600, "x": 150, "y": 330, "size": 250, "spread": 0, "angle": 200, "strays": 0, "seed": 23, "field": {"x": 110, "y": 0, "w": 265, "h": 520}, "fieldFill": "#000000", "fieldInk": "#628F8A", "breathe": false}));
 </script>
 </body>
 </html>

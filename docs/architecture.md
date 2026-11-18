@@ -80,7 +80,7 @@ In X, the foundation's second row (开源知识库, A2A智能体生态) is set a
 - The QR code leads to xidingmiao.com, which did not answer when checked on 2026-11-13. Publish the member calendar there (it is built with the member app), or set `XIDING_EVENTS_URL`, before printing.
 - The modules are a first list. Rename, strike or add in `src/shared/content.ts`.
 - The design system's own introduction (西顶是什么) still describes the earlier three lines of work, 智行、美成、礼遇, on the base 大美、大智、大礼. This repository follows the plan above. One of the two should be updated.
-- 春秋百载 reads as "a hundred years"; the design system dates the temple to the Ming dynasty, about four hundred years.
+- 春秋百载 reads as "a hundred years"; the design system dates the temple to 1518, in the Ming dynasty: 508 years in 2026.
 - The public introduction uses 平台 and 赋能, which the design system's voice guide (`design-system/voice.md`) lists as
   words to cut. Its wording was adopted as it stands on 2026-11-18; one of the two should be updated.
 

@@ -31,7 +31,7 @@
 <script>
   var X = window.Xiding;
   document.querySelectorAll('[data-mark]').forEach(function (el) { el.innerHTML = X.mark({ ink: 'currentColor', ground: 'none', title: '西顶' }) + el.innerHTML; });
-  document.querySelector('#poem').insertAdjacentHTML('afterbegin', X.scatter({"width": 375, "height": 560, "x": 34, "y": 60, "size": 300, "spread": 0.95, "angle": 38, "strays": 18, "seed": 11, "field": {"x": 0, "y": 0, "w": 232, "h": 448}, "fieldInk": "#FFFFFF", "breathe": true}));
+  document.querySelector('#poem').insertAdjacentHTML('afterbegin', X.scatter({"width": 375, "height": 560, "x": 34, "y": 60, "size": 300, "spread": 0, "angle": 38, "strays": 0, "seed": 11, "field": {"x": 0, "y": 0, "w": 232, "h": 448}, "fieldInk": "#FFFFFF", "breathe": false}));
 </script>
 </body>
 </html>
