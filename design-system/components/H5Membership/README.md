@@ -4,7 +4,7 @@ The membership screen: the member's card as an object, what membership includes,
 
 **You provide** the member's name, and the rows of what membership includes.
 
-- Membership goes by the name 西顶时光. The card is black, lifted with `shadow-card`, with the mark in temple teal cropped by its corner; it carries 西顶时光 and the member's name at 24px or larger in white, and MEMBER as a tracked Latin line. In the dark theme the card is `surface` with a `line` edge, so it still reads as an object on black.
+- Membership is 西顶时光's (Xiding Lifestyle). The card is black, lifted with `shadow-card`, with the mark in temple teal cropped by its corner; it carries 西顶时光 and the member's name at 24px or larger in white, and MEMBER as a tracked Latin line. In the dark theme the card is `surface` with a `line` edge, so it still reads as an object on black.
 - Entry is by invitation: the main button is 输入邀请码. The word for it is 邀请制.
 - Rows state facts on a 2px `ink` rule: how to join, the fee (set in the serif at 24px), what the calendar holds, what the Academy opens. The fee shown is the one in the IP document; confirm it before launch.
 - One main button per screen, in `ink`. A second action is the outlined button under it.

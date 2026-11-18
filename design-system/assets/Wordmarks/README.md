@@ -8,7 +8,7 @@ Names set alone, as outlines: no font is needed to show them. Generated from `Xi
 - `xiding-name-wenhua-black.svg` — 西顶文化 as a brand row, black.
 - `xiding-name-yishu-black.svg` — 西顶艺术 as a brand row, black.
 - `xiding-name-xueyuan-black.svg` — 西顶学院 as a brand row, black.
-- `xiding-name-shiguang-black.svg` — 西顶时光, the name of membership, as a brand row, black.
+- `xiding-name-shiguang-black.svg` — 西顶时光 as a brand row, black.
 - `xiding-name-zhixing-black.svg` — 西顶智行 as a brand row, black.
 - `xiding-name-meicheng-black.svg` — 西顶美成 as a brand row, black.
 - `xiding-name-liyu-black.svg` — 西顶礼遇 as a brand row, black.

@@ -35,7 +35,7 @@ export interface SubBrandProps extends MarkProps {
   layout?: 'stacked' | 'wide';
   /** The Latin line. Default "XIDING"; "XIDING ACADEMY" is fitted to the width of 西顶. */
   latin?: string;
-  /** Sub-brand names in Chinese, joined by the pair dot: ['西顶学院'] or ['西顶学院', '西顶艺术']. */
+  /** Sub-brand names in Chinese, joined by the pair dot: ['西顶学院'] or ['西顶艺术', '西顶学院', '西顶时光']. */
   brands?: string[];
 }
 
@@ -98,7 +98,7 @@ export interface BusinessCardProps {
   frontLayout?: 'mark' | 'lockup';
   /** Default left. */
   backLayout?: 'left' | 'center';
-  /** Sub-brands under the logo, separated by spaces. Default "西顶学院　西顶艺术"; empty hides the row. */
+  /** Sub-brands under the logo, separated by spaces. Default "西顶艺术　西顶学院　西顶时光"; empty hides the row. */
   brands?: string;
   /** Show the trim and 4 mm safe-area guides. */
   guides?: boolean;
@@ -135,7 +135,7 @@ declare global {
       LINE: string;
       /** The cultural root: 广仁宫. */
       ROOT: { zh: string; en: string };
-      /** The brand architecture: 西顶文化, the two brands and the three lines of work, with suggested English names. */
+      /** The brand architecture: 西顶文化, the three brands and the three lines of work, with suggested English names. */
       BRANDS: { zh: string; en: string; level: string; settled: boolean }[];
       /** The scene menu by pillar, as the IP document lists it. */
       SCENES: { pillar: string; id: string; scenes: string[]; use: string }[];

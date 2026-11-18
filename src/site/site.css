@@ -64,7 +64,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .word.is-focus .word__name { padding-bottom: 12px; border-bottom: 2px solid var(--ink); }
 .under { margin-top: clamp(36px, 5vw, 64px); font: 400 clamp(15px, 1.7vw, 18px)/1.7 var(--font-display); letter-spacing: .16em; color: var(--muted); }
 
-/* 1 · the two brands, under who we are: side by side, a hairline between */
+/* 1 · the brands, under who we are: side by side, hairlines between */
 .bp { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: 460px; margin-top: clamp(28px, 3.6vw, 44px); border-top: 1px solid var(--line); }
 .bp__item { display: grid; gap: 8px; padding-top: 18px; }
 .bp__item + .bp__item { padding-left: clamp(16px, 2.4vw, 28px); border-left: 1px solid var(--line); }
@@ -112,13 +112,26 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 #ecosystem .line { margin-top: clamp(20px, 3vw, 32px); }
 #ecosystem .sys { margin-top: clamp(28px, 4vw, 48px); font-size: clamp(13px, 1.35vw, 16px); }
 #ecosystem .hows { padding-block: clamp(24px, 4vw, 48px) 0; }
-#brands .what { margin-top: clamp(28px, 4vw, 48px); max-width: 880px; }
-#brands .bp { max-width: none; border-top-color: var(--ink); }
-#brands .bp__item { gap: 14px; padding-top: clamp(22px, 3vw, 32px); }
-#brands .bp__name { font-size: clamp(30px, 5vw, 60px); letter-spacing: .12em; }
-#brands .bp__alt { font-size: 12px; letter-spacing: .4em; }
-:root[lang="en"] #brands .bp__name { letter-spacing: .01em; }
-:root[lang="en"] #brands .bp__alt { font-size: 16px; }
+/* 2 · the three brands, as the public introduction sets them */
+.brands__tagline { margin-top: clamp(20px, 3vw, 32px); font: 500 clamp(18px, 2vw, 24px)/1.4 var(--font-display); letter-spacing: .2em; color: var(--teal-text); }
+.brands__intro { margin-top: 18px; max-width: 46em; font: 500 clamp(15px, 1.5vw, 18px)/1.95 var(--font-display); letter-spacing: .04em; }
+.brands__lead { margin-top: clamp(32px, 4vw, 48px); padding-bottom: 12px; border-bottom: 2px solid var(--ink); font: 500 clamp(16px, 1.6vw, 19px)/1.3 var(--font-display); letter-spacing: .14em; }
+.brands3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 clamp(20px, 3vw, 40px); }
+.brand { display: grid; align-content: start; gap: 12px; min-width: 0; padding-top: clamp(22px, 3vw, 32px); }
+.brand__field { display: flex; justify-content: space-between; gap: 12px; font: 500 10px/1.4 var(--font-sans); letter-spacing: .28em; color: var(--teal-text); }
+.brand__name { margin: 0; font: 500 clamp(28px, 3.4vw, 44px)/1.15 var(--font-display); letter-spacing: .1em; }
+.brand__latin { font: 500 10px/1.4 var(--font-sans); letter-spacing: .36em; color: var(--muted); }
+.brand__services { margin: 6px 0 0; padding: 0; list-style: none; border-top: 1px solid var(--ink); }
+.brand__services li { display: flex; align-items: center; gap: 10px; padding: 11px 0; border-bottom: 1px solid var(--line); font: 500 15px/1.4 var(--font-display); letter-spacing: .1em; }
+.brand__services li::before { content: ""; width: 7px; height: 7px; flex: none; border-radius: 50%; background: var(--brand-teal); }
+.brand--zhi .brand__services li::before { background: var(--ink); }
+.brand--li .brand__services li::before { background: var(--surface); box-shadow: inset 0 0 0 1.2px var(--ink); }
+.brand__lines { margin-top: 8px; font: 500 15px/1.85 var(--font-display); letter-spacing: .06em; }
+.brands__shared { margin-top: clamp(32px, 4vw, 48px); padding-top: 20px; border-top: 1px solid var(--line); max-width: 46em; font-size: 14px; line-height: 1.85; color: var(--muted); }
+:root[lang="en"] .brands__tagline, :root[lang="en"] .brands__lead, :root[lang="en"] .brand__name { letter-spacing: .01em; }
+:root[lang="en"] .brand__latin { font: 500 14px/1.4 var(--font-serif); letter-spacing: .3em; }
+:root[lang="en"] .brand__services li, :root[lang="en"] .brand__lines, :root[lang="en"] .brands__intro { letter-spacing: 0; }
+@media (max-width: 760px) { .brands3 { grid-template-columns: minmax(0, 1fr); } }
 
 /* Calendar, with a QR code for phones beside it */
 .cal { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 48px; align-items: end; max-width: 1000px; }

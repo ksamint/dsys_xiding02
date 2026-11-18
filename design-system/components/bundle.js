@@ -437,7 +437,7 @@
         const c = {
             front: o.front || "teal", back: o.back || "paper", orientation: o.orientation || "landscape",
             frontLayout: o.frontLayout || "mark", backLayout: o.backLayout || "left",
-            brands: o.brands == null ? "西顶学院　西顶艺术" : o.brands,
+            brands: o.brands == null ? "西顶艺术　西顶学院　西顶时光" : o.brands,
             mark: stateOf({ style: o.style, geometry: o.geometry, size: o.size, ring: o.ring }),
         };
         const person = { ...PEOPLE[0], ...(o.person || {}) };
@@ -456,10 +456,15 @@
         { zh: "西顶文化", en: "Xiding", level: "整体", settled: true },
         { zh: "西顶艺术", en: "Xiding Arts", level: "牌子", settled: true },
         { zh: "西顶学院", en: "Xiding Academy", level: "牌子", settled: true },
-        { zh: "西顶时光", en: "Xiding Lifestyle", level: "会员", settled: true },
+        { zh: "西顶时光", en: "Xiding Lifestyle", level: "牌子", settled: true },
         { zh: "西顶智行", en: "Xiding Praxis", level: "板块", settled: false },
         { zh: "西顶美成", en: "", level: "板块", settled: false },
         { zh: "西顶礼遇", en: "", level: "板块", settled: false },
+    ];
+    const BRAND_SERVICES = [
+        ["西顶艺术", "艺术策展　品牌共创　私享定制"],
+        ["西顶学院", "课程研修　战略咨询　人才发展"],
+        ["西顶时光", "会员生活　品质社交　精致体验"],
     ];
     const SCENES = [
         { pillar: "大美", id: "mei", scenes: ["古琴", "艺术鉴赏", "策展"], use: "养品味" },
@@ -512,7 +517,7 @@
     function artSubBrand(o = {}, slug = "subbrand") {
         const l = subBrandLayout(o), cw = COLORWAYS[l.s.colorway];
         const extra = l.row ? rowPrims(l.row.parts, l.row.x, l.row.y, l.row.size, l.row.anchor, l.fg) : [];
-        const who = slug === "academy" ? "Academy" : slug === "arts" ? "Arts" : slug === "both" ? "Both brands" : (o.brands || []).join(" ");
+        const who = slug === "academy" ? "Academy" : slug === "arts" ? "Arts" : slug === "shiguang" ? "Lifestyle" : slug === "all" ? "The three brands" : (o.brands || []).join(" ");
         const a = frameArt(`xiding-${slug}-${o.layout || "wide"}-${l.s.colorway}`, `${who}, ${o.layout === "stacked" ? "stacked" : "wide"}, ${cw.name.toLowerCase()}`, "Sub-brands", l.s, l.f, o, extra);
         a.fonts = "mixed";
         return a;
@@ -521,7 +526,7 @@
         const c = {
             front: o.front || "teal", back: o.back || "paper", orientation: o.orientation || "landscape",
             frontLayout: o.frontLayout || "mark", backLayout: o.backLayout || "left",
-            brands: o.brands == null ? "西顶学院　西顶艺术" : o.brands,
+            brands: o.brands == null ? "西顶艺术　西顶学院　西顶时光" : o.brands,
             mark: stateOf({ style: o.style, geometry: o.geometry, size: o.size, ring: o.ring }),
         };
         const person = { ...PEOPLE[0], ...(o.person || {}) };
@@ -594,12 +599,13 @@
         label("一套班子", 14);
         prims.push({ t: "rect", x: 0.5, y: 24.5, w: W - 1, h: 63, stroke: k.ink, sw: 1, rx: 4 });
         prims.push({ t: "text", text: "西顶文化", x: W / 2, y: 65.5, size: 26, family: "serif", weight: 700, spacing: 0.12, anchor: "middle", fill: k.ink });
-        label("两个牌子", 124);
-        const w2 = (W - 24) / 2;
-        ["西顶艺术", "西顶学院"].forEach((name, i) => {
-            const x = i * (w2 + 24);
-            prims.push({ t: "rect", x: x + 0.5, y: 134.5, w: w2 - 1, h: 79, stroke: k.ink, sw: 1, rx: 4 });
-            prims.push({ t: "text", text: name, x: x + 20, y: 183, size: 26, family: "serif", weight: 700, spacing: 0.12, anchor: "start", fill: k.ink });
+        label("三个牌子", 124);
+        const wb = (W - 48) / 3;
+        BRAND_SERVICES.forEach(([name, services], i) => {
+            const x = i * (wb + 24);
+            prims.push({ t: "rect", x: x + 0.5, y: 134.5, w: wb - 1, h: 79, stroke: k.ink, sw: 1, rx: 4 });
+            prims.push({ t: "text", text: name, x: x + 20, y: 169, size: 26, family: "serif", weight: 700, spacing: 0.12, anchor: "start", fill: k.ink });
+            prims.push({ t: "text", text: services, x: x + 20, y: 198, size: 15, family: "serif", weight: 600, spacing: 0.04, anchor: "start", fill: k.muted });
         });
         label("三个板块", 250);
         const w3 = (W - 48) / 3;
@@ -613,7 +619,7 @@
             prims.push({ t: "text", text: p.zh, x: x + w3 - 20 - cjkW(p.zh, 20, 0.04), y: 307, size: 20, family: "serif", weight: 700, spacing: 0.04, anchor: "start", fill: c.on });
             prims.push({ t: "text", text: p.motto, x, y: 368, size: 18, family: "serif", weight: 600, spacing: 0.12, anchor: "start", fill: k.ink });
         });
-        return { name: `xiding-intro-architecture-${theme}`, label: `一套班子，两个牌子，三个板块, for a ${theme} ground`, group: "Intro", fonts: "serif", x: 0, y: 0, w: W, h: 380, px: 1920, prims };
+        return { name: `xiding-intro-architecture-${theme}`, label: `一套班子，三个牌子，三个板块, for a ${theme} ground`, group: "Intro", fonts: "serif", x: 0, y: 0, w: W, h: 380, px: 1920, prims };
     }
     function artSteps(theme = "light") {
         const k = themeInks(theme), W = 960, n = STEPS.length, w = (W - 24 * (n - 1)) / n;
@@ -730,7 +736,7 @@
         out.push(artSubBrand({ layout: "stacked", latin: "XIDING ACADEMY", brands: ["西顶学院"], colorway: "teal" }, "academy"));
         out.push(artSubBrand({ layout: "wide", latin: "XIDING ARTS", brands: ["西顶艺术"], colorway: "ink" }, "arts"));
         out.push(artSubBrand({ layout: "wide", latin: "XIDING LIFESTYLE", brands: ["西顶时光"], colorway: "ink" }, "shiguang"));
-        out.push(artSubBrand({ layout: "wide", brands: ["西顶学院", "西顶艺术"], colorway: "ink" }, "both"));
+        out.push(artSubBrand({ layout: "wide", brands: ["西顶艺术", "西顶学院", "西顶时光"], colorway: "ink" }, "all"));
         ["black", "white", "teal"].forEach((k) => out.push(artWordmark("西顶", "wordmark", k, "wordmark-zh")));
         const slugs = ["wenhua", "yishu", "xueyuan", "shiguang", "zhixing", "meicheng", "liyu"];
         BRANDS.forEach((b, i) => out.push(artWordmark(b.zh, "row", "black", "name-" + slugs[i])));
