@@ -1,0 +1,22 @@
+<!-- @dsCard group="Controls" height=96 -->
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+<meta charset="utf-8">
+<title>Range — preview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Instrument+Sans:wght@400;500;600&family=Noto+Sans+SC:wght@400;500&family=Noto+Sans+TC:wght@400;500&family=Noto+Serif+SC:wght@500;600;700&family=Noto+Serif+TC:wght@500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="xd-pad" style="max-width:320px">
+  <div class="xd-range">
+    <label class="xd-label" for="size" style="margin:0">Size <output id="out">100%</output></label>
+    <input id="size" type="range" min="0.3" max="1.4" step="0.01" value="1">
+  </div>
+</div>
+<script>
+  var r = document.getElementById('size'), o = document.getElementById('out');
+  r.addEventListener('input', function () { o.textContent = Math.round(r.value * 100) + '%'; });
+</script>
+</body>
+</html>

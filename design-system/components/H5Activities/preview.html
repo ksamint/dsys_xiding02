@@ -1,0 +1,33 @@
+<!-- @dsCard group="H5" height=1456 -->
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+<meta charset="utf-8">
+<title>H5Activities — preview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Instrument+Sans:wght@400;500;600&family=Noto+Sans+SC:wght@400;500&family=Noto+Sans+TC:wght@400;500&family=Noto+Serif+SC:wght@500;600;700&family=Noto+Serif+TC:wght@500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="xd-pad"><div class="xd-h5 xd-h5--art">
+<header class="xd-h5__bar"><span class="xd-h5__brand" data-mark>西顶</span><span class="xd-h5__link">会员</span></header>
+<main class="xd-h5__body">
+<section class="xd-scroll"><div class="xd-scroll__lede"><small>CALENDAR</small><p>一年里，<br>在西顶庙见面的日子。</p></div><h1 class="xd-vert">日历</h1></section>
+<section class="xd-loose"><h2 class="xd-vert">十一月</h2><div class="xd-loose__items">
+<article class="xd-note"><span class="xd-note__when"><b>15</b>周六</span><span class="xd-tag"><i class="xd-dot xd-dot--li"></i>大礼　分寸</span><h3>下午茶（示例）</h3><p>15:00　西顶庙</p><span class="xd-act">报名</span></article>
+<article class="xd-note"><span class="xd-note__when"><b>20</b>周四</span><span class="xd-tag"><i class="xd-dot xd-dot--zhi"></i>大智　章法</span><h3>分享会（示例）</h3><p>19:30　西顶庙</p><span class="xd-act">报名</span></article>
+<article class="xd-note"><span class="xd-note__when"><b>23</b>周日</span><span class="xd-tag"><i class="xd-dot xd-dot--mei"></i>大美　眼光</span><h3>古琴（示例）</h3><p>15:00　西顶庙</p><span class="xd-act is-off">已满</span></article>
+</div></section>
+<section class="xd-poem" id="next" style="height:300px">
+<p class="xd-vert xd-poem__on" style="top:28px;left:28px;font-size:30px">十二月<br>日程待定。</p>
+</section>
+<span class="xd-act">预约空间</span>
+</main>
+<nav class="xd-tabbar xd-tabbar--float"><span class="">首页</span><span class="">学院</span><span class="is-on">时光</span><span class="">会员</span></nav>
+</div></div>
+<script>
+  var X = window.Xiding;
+  document.querySelectorAll('[data-mark]').forEach(function (el) { el.innerHTML = X.mark({ ink: 'currentColor', ground: 'none', title: '西顶' }) + el.innerHTML; });
+  document.querySelector('#next').insertAdjacentHTML('afterbegin', X.scatter({"width": 375, "height": 300, "x": 150, "y": 30, "size": 220, "spread": 0.8, "angle": 15, "strays": 12, "seed": 17, "field": {"x": 0, "y": 0, "w": 290, "h": 270}, "fieldInk": "#FFFFFF", "breathe": true}));
+</script>
+</body>
+</html>

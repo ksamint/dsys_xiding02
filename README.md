@@ -1,7 +1,49 @@
-# dsys_xiding02
+# dsys_xiding02: 西顶 XIDING design system (public copy)
 
-## Development
+> This repository is generated. It is the public, non-sensitive copy of the private repository `dsys_xiding01`,
+> where every change is made. Do not commit here: each sync replaces these files. `PUBLIC_EXPORT.json` names the
+> private commit this copy was made from. Why it works this way: [docs/adr/0001](docs/adr/0001-private-and-public-repositories.md).
 
-Start each change on a branch from the latest `main`. Run the project's checks locally before opening a pull request. GitHub Actions is disabled for this repository.
+## What is here
 
-The first development task is to define the project scope and add the corresponding toolchain and local checks.
+| Folder | What it is |
+| --- | --- |
+| `design-system/` | The 西顶 XIDING design system (v1.8): tokens, components with previews, the component bundle (`components/bundle.js`, built from `components/src/xiding.ts`), assets, the brand book (`intro.md`, `voice.md`) and open decisions |
+| `showcase/` | One self-contained page showing the whole system and the three introduction pages; open `showcase/index.html` |
+| `brand/` | The source visual identity of 西頂廣仁宮: logos (SVG, PNG), palette, the brand-book pages as images, and the text taken from it |
+| `cards/` | The business-card editor (TypeScript, with a Rust snap engine built to WebAssembly). The people on the cards are fictional samples |
+| `src/`, `scripts/` | The introduction to Xiding: a 12-slide deck, the official site and a one-page overview, in English, Traditional and Simplified Chinese |
+| `docs/` | The content architecture and the decision records |
+| `tools/`, `tests/` | Builds and checks |
+
+The names: 西顶文化 (Xiding) is the one short name used to the outside; its two brands are 西顶艺术 (Xiding Arts) and
+西顶学院 (Xiding Academy); 西顶时光 (Xiding Lifestyle) is the name of membership.
+
+## What is not here
+
+The real people on the business cards, the original brand-book PDF (until the licences of its embedded fonts are
+confirmed), and the member app and its service, which are developed elsewhere.
+
+## Build and check
+
+Node 22.13 or later, Rust with the `wasm32-unknown-unknown` target, and Playwright's Chromium.
+
+```bash
+npm ci
+```
+
+```bash
+npm run check
+```
+
+`npm run build` writes the introduction pages to `dist/`; `npm run showcase` rebuilds `showcase/index.html`;
+`npm run build:card:public` writes the card editor to `out/xiding-card.public.html`.
+
+## Contributing
+
+Issues are welcome here. Changes are made in the private repository and arrive with the next sync, so a pull request
+opened here is read, and its change is made there.
+
+## Licence
+
+No open-source licence has been chosen yet: all rights are reserved by the owner.

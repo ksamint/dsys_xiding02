@@ -1,0 +1,5 @@
+#!/bin/sh
+# Keep showcase/index.html in step with design-system/ on every commit.
+# Turn it on once per clone with `npm run hooks` (sets core.hooksPath to .githooks).
+npm run build --silent >/dev/null && node --experimental-strip-types --no-warnings tools/showcase.ts >/dev/null || { echo "pre-commit: showcase build failed" >&2; exit 1; }
+git add showcase/index.html

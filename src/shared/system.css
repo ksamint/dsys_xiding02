@@ -1,0 +1,27 @@
+/* X as one picture, 一底三柱: every length is in em, so each page sizes the whole diagram with one font-size on .sys. */
+.sys { display: grid; gap: 1.1em; }
+.sys__row { display: grid; grid-template-columns: 7.5em minmax(0, 1fr); gap: 1.4em; align-items: start; padding-top: .9em; border-top: 1px solid var(--rule, var(--line)); }
+.sys__label b { display: block; font: 500 1.3em/1.2 var(--font-display); letter-spacing: .14em; }
+.sys__eco { display: flex; flex-wrap: wrap; gap: .3em 2.4em; font: 500 1.15em/1.5 var(--font-display); letter-spacing: .14em; }
+.sys__eco span { display: inline-flex; align-items: center; gap: .55em; }
+.sys__dot { width: .42em; height: .42em; flex: none; border-radius: 50%; background: var(--brand-teal); }
+.sys__cols { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.2em; }
+.sys__col { min-width: 0; }
+.sys__plate { display: flex; align-items: baseline; gap: .7em; padding: .7em .9em .75em; font-family: var(--font-display); }
+.sys__plate.xd-ink--li { box-shadow: inset 0 0 0 1px var(--ink); }
+.sys__plate b { font: 500 1.35em/1 var(--font-figure); }
+.sys__plate span { font-size: 1.12em; letter-spacing: .12em; }
+.sys__col ul { list-style: none; margin: .4em 0 0; padding: 0; }
+.sys__col li { padding: .44em 0; border-bottom: 1px solid var(--rule, var(--line)); font: 500 1em/1.35 var(--font-display); letter-spacing: .06em; }
+.sys__base { background: var(--brand-black); color: var(--brand-white); }
+.sys__base-top { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.sys__base-more { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border-top: 1px solid rgba(255, 255, 255, .28); }
+.sys__base-more span { padding: .56em .7em .62em; font: 500 1.7em/1 var(--font-display); letter-spacing: .14em; }
+.sys__base-more span + span { border-left: 1px solid rgba(255, 255, 255, .28); }
+:root[lang="en"] .sys__base-more span { letter-spacing: .01em; }
+.sys__half { display: grid; gap: .5em; padding: .95em 1.2em 1.05em; }
+.sys__half + .sys__half { border-left: 1px solid rgba(255, 255, 255, .28); }
+.sys__half b { font: 500 1.7em/1 var(--font-display); letter-spacing: .14em; }
+.sys__half span { font: 500 .76em/1.5 var(--font-sans); letter-spacing: .22em; color: rgba(255, 255, 255, .72); }
+:root[lang="en"] .sys__label b, :root[lang="en"] .sys__eco, :root[lang="en"] .sys__plate span, :root[lang="en"] .sys__col li, :root[lang="en"] .sys__half b { letter-spacing: .01em; }
+:root[lang="en"] .sys__half span { text-transform: uppercase; letter-spacing: .2em; font-size: .66em; }

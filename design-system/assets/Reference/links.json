@@ -1,0 +1,72 @@
+{
+ "xiding": [
+  {
+   "name": "官网",
+   "url": "https://xidingmiao.com",
+   "note": "From the business card. Check that it is live before printing it."
+  },
+  {
+   "name": "设计系统",
+   "url": "https://claude.ai/artifact/WgHhHAPoCHpg47YycRq7vk"
+  },
+  {
+   "name": "标识与名片工具",
+   "url": "https://claude.ai/artifact/JpxJihqg9dsw8qCPxqgdCx"
+  },
+  {
+   "name": "IP 体系文档",
+   "url": "https://claude.ai/artifact/WmZ3Y3Ur3hMcEAEeApcUnz"
+  }
+ ],
+ "fonts": [
+  {
+   "name": "Noto Serif SC",
+   "url": "https://fonts.google.com/noto/specimen/Noto+Serif+SC"
+  },
+  {
+   "name": "Instrument Sans",
+   "url": "https://fonts.google.com/specimen/Instrument+Sans"
+  }
+ ],
+ "benchmarks": [
+  {
+   "name": "Aspen Executive Seminar",
+   "for": "学院的形式",
+   "url": "https://www.aspeninstitute.org/programs/aspen-leadership-seminars/programs-for-individuals/aspen-executive-seminar/"
+  },
+  {
+   "name": "MIT Media Lab identity, Pentagram",
+   "for": "标识与子品牌",
+   "url": "https://www.pentagram.com/news/mit-media-lab"
+  },
+  {
+   "name": "MIT Media Lab brand portal",
+   "for": "子标识规则",
+   "url": "https://www.media.mit.edu/posts/MLBrandPortal/"
+  },
+  {
+   "name": "Temple 东景缘（智珠寺）",
+   "for": "古寺新用",
+   "url": "https://www.visitbeijing.com.cn/article/4CkCoIQJzkj"
+  },
+  {
+   "name": "Temple Dongjingyuan, podcast",
+   "for": "古寺新用",
+   "url": "https://www.theworldofchinese.com/podcasts/temple-dongjingyuan-how-to-bring-a-ancient-temple-back-to-life/"
+  }
+ ],
+ "sources": [
+  {
+   "name": "北京五顶",
+   "url": "https://www.visitbeijing.com.cn/article/47QoNc22gWh"
+  },
+  {
+   "name": "西顶庙沿革（个人博客）",
+   "url": "https://blog.sina.cn/dpool/blog/s/blog_5ea767ba0102wf7j.html"
+  },
+  {
+   "name": "Bixia Yuanjun temples of Beijing (paper)",
+   "url": "https://core.ac.uk/download/83938249.pdf"
+  }
+ ]
+}

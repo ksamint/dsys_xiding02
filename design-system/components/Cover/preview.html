@@ -1,0 +1,39 @@
+<!-- @dsCard height=320 width=960 -->
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+<meta charset="utf-8">
+<title>西顶 XIDING</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Instrument+Sans:wght@400;500;600&family=Noto+Sans+SC:wght@400;500&family=Noto+Sans+TC:wght@400;500&family=Noto+Serif+SC:wght@500;600;700&family=Noto+Serif+TC:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  html, body { margin: 0; }
+  body { background: var(--paper); font-family: var(--font-sans); overflow: hidden; }
+  .cover { width: 960px; height: 320px; }
+  .name { left: 452px; top: 22px; margin: 0; font: 700 150px/1 var(--font-serif); letter-spacing: .02em; }
+  .latin { left: 458px; top: 192px; font: 500 13px/1 var(--font-sans); letter-spacing: .62em; }
+  .line { right: 28px; top: 26px; font-size: 21px; }
+  .vlatin { right: 34px; bottom: 22px; }
+</style>
+</head>
+<body>
+<!--
+  composition  a temple-teal field on the left third, the mark standing in it; past its middle the dots are carried off
+               to the right by a wind, leave the field and turn teal on paper; 西顶 large in the paper, the value line hung
+               vertically at the right edge like a scroll. Dots breathe slowly; still with reduced motion.
+-->
+<div class="xd-stage cover" id="cover">
+  <h1 class="name">西顶</h1>
+  <span class="latin">XIDING</span>
+  <p class="xd-vert line">以美成人，<br>以智行事，<br>以礼相遇。</p>
+</div>
+<script>
+  var X = window.Xiding;
+  document.getElementById('cover').insertAdjacentHTML('afterbegin', X.scatter({
+    width: 960, height: 320, x: 96, y: 30, size: 260, spread: 1.5, angle: 12, strays: 34, seed: 9,
+    field: { x: 0, y: 0, w: 360, h: 320 }, fieldInk: '#FFFFFF', breathe: true, title: '西顶',
+    avoid: [{ x: 446, y: 18, w: 320, h: 160 }, { x: 450, y: 182, w: 120, h: 28 }, { x: 832, y: 18, w: 110, h: 120 }]
+  }));
+</script>
+</body>
+</html>

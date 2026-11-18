@@ -1,0 +1,27 @@
+<!-- @dsCard group="Data" height=304 -->
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+<meta charset="utf-8">
+<title>DataTable — preview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Instrument+Sans:wght@400;500;600&family=Noto+Sans+SC:wght@400;500&family=Noto+Sans+TC:wght@400;500&family=Noto+Serif+SC:wght@500;600;700&family=Noto+Serif+TC:wght@500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="xd-pad" style="max-width:560px">
+  <div class="xd-table-scroll" style="max-height:260px">
+    <table class="xd-table">
+      <thead><tr><th scope="col">Mark</th><th scope="col">x</th><th scope="col">y</th><th scope="col">Type</th><th scope="col">Circle centres (x)</th></tr></thead>
+      <tbody id="rows"></tbody>
+    </table>
+  </div>
+</div>
+<script>
+  var X = window.Xiding, f = function (n) { return String(Math.round(n * 100) / 100); };
+  document.getElementById('rows').innerHTML = X.points().map(function (m) {
+    return '<tr><th scope="row">' + m.id + '</th><td>' + f(m.x) + '</td><td>' + f(m.y) + '</td><td>' + (m.half ? 'Pair' : 'Single') + '</td><td>' +
+      (m.half ? f(m.x - m.half) + ', ' + f(m.x + m.half) : f(m.x)) + '</td></tr>';
+  }).join('');
+</script>
+</body>
+</html>

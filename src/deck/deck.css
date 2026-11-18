@@ -1,0 +1,200 @@
+/* Deck. Every slide is drawn at 960 × 540 (the design system's slide; double it for 1920 × 1080).
+   A length written `Nu` is N slide pixels: the build rewrites it to calc(var(--u) * N), and --u is one 960th of the
+   frame's width, so a slide scales as one piece on a projector, a laptop or a phone.
+   Three tones: paper, night (black) and teal. Teal opens and closes the deck and appears once in the middle. */
+html, body { height: 100%; }
+.deck { min-height: 100%; display: grid; grid-template-rows: minmax(0, 1fr) auto; background: var(--paper); }
+.deck__stage { display: grid; place-items: center; min-height: 0; padding-block: 20px 12px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.frame { position: relative; display: none; container-type: inline-size; width: min(100%, calc((100dvh - 96px) * 16 / 9)); max-width: 100%; aspect-ratio: 16 / 9; overflow: hidden; background: var(--paper); box-shadow: 0 0 0 1px var(--line); }
+.frame.is-current { display: block; }
+
+/* The bar: words only. */
+.deck__bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0 24px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.deck__nav, .deck__tools { display: flex; align-items: center; gap: 4px; }
+.deck__tools { flex-wrap: wrap; justify-content: flex-end; gap: 0 4px; }
+.deck__tools .xd-export__btn, .deck__tools .xd-export__label { white-space: nowrap; }
+.deck__btn { min-height: 44px; padding: 0 12px; border: 0; background: transparent; color: var(--muted); font: 500 11px/1 var(--font-sans); letter-spacing: .24em; text-transform: uppercase; cursor: pointer; transition: color .15s; }
+.deck__btn:hover { color: var(--ink); }
+.deck__btn:disabled { color: var(--line); cursor: default; }
+.deck__count { min-width: 84px; text-align: center; font: 500 11px/1 var(--font-sans); font-variant-numeric: tabular-nums; letter-spacing: .24em; color: var(--ink); }
+.deck__status { font: 400 12px/1.3 var(--font-sans); color: var(--muted); margin-right: 8px; }
+:root[lang="zh-Hant"] .deck__btn, :root[lang="zh-Hans"] .deck__btn { font-size: 12.5px; letter-spacing: .2em; }
+
+/* The slide */
+.slide { --u: calc(100cqw / 960); --soft: var(--muted); position: absolute; inset: 0; overflow: hidden; background: var(--paper); color: var(--ink); font-size: 14u; line-height: 1.5; }
+.slide--night { --soft: rgba(255, 255, 255, .62); --rule: rgba(255, 255, 255, .28); background: var(--brand-black); color: var(--brand-white); }
+.slide--teal { background: var(--brand-teal); color: var(--brand-white); }
+.slide--paper { --rule: var(--line); }
+
+/* Corners: the name, the section, the page. */
+.corner { position: absolute; z-index: 2; font: 500 9u/1 var(--font-sans); letter-spacing: .34em; text-transform: uppercase; color: var(--soft); white-space: nowrap; }
+.corner--tl { left: 48u; top: 40u; color: inherit; }
+.corner--tr { right: 48u; top: 40u; margin-right: -.34em; }
+.corner--bl { left: 48u; bottom: 38u; font-variant-numeric: tabular-nums; }
+.panel .corner--tl { left: 56u; }
+.panel .corner--tr { right: 48u; }
+.panel .corner--bl { left: 56u; }
+:root[lang="zh-Hant"] .corner--tr, :root[lang="zh-Hans"] .corner--tr { font-size: 10.5u; letter-spacing: .4em; margin-right: -.4em; }
+
+.center { position: absolute; inset: 0; display: grid; place-content: center; justify-items: center; text-align: center; padding: 0 96u; }
+.fig { display: block; font: 500 84u/.8 var(--font-figure); font-variant-numeric: lining-nums; color: var(--teal-text); }
+.fig--corner { position: absolute; left: 48u; bottom: 64u; }
+
+/* 1 · the lockup, alone on teal */
+.lockup { position: absolute; inset: 0; display: grid; place-content: center; justify-items: center; }
+.lockup__art { width: 560u; margin: 0; }
+.lockup--close .lockup__art { width: 300u; }
+.lockup__where { margin-top: 20u; text-align: center; font: 500 26u/1.5 var(--font-display); letter-spacing: .1em; }
+.lockup__where span { display: block; }
+.lockup__web { margin-top: 18u; font: 500 24u/1 var(--font-figure); letter-spacing: .14em; }
+/* Latest events: a QR code on a white plate, bottom right of the closing slide */
+.qr { position: absolute; right: 48u; bottom: 40u; display: grid; justify-items: center; gap: 10u; color: var(--brand-white); text-decoration: none; }
+.qr .xd-qr { display: block; width: 96u; height: 96u; }
+.qr__label { font: 500 9.5u/1 var(--font-sans); letter-spacing: .3em; margin-right: -.3em; text-transform: uppercase; }
+:root[lang="zh-Hant"] .qr__label, :root[lang="zh-Hans"] .qr__label { font-size: 11u; letter-spacing: .4em; margin-right: -.4em; }
+
+/* 2 · the opening: the name, and one line */
+.st { display: grid; justify-items: center; text-align: center; }
+.st__name { font: 700 96u/1 var(--font-serif); letter-spacing: .3em; margin-right: -.3em; }
+.st__line { margin-top: 40u; font: 500 26u/1.4 var(--font-display); letter-spacing: .5em; margin-right: -.5em; color: var(--soft); }
+:root[lang="en"] .st__name { font: 500 108u/1 var(--font-figure); letter-spacing: .04em; margin-right: -.04em; }
+:root[lang="en"] .st__line { font-size: 30u; letter-spacing: .02em; margin-right: 0; font-style: italic; }
+
+/* the one line (kept for other statement slides) */
+.say { font: 500 44u/1.6 var(--font-display); letter-spacing: .12em; }
+.say span { display: block; white-space: nowrap; }
+.say span + span { margin-top: 10u; }
+
+/* 3 · the count: 1 2 3 X */
+.index { position: absolute; left: 48u; right: 48u; top: 118u; bottom: 96u; display: grid; grid-template-columns: repeat(var(--n, 4), minmax(0, 1fr)); }
+.index__col { display: flex; flex-direction: column; justify-content: space-between; padding-left: 28u; border-left: 1u solid var(--rule); }
+.index__n { font: 500 196u/.78 var(--font-figure); font-variant-numeric: lining-nums; margin-left: -6u; }
+.index__w { font: 500 22u/1.3 var(--font-display); letter-spacing: .3em; }
+.index__s { margin-top: 10u; min-height: 3em; font: 400 11.5u/1.5 var(--font-sans); letter-spacing: .12em; color: var(--soft); }
+
+/* A picture on one half, a few words on the other */
+.half { position: absolute !important; top: 0; bottom: 0; width: 50%; aspect-ratio: auto !important; }
+.half--left { left: 0; }
+.half--right { right: 0; }
+.slide .xd-photo figcaption { left: 28u; right: 28u; bottom: 30u; font-size: 8.5u; }
+/* Centred with flex, never with a transform: Chrome splits a translated box across pages when it prints the PDF. */
+.panel { position: absolute; top: 0; bottom: 0; width: 50%; display: flex; flex-direction: column; justify-content: center; padding: 0 56u; }
+.panel--right { right: 0; }
+.panel--left { left: 0; }
+.panel__body { min-width: 0; }
+.line { margin-top: 30u; font: 500 36u/1.35 var(--font-display); letter-spacing: .08em; text-wrap: balance; }
+.verse { margin-top: 22u; font: 500 22u/1.6 var(--font-display); letter-spacing: .16em; color: var(--soft); }
+.tag { margin-top: 10u; font: 400 13.5u/1.6 var(--font-sans); letter-spacing: .06em; color: var(--soft); }
+.facts { list-style: none; margin: 34u 0 0; padding: 0; }
+.facts li { padding: 9u 0; border-top: 1u solid var(--rule); font: 400 12.5u/1.5 var(--font-sans); letter-spacing: .14em; color: var(--soft); }
+.facts li:last-child { border-bottom: 1u solid var(--rule); }
+
+/* Three words; the last is the centre */
+.words { display: grid; grid-auto-flow: column; grid-auto-columns: auto; gap: 96u; align-items: start; }
+.word { color: var(--soft); }
+.word__name { font: 500 76u/1.15 var(--font-display); letter-spacing: .14em; margin-right: -.14em; }
+.word__alt { margin-top: 16u; font: 500 9.5u/1 var(--font-sans); letter-spacing: .4em; margin-right: -.4em; text-transform: uppercase; }
+.word.is-focus { color: var(--ink); }
+.word.is-focus .word__name { padding-bottom: 10u; border-bottom: 2u solid var(--ink); }
+.under { margin-top: 44u; font: 400 15u/1.6 var(--font-display); letter-spacing: .16em; color: var(--soft); }
+.slide--night .under { color: var(--soft); }
+
+/* Two brands, two pictures */
+.pair { position: absolute; left: 196u; right: 48u; top: 84u; bottom: 44u; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28u; }
+.pair__item { display: grid; grid-template-rows: minmax(0, 1fr) auto; min-height: 0; }
+.pair__item .xd-photo { aspect-ratio: auto !important; height: 100%; }
+.pair__cap { display: grid; gap: 8u; padding-top: 16u; }
+.pair__name { font: 500 24u/1.2 var(--font-display); letter-spacing: .14em; }
+
+/* Three pillars, three inks, edge to edge */
+.bands { position: absolute; inset: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.band { display: flex; flex-direction: column; justify-content: space-between; padding: 44u 40u 48u; box-shadow: none; }
+.band.xd-ink--li { background: var(--paper); color: var(--ink); box-shadow: none; }
+.band__n { font: 500 120u/.8 var(--font-figure); font-variant-numeric: lining-nums; }
+.band__name { font: 500 30u/1.3 var(--font-display); letter-spacing: .14em; }
+
+/* 1 · the two brands, under who we are: side by side, a hairline between */
+.bp { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: 34u; border-top: 1u solid var(--rule); }
+.bp__item { display: grid; gap: 8u; padding: 18u 0 0; }
+.bp__item + .bp__item { padding-left: 22u; border-left: 1u solid var(--rule); }
+.bp__name { font: 500 21u/1.2 var(--font-display); letter-spacing: .14em; }
+.bp__alt { font: 500 8u/1.4 var(--font-sans); letter-spacing: .3em; text-transform: uppercase; color: var(--soft); }
+:root[lang="en"] .bp__name { font-size: 22u; letter-spacing: .01em; }
+:root[lang="en"] .bp__alt { font: 500 11u/1.4 var(--font-serif); letter-spacing: .3em; text-transform: none; }
+
+/* 2 · what we do: the two brands, large, a hairline between */
+.what { position: absolute; inset: 0; display: grid; align-content: center; padding: 0 96u; }
+.what .fig { margin-bottom: 44u; }
+.what .bp { margin-top: 0; border-top: 1u solid var(--ink); }
+.what .bp__item { gap: 18u; padding-top: 30u; }
+.what .bp__item + .bp__item { padding-left: 48u; }
+.what .bp__name { font-size: 54u; letter-spacing: .12em; }
+.what .bp__alt { font-size: 11u; letter-spacing: .4em; }
+:root[lang="en"] .what .bp__name { font-size: 46u; letter-spacing: .01em; white-space: nowrap; }
+:root[lang="en"] .what .bp__alt { font-size: 16u; }
+
+/* X · the whole system, 一底三柱 */
+.syshead { position: absolute; left: 48u; right: 48u; top: 70u; display: flex; align-items: baseline; gap: 18u; }
+.syshead .fig { font-size: 60u; }
+.syshead__line { font: 500 28u/1.2 var(--font-display); letter-spacing: .14em; }
+:root[lang="en"] .syshead__line { font-size: 32u; letter-spacing: .01em; }
+.slide .sys { position: absolute; left: 48u; right: 48u; top: 132u; font-size: 11.2u; gap: .9em; }
+
+/* X · a pillar's four modules: a picture each, joined by one rail, all running on the foundation */
+.modhead { position: absolute; left: 48u; right: 48u; top: 74u; display: flex; align-items: baseline; gap: 18u; }
+.modhead .fig { font-size: 60u; }
+.modhead__name { font: 500 28u/1.2 var(--font-display); letter-spacing: .1em; }
+.modhead__runs { margin-left: auto; font: 500 9.5u/1 var(--font-sans); letter-spacing: .3em; margin-right: -.3em; text-transform: uppercase; color: var(--soft); white-space: nowrap; }
+.mods4 { position: absolute; left: 48u; right: 48u; top: 152u; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0 24u; }
+.mods4::before { content: ""; position: absolute; left: 0; right: 0; top: 194u; height: 1u; background: var(--ink); }
+.mod { position: relative; min-width: 0; }
+.mod__photo { height: 180u; aspect-ratio: auto !important; }
+.mod__photo figcaption { left: 12u; right: 12u; bottom: 12u; font-size: 7.5u; letter-spacing: .18em; }
+.mod__dot { position: relative; display: block; width: 9u; height: 9u; margin-top: 10u; border-radius: 50%; }
+.mod__dot.xd-ink--li { box-shadow: inset 0 0 0 1u var(--ink); }
+.mod__n { display: block; margin-top: 14u; font: 500 14u/1 var(--font-figure); letter-spacing: .12em; color: var(--teal-text); font-variant-numeric: lining-nums; }
+.mod__name { margin-top: 8u; font: 500 16u/1.35 var(--font-display); letter-spacing: .08em; }
+.mod__line { margin-top: 6u; font: 400 10.5u/1.6 var(--font-sans); letter-spacing: .04em; color: var(--soft); }
+:root[lang="en"] .modhead__name { font-size: 32u; letter-spacing: .01em; }
+:root[lang="en"] .mod__name { font-size: 18u; line-height: 1.2; letter-spacing: .01em; }
+:root[lang="en"] .mod__line { letter-spacing: 0; }
+
+/* English: the display face is lighter and narrower, so it is set larger and closer. */
+:root[lang="en"] .say { font-size: 54u; line-height: 1.25; letter-spacing: .01em; }
+:root[lang="en"] .line { font-size: 42u; line-height: 1.15; letter-spacing: 0; }
+:root[lang="en"] .verse { font-size: 24u; line-height: 1.35; letter-spacing: .01em; font-style: italic; }
+:root[lang="en"] .index__w { font-size: 26u; letter-spacing: .04em; }
+:root[lang="en"] .word__name { font-size: 78u; letter-spacing: .01em; margin-right: 0; }
+:root[lang="en"] .words { gap: 84u; }
+:root[lang="en"] .word__alt { font: 500 15u/1 var(--font-serif); letter-spacing: .3em; margin-right: -.3em; }
+:root[lang="en"] .under { font-size: 19u; letter-spacing: .02em; font-style: italic; }
+:root[lang="en"] .pair__name { font-size: 28u; letter-spacing: .01em; }
+:root[lang="en"] .band__name { font-size: 34u; letter-spacing: .01em; line-height: 1.15; }
+:root[lang="en"] .lockup__where { font-size: 28u; letter-spacing: .02em; line-height: 1.3; }
+
+/* A phone held upright, or a narrow window: every slide, one under another. */
+@media (max-width: 760px), (orientation: portrait) {
+  html, body { height: auto; }
+  .deck { display: block; }
+  .deck__stage { display: grid; gap: 12px; place-items: stretch; }
+  .frame { display: block; width: 100%; }
+  .deck__nav, .deck__full { display: none; }
+  .deck__bar { position: sticky; bottom: 0; justify-content: flex-end; background: var(--paper); border-top: 1px solid var(--line); padding-bottom: env(safe-area-inset-bottom, 0px); }
+}
+/* A phone held sideways: give the slide the height. */
+@media (max-height: 480px) and (orientation: landscape) {
+  .deck__stage { padding-block: 6px 0; }
+  .frame { width: min(100%, calc((100dvh - 52px) * 16 / 9)); }
+}
+
+/* Paper: one slide per 13.333 × 7.5 in page, for PDF. */
+@media print {
+  @page { size: 13.333in 7.5in; margin: 0; }
+  html, body { height: auto; }
+  body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .deck { display: block; }
+  .deck__bar { display: none; }
+  .deck__stage { display: block; padding: 0; }
+  .frame { display: block; width: 100%; box-shadow: none; break-after: page; break-inside: avoid; }
+}
+

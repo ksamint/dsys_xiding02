@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "target": "ES2019",
+    "lib": [
+      "ES2019",
+      "DOM"
+    ],
+    "types": [],
+    "strict": true,
+    "removeComments": true,
+    "skipLibCheck": true,
+    "rootDir": "design-system/components/src"
+  },
+  "files": [
+    "design-system/components/src/xiding.ts"
+  ]
+}

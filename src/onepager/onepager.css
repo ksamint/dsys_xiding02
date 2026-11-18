@@ -1,0 +1,90 @@
+/* Overview: one A4 portrait page, laid out at 794 × 1123. A length written `Nu` is N page pixels: the build rewrites it
+   to calc(var(--u) * N), and --u is one 794th of the sheet's width, so the page scales as one piece.
+   Teal at the top carries the logo and the opening; paper carries 1, 2, 3 and X; black carries the foundation. */
+html, body { height: 100%; }
+.onepager { min-height: 100%; display: grid; grid-template-rows: minmax(0, 1fr) auto; background: var(--paper); }
+.op-stage { display: grid; place-items: center; min-height: 0; padding-block: 20px 12px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.op-frame { container-type: inline-size; width: min(100%, 860px, calc((100dvh - 96px) * 794 / 1123)); max-width: 100%; aspect-ratio: 794 / 1123; overflow: hidden; box-shadow: 0 0 0 1px var(--line); }
+.op-bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: 4px 8px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-bottom: env(safe-area-inset-bottom, 0px); }
+.op-btn { min-height: 44px; padding: 0 12px; border: 0; background: transparent; color: var(--muted); font: 500 11px/1 var(--font-sans); letter-spacing: .24em; text-transform: uppercase; cursor: pointer; transition: color .15s; }
+:root[lang="zh-Hant"] .op-btn, :root[lang="zh-Hans"] .op-btn { font-size: 12.5px; letter-spacing: .2em; }
+.op-btn:hover { color: var(--ink); }
+.op-status { margin-right: auto; font: 400 12px/1.3 var(--font-sans); color: var(--muted); }
+
+/* The sheet keeps the light palette in every theme: it is a printed page. */
+.sheet { --u: calc(100cqw / 794); --paper: #EEF2F1; --ink: #000000; --soft: #4E5A58; --rule: #CDD6D4; --teal-text: #3D6560; --surface: #FFFFFF;
+  position: relative; display: grid; grid-template-rows: 268u 194u 150u 401u 110u; width: 100%; height: 100%; overflow: hidden; background: var(--paper); color: var(--ink); font-size: 12u; line-height: 1.5; }
+.sheet .xd-ink--zhi { background: var(--brand-black); color: var(--brand-white); }
+.sheet .xd-ink--li { background: var(--surface); color: var(--ink); box-shadow: inset 0 0 0 1u var(--ink); }
+
+.op-label { font: 500 8.5u/1.3 var(--font-sans); letter-spacing: .32em; text-transform: uppercase; color: var(--soft); }
+:root[lang="zh-Hant"] .op-label, :root[lang="zh-Hans"] .op-label { font-size: 10u; letter-spacing: .4em; }
+.op-head { display: flex; align-items: baseline; gap: 12u; }
+.op-fig { font: 500 40u/.8 var(--font-figure); font-variant-numeric: lining-nums; color: var(--teal-text); }
+
+/* Top: the mark and the opening, on teal */
+.op-top { overflow: hidden; background: var(--brand-teal); color: var(--brand-white); --soft: rgba(255, 255, 255, .78); }
+
+/* The logo and its line on the left, on the page's left margin; the mark large and quiet in open rings on the right.
+   Both are centred on the band's height, so the two sit as a pair across the field. */
+.op-top { position: relative; display: flex; align-items: center; padding: 0 44u; }
+.op-top__field { position: absolute; top: 22u; right: 30u; bottom: 22u; color: rgba(255, 255, 255, .55); }
+.op-top__field .xd-mark { height: 100%; }
+.op-top__id { position: relative; }
+.op-top__lockup { width: 236u; margin: 0; }
+.op-top__line { margin-top: 24u; font: 500 13u/1.4 var(--font-display); letter-spacing: .5em; color: rgba(255, 255, 255, .9); }
+:root[lang="en"] .op-top__line { font-size: 16u; letter-spacing: .02em; font-style: italic; }
+
+/* 1 and 2 */
+.op-two { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 40u; padding: 34u 44u 0; }
+.op-cell { min-width: 0; padding-top: 14u; border-top: 1u solid var(--ink); }
+.op-name { margin-top: 18u; font: 500 26u/1.3 var(--font-display); letter-spacing: .12em; }
+.op-cell .bp { margin-top: 20u; }
+.bp { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.bp__item { display: grid; gap: 7u; }
+.bp__item + .bp__item { padding-left: 18u; border-left: 1u solid var(--rule); }
+.bp__name { font: 500 21u/1.2 var(--font-display); letter-spacing: .14em; }
+.bp__alt { font: 500 7.5u/1.4 var(--font-sans); letter-spacing: .3em; text-transform: uppercase; color: var(--soft); }
+:root[lang="en"] .bp__name { font-size: 22u; letter-spacing: .01em; }
+:root[lang="en"] .bp__alt { font: 500 10u/1.4 var(--font-serif); letter-spacing: .3em; text-transform: none; }
+.op-verse { margin-top: 8u; font: 500 14u/1.6 var(--font-display); letter-spacing: .16em; color: var(--soft); }
+:root[lang="en"] .op-name { font-size: 28u; letter-spacing: .01em; line-height: 1.15; }
+:root[lang="en"] .op-verse { font-size: 15u; letter-spacing: .01em; line-height: 1.35; font-style: italic; }
+
+/* 3: the three pillars */
+.op-three { padding: 22u 44u 0; }
+.op-three .op-head { padding-top: 14u; border-top: 1u solid var(--ink); }
+.op-plates { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18u; margin-top: 16u; }
+.op-plate { display: flex; flex-direction: column; justify-content: space-between; height: 58u; padding: 9u 12u 10u; font-family: var(--font-display); }
+.op-plate span { font: 500 18u/1 var(--font-figure); }
+.op-plate b { font-size: 14u; line-height: 1.2; font-weight: 500; letter-spacing: .12em; }
+:root[lang="en"] .op-plate b { font-size: 16u; letter-spacing: .01em; }
+
+/* X: the Xiding ecosystem */
+.op-x { padding: 14u 44u 0; }
+.op-x__head { display: flex; align-items: baseline; gap: 22u; padding-top: 14u; border-top: 1u solid var(--ink); }
+.op-x__line { margin: 0 0 0 auto; font: 500 15u/1 var(--font-display); letter-spacing: .2em; }
+:root[lang="en"] .op-x__line { font-size: 17u; letter-spacing: .02em; }
+.op-x .sys { margin-top: 14u; font-size: 9.6u; }
+
+/* Foot: where, and the QR code for the latest events */
+.op-foot { display: flex; justify-content: space-between; align-items: center; gap: 24u; padding: 0 44u; }
+.op-where p { margin: 0; font: 500 14u/1.5 var(--font-display); letter-spacing: .12em; }
+.op-where p span { display: block; }
+.op-where .op-web { margin-top: 6u; font: 500 13u/1 var(--font-figure); letter-spacing: .14em; color: var(--teal-text); }
+:root[lang="en"] .op-where p { letter-spacing: .02em; }
+.op-qr { display: flex; align-items: center; gap: 14u; color: var(--soft); text-decoration: none; }
+.op-qr .xd-qr { display: block; width: 78u; height: 78u; order: 2; }
+.op-qr span { font: 500 8u/1.4 var(--font-sans); letter-spacing: .3em; text-transform: uppercase; }
+:root[lang="zh-Hant"] .op-qr span, :root[lang="zh-Hans"] .op-qr span { font-size: 9.5u; }
+
+/* Paper: one A4 portrait page. */
+@media print {
+  @page { size: 210mm 297mm; margin: 0; }
+  html, body { height: auto; }
+  body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .onepager { display: block; }
+  .op-bar { display: none; }
+  .op-stage { display: block; padding: 0; }
+  .op-frame { width: 100%; box-shadow: none; break-inside: avoid; }
+}

@@ -1,0 +1,25 @@
+<!-- @dsCard group="Content" height=320 width=960 -->
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+<meta charset="utf-8">
+<title>VideoCover — preview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Instrument+Sans:wght@400;500;600&family=Noto+Sans+SC:wght@400;500&family=Noto+Sans+TC:wght@400;500&family=Noto+Serif+SC:wght@500;600;700&family=Noto+Serif+TC:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+.vc { display: grid; grid-template-columns: repeat(2, 448px); gap: var(--space-24); }
+</style>
+</head>
+<body>
+<div class="xd-pad vc" id="root"></div>
+<script>
+  var X = window.Xiding, root = document.getElementById('root');
+  var mark = X.mark({ ink: 'currentColor', ground: 'none', title: '西顶' });
+  root.innerHTML =
+    '<article class="xd-vcover xd-vcover--zhi"><div class="xd-vcover__field"><div><h3 class="xd-vcover__title">谁能驾驭 AI？</h3><p class="xd-vcover__sub">听 XX 讲大美、大智、大礼</p></div><div class="xd-vcover__mark">' + mark + '</div></div>' +
+    '<footer class="xd-vcover__foot">' + X.brandRow(['西顶学院']) + '<span>栏目总题</span></footer></article>' +
+    '<article class="xd-vcover xd-vcover--mei"><div class="xd-vcover__field"><div><h3 class="xd-vcover__title" style="font-size:28px">XX：我为什么否掉了<br>AI 给的前三个方案</h3></div><div class="xd-vcover__mark">' + mark + '</div></div>' +
+    '<footer class="xd-vcover__foot">' + X.brandRow(['大美', '眼光']) + '<span>单期标题</span></footer></article>';
+</script>
+</body>
+</html>
