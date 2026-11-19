@@ -1,4 +1,4 @@
-/* X as one picture, 一底三柱: every length is in em, so each page sizes the whole diagram with one font-size on .sys. */
+/* X as one picture: every length is in em, so each page sizes the whole diagram with one font-size on .sys. */
 .sys { display: grid; gap: 1.1em; }
 .sys__row { display: grid; grid-template-columns: 7.5em minmax(0, 1fr); gap: 1.4em; align-items: start; padding-top: .9em; border-top: 1px solid var(--rule, var(--line)); }
 .sys__label b { display: block; font: 500 1.3em/1.2 var(--font-display); letter-spacing: .14em; }
@@ -8,7 +8,7 @@
 .sys__cols { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.2em; }
 .sys__col { min-width: 0; }
 .sys__plate { display: flex; align-items: baseline; gap: .7em; padding: .7em .9em .75em; font-family: var(--font-display); }
-.sys__plate.xd-ink--li { box-shadow: inset 0 0 0 1px var(--ink); }
+.sys__plate.xd-ink--lifestyle { box-shadow: inset 0 0 0 1px var(--ink); }
 .sys__plate b { font: 500 1.35em/1 var(--font-figure); }
 .sys__plate span { font-size: 1.12em; letter-spacing: .12em; }
 .sys__col ul { list-style: none; margin: .4em 0 0; padding: 0; }

@@ -74,28 +74,28 @@ body { margin: 0; background: var(--paper); color: var(--ink); font: 400 16px/1.
 .xd-hero__foot .xd-brandrow { color: var(--ink); font-size: 14px; }
 .xd-hero__latin { color: var(--ink); font: 500 13px/1.45 var(--font-sans); letter-spacing: .42em; }
 
-/* Pillars: 一底三柱, three pillars standing on the value line */
+/* Pillars: the three brands as three pillars standing on one base */
 .xd-pillars { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: var(--space-24); color: var(--ink); }
 .xd-pillars__cap { padding-bottom: var(--space-8); font: 600 14px/1.4 var(--font-serif); letter-spacing: .28em; color: var(--ink); }
 .xd-pillar { display: flex; flex-direction: column; justify-content: space-between; min-height: 200px; padding: var(--space-20); border-radius: var(--radius-md) var(--radius-md) 0 0; font-family: var(--font-serif); }
 .xd-pillar__word { font-size: 24px; line-height: 1.2; font-weight: 600; letter-spacing: .12em; }
-.xd-pillar__name { font-size: 56px; line-height: 1; font-weight: 700; letter-spacing: .04em; }
-.xd-pillar--mei { background: var(--pillar-mei); color: var(--on-pillar-mei); }
-.xd-pillar--zhi { background: var(--pillar-zhi); color: var(--on-pillar-zhi); }
-.xd-pillar--li { background: var(--pillar-li); color: var(--on-pillar-li); box-shadow: inset 0 0 0 1px var(--ink); }
+.xd-pillar__name { font-size: 44px; line-height: 1; font-weight: 700; letter-spacing: .04em; }
+.xd-pillar--arts { background: var(--ink-arts); color: var(--on-ink-arts); }
+.xd-pillar--academy { background: var(--ink-academy); color: var(--on-ink-academy); }
+.xd-pillar--lifestyle { background: var(--ink-lifestyle); color: var(--on-ink-lifestyle); box-shadow: inset 0 0 0 1px var(--ink); }
 .xd-pillars__base { grid-column: 1 / -1; border-top: 2px solid var(--ink); }
-.xd-pillars__motto { padding-top: var(--space-12); font: 700 22px/1.2 var(--font-serif); letter-spacing: .12em; }
+.xd-pillars__motto { padding-top: var(--space-12); font: 600 15px/1.4 var(--font-serif); letter-spacing: .04em; }
 .xd-pillars__sentence { margin: 0; padding-top: var(--space-8); font-size: 14px; line-height: 1.55; color: var(--muted); }
 
-/* PillarCard: a slice title or quote card on its pillar's ink */
+/* PillarCard: a slice title or quote card on its brand's ink */
 .xd-pcard { display: grid; grid-template-rows: minmax(0, 1fr) auto; aspect-ratio: 1 / 1; background: var(--surface); color: var(--ink); border: 1px solid var(--line); border-radius: var(--radius-md); overflow: hidden; }
 .xd-pcard__field { display: flex; flex-direction: column; justify-content: space-between; padding: var(--space-20); font-family: var(--font-serif); }
 .xd-pcard__pillar { margin: 0; display: flex; justify-content: space-between; align-items: baseline; font-size: 20px; line-height: 1.2; font-weight: 700; letter-spacing: .04em; }
 .xd-pcard__pillar span { letter-spacing: .12em; }
 .xd-pcard__line { margin: 0; font-size: 24px; line-height: 1.4; font-weight: 700; letter-spacing: .02em; }
-.xd-pcard--mei .xd-pcard__field { background: var(--pillar-mei); color: var(--on-pillar-mei); }
-.xd-pcard--zhi .xd-pcard__field { background: var(--pillar-zhi); color: var(--on-pillar-zhi); }
-.xd-pcard--li .xd-pcard__field { background: var(--pillar-li); color: var(--on-pillar-li); border-bottom: 1px solid var(--ink); }
+.xd-pcard--arts .xd-pcard__field { background: var(--ink-arts); color: var(--on-ink-arts); }
+.xd-pcard--academy .xd-pcard__field { background: var(--ink-academy); color: var(--on-ink-academy); }
+.xd-pcard--lifestyle .xd-pcard__field { background: var(--ink-lifestyle); color: var(--on-ink-lifestyle); border-bottom: 1px solid var(--ink); }
 .xd-pcard__foot { display: flex; align-items: center; gap: var(--space-12); padding: var(--space-12) var(--space-20); background: var(--surface); color: var(--ink); white-space: nowrap; }
 .xd-pcard__foot svg { display: block; height: 36px; width: auto; flex: none; margin: -4px -6px; }
 .xd-pcard__foot b { font: 600 14px/1.4 var(--font-serif); letter-spacing: .28em; }
@@ -122,9 +122,9 @@ body { margin: 0; background: var(--paper); color: var(--ink); font: 400 16px/1.
 .xd-vcover__sub { margin: var(--space-8) 0 0; font-size: 20px; line-height: 1.3; font-weight: 700; letter-spacing: .04em; }
 .xd-vcover__mark { flex: none; height: 150px; margin: -12px -8px; }
 .xd-vcover__mark svg { display: block; height: 100%; width: auto; }
-.xd-vcover--mei .xd-vcover__field { background: var(--pillar-mei); color: var(--on-pillar-mei); }
-.xd-vcover--zhi .xd-vcover__field { background: var(--pillar-zhi); color: var(--on-pillar-zhi); }
-.xd-vcover--li .xd-vcover__field { background: var(--pillar-li); color: var(--on-pillar-li); border-bottom: 1px solid var(--ink); }
+.xd-vcover--arts .xd-vcover__field { background: var(--ink-arts); color: var(--on-ink-arts); }
+.xd-vcover--academy .xd-vcover__field { background: var(--ink-academy); color: var(--on-ink-academy); }
+.xd-vcover--lifestyle .xd-vcover__field { background: var(--ink-lifestyle); color: var(--on-ink-lifestyle); border-bottom: 1px solid var(--ink); }
 .xd-vcover__foot { display: flex; align-items: center; justify-content: space-between; gap: var(--space-12); padding: var(--space-8) var(--space-24); font-size: 13px; line-height: 1.45; color: var(--muted); white-space: nowrap; }
 .xd-vcover__foot .xd-brandrow { color: var(--ink); font-size: 14px; }
 
@@ -133,9 +133,9 @@ body { margin: 0; background: var(--paper); color: var(--ink); font: 400 16px/1.
 .xd-sub { position: absolute; left: var(--space-24); bottom: var(--space-24); display: flex; align-items: stretch; max-width: calc(100% - 48px); font-family: var(--font-serif); }
 .xd-sub__pillar { display: flex; align-items: baseline; gap: var(--space-8); padding: 8px 12px; font-size: 19px; line-height: 1.2; font-weight: 700; letter-spacing: .04em; white-space: nowrap; }
 .xd-sub__pillar i { font-style: normal; letter-spacing: .12em; }
-.xd-sub__pillar--mei { background: var(--pillar-mei); color: var(--on-pillar-mei); }
-.xd-sub__pillar--zhi { background: var(--pillar-zhi); color: var(--on-pillar-zhi); }
-.xd-sub__pillar--li { background: var(--pillar-li); color: var(--on-pillar-li); box-shadow: inset 0 0 0 1px var(--ink); }
+.xd-sub__pillar--arts { background: var(--ink-arts); color: var(--on-ink-arts); }
+.xd-sub__pillar--academy { background: var(--ink-academy); color: var(--on-ink-academy); }
+.xd-sub__pillar--lifestyle { background: var(--ink-lifestyle); color: var(--on-ink-lifestyle); box-shadow: inset 0 0 0 1px var(--ink); }
 .xd-sub__text { display: flex; align-items: baseline; gap: var(--space-12); padding: 8px 12px; background: var(--surface); color: var(--ink); font-size: 17px; line-height: 1.34; font-weight: 600; white-space: nowrap; }
 .xd-sub__text b { font: 500 13px/1 var(--font-sans); letter-spacing: .12em; color: var(--muted); }
 
@@ -148,7 +148,7 @@ body { margin: 0; background: var(--paper); color: var(--ink); font: 400 16px/1.
 .xd-slide__take { margin: 0; font: 700 44px/1.25 var(--font-serif); letter-spacing: .02em; }
 .xd-slide__body { align-self: center; }
 .xd-slide__split { display: grid; grid-template-columns: minmax(0, 1fr) 280px; gap: var(--space-40); align-items: center; }
-.xd-slide__plate { width: 280px; height: 280px; padding: var(--space-24); box-sizing: border-box; display: flex; flex-direction: column; justify-content: space-between; font-family: var(--font-serif); background: var(--pillar-mei); color: var(--on-pillar-mei); }
+.xd-slide__plate { width: 280px; height: 280px; padding: var(--space-24); box-sizing: border-box; display: flex; flex-direction: column; justify-content: space-between; font-family: var(--font-serif); background: var(--ink-arts); color: var(--on-ink-arts); }
 .xd-slide__plate span { font-size: 32px; font-weight: 600; letter-spacing: .12em; }
 .xd-slide__plate b { font-size: 88px; line-height: 1; font-weight: 700; letter-spacing: .04em; }
 .xd-slide__cols { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-40); margin-top: var(--space-40); }
@@ -162,9 +162,9 @@ body { margin: 0; background: var(--paper); color: var(--ink); font: 400 16px/1.
 /* DoorPlate: a plate for a room or a scene */
 .xd-plate { display: grid; grid-template-rows: minmax(0, 1fr) auto; width: 200px; aspect-ratio: 3 / 4; background: var(--surface); color: var(--ink); border: 1px solid var(--line); border-radius: var(--radius-md); overflow: hidden; }
 .xd-plate__field { display: flex; align-items: flex-end; padding: var(--space-20); font: 700 44px/1.15 var(--font-serif); letter-spacing: .04em; }
-.xd-plate--mei .xd-plate__field { background: var(--pillar-mei); color: var(--on-pillar-mei); }
-.xd-plate--zhi .xd-plate__field { background: var(--pillar-zhi); color: var(--on-pillar-zhi); }
-.xd-plate--li .xd-plate__field { background: var(--pillar-li); color: var(--on-pillar-li); border-bottom: 1px solid var(--ink); }
+.xd-plate--arts .xd-plate__field { background: var(--ink-arts); color: var(--on-ink-arts); }
+.xd-plate--academy .xd-plate__field { background: var(--ink-academy); color: var(--on-ink-academy); }
+.xd-plate--lifestyle .xd-plate__field { background: var(--ink-lifestyle); color: var(--on-ink-lifestyle); border-bottom: 1px solid var(--ink); }
 .xd-plate__foot { padding: var(--space-12) var(--space-20); font-size: 14px; }
 
 /* SceneMenu: what happens in the space, by pillar */
@@ -172,9 +172,9 @@ body { margin: 0; background: var(--paper); color: var(--ink); font: 400 16px/1.
 .xd-menu__row { display: grid; grid-template-columns: 112px minmax(0, 1fr) auto; align-items: center; gap: var(--space-24); padding: var(--space-16) var(--space-20); border-bottom: 1px solid var(--line); }
 .xd-menu__row:last-child { border-bottom: 0; }
 .xd-menu__pillar { display: flex; align-items: center; justify-content: center; height: 56px; font: 700 24px/1 var(--font-serif); letter-spacing: .04em; }
-.xd-menu__pillar--mei { background: var(--pillar-mei); color: var(--on-pillar-mei); }
-.xd-menu__pillar--zhi { background: var(--pillar-zhi); color: var(--on-pillar-zhi); }
-.xd-menu__pillar--li { background: var(--pillar-li); color: var(--on-pillar-li); box-shadow: inset 0 0 0 1px var(--ink); }
+.xd-menu__pillar--arts { background: var(--ink-arts); color: var(--on-ink-arts); }
+.xd-menu__pillar--academy { background: var(--ink-academy); color: var(--on-ink-academy); }
+.xd-menu__pillar--lifestyle { background: var(--ink-lifestyle); color: var(--on-ink-lifestyle); box-shadow: inset 0 0 0 1px var(--ink); }
 .xd-menu__pillar--root { background: var(--paper); color: var(--ink); box-shadow: inset 0 0 0 1px var(--line); }
 .xd-menu__scenes { font-size: 20px; }
 .xd-menu__use { font-size: 14px; color: var(--muted); white-space: nowrap; }
@@ -223,18 +223,18 @@ body { margin: 0; background: var(--paper); color: var(--ink); font: 400 16px/1.
 .xd-fieldblock--short h1, .xd-fieldblock--short h2 { font-size: 30px; }
 .xd-fieldblock--bleed h1, .xd-fieldblock--bleed h2, .xd-fieldblock__kicker { max-width: 270px; }
 
-/* The pillar band: 大美 大智 大礼 as one three-ink strip, edge to edge */
+/* The brand band: 西顶艺术 西顶学院 西顶时光 as one three-ink strip, edge to edge */
 .xd-band { display: grid; grid-template-columns: repeat(3, 1fr); font-family: var(--font-serif); }
 .xd-band > div { display: flex; flex-direction: column; justify-content: space-between; height: 148px; padding: var(--space-16) 14px; box-sizing: border-box; }
 .xd-band b { font-size: 36px; line-height: 1; font-weight: 700; letter-spacing: .04em; }
 .xd-band span { font-size: 24px; line-height: 1; font-weight: 600; letter-spacing: .12em; }
-.xd-band .xd-pillar--li { box-shadow: inset 0 -1px 0 var(--ink), inset 0 1px 0 var(--ink); }
+.xd-band .xd-pillar--lifestyle { box-shadow: inset 0 -1px 0 var(--ink), inset 0 1px 0 var(--ink); }
 
 /* Pillar tags: the dot is the pictogram */
-.xd-dot { display: inline-block; width: 10px; height: 10px; flex: none; border-radius: var(--radius-full); background: var(--pillar-mei); }
-.xd-dot--zhi { background: var(--pillar-zhi); }
-.xd-dot--li { background: var(--pillar-li); box-shadow: inset 0 0 0 1.5px var(--ink); }
-.xd-dot--root { background: var(--pillar-root); box-shadow: inset 0 0 0 1.5px var(--muted); }
+.xd-dot { display: inline-block; width: 10px; height: 10px; flex: none; border-radius: var(--radius-full); background: var(--ink-arts); }
+.xd-dot--academy { background: var(--ink-academy); }
+.xd-dot--lifestyle { background: var(--ink-lifestyle); box-shadow: inset 0 0 0 1.5px var(--ink); }
+.xd-dot--root { background: var(--ink-root); box-shadow: inset 0 0 0 1.5px var(--muted); }
 .xd-tag { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; line-height: 1.45; white-space: nowrap; color: var(--muted); }
 
 /* Lists: ruled rows on the page, a numeral or date leading, a dot to act */
@@ -247,7 +247,7 @@ body { margin: 0; background: var(--paper); color: var(--ink); font: 400 16px/1.
 .xd-item__go:hover { transform: scale(1.08); background: var(--teal-text); }
 .xd-item__go.is-off { background: transparent; color: var(--muted); box-shadow: inset 0 0 0 1px var(--line); }
 .xd-item__go.is-off:hover { transform: none; background: transparent; }
-.xd-item__go--mei { background: var(--brand-teal); color: var(--brand-black); }
+.xd-item__go--arts { background: var(--brand-teal); color: var(--brand-black); }
 
 /* Calls to act */
 .xd-cta { display: flex; align-items: center; justify-content: space-between; min-height: 56px; padding: 0 var(--space-20); box-sizing: border-box; background: var(--ink); color: var(--surface); border: 1px solid var(--ink); border-radius: var(--radius-sm); font: 600 16px/1 var(--font-sans); letter-spacing: .04em; }
@@ -292,7 +292,7 @@ body { margin: 0; background: var(--paper); color: var(--ink); font: 400 16px/1.
 .xd-picks { display: flex; flex-wrap: wrap; gap: 8px; }
 .xd-picks span { display: inline-flex; align-items: center; gap: 8px; min-height: var(--h5-tap, 44px); padding: 0 14px; box-sizing: border-box; border: 1px solid var(--line); border-radius: var(--radius-sm); background: var(--surface); font: 600 16px/1 var(--font-serif); letter-spacing: .04em; }
 .xd-picks .is-on { background: var(--ink); border-color: var(--ink); color: var(--surface); }
-.xd-picks .is-on .xd-dot--zhi { box-shadow: inset 0 0 0 1.5px var(--surface); }
+.xd-picks .is-on .xd-dot--academy { box-shadow: inset 0 0 0 1.5px var(--surface); }
 
 /* Calendar */
 .xd-monthhead { display: flex; align-items: baseline; justify-content: space-between; padding-bottom: 10px; border-bottom: 2px solid var(--ink); font: 700 32px/1.1 var(--font-serif); letter-spacing: .04em; }
@@ -301,7 +301,7 @@ body { margin: 0; background: var(--paper); color: var(--ink); font: 400 16px/1.
 .xd-event__date { display: grid; justify-items: start; gap: 6px; font-size: 12px; line-height: 1; color: var(--muted); }
 .xd-event__date b { font: 700 40px/.9 var(--font-serif); color: var(--teal-text); font-variant-numeric: tabular-nums; }
 .xd-event .xd-item__go { grid-column: 3; grid-row: auto; }
-.xd-pillar--root { background: var(--pillar-root); color: var(--on-pillar-root); box-shadow: inset 0 0 0 1px var(--line); }
+.xd-pillar--root { background: var(--ink-root); color: var(--on-ink-root); box-shadow: inset 0 0 0 1px var(--line); }
 
 /* 散点: dots let loose. Each dot breathes on its own slow period; still with reduced motion. */
 @keyframes xd-breathe { from { transform: translate(0, 0); } to { transform: translate(var(--fx, 0), var(--fy, 0)); } }
@@ -339,9 +339,9 @@ body { margin: 0; background: var(--paper); color: var(--ink); font: 400 16px/1.
 .xd-stone i { display: grid; place-items: center; flex: none; border-radius: var(--radius-full); font: 700 28px/1 var(--font-serif); font-style: normal; letter-spacing: .04em; transition: transform var(--duration-dot, .18s) ease-out; }
 .xd-stone:hover i { transform: scale(1.06); }
 .xd-stone .xd-vert { font-size: 15px; font-weight: 600; letter-spacing: .3em; color: var(--muted); }
-.xd-stone--mei { left: 0; top: 0; } .xd-stone--mei i { width: 148px; height: 148px; background: var(--pillar-mei); color: var(--on-pillar-mei); font-size: 34px; }
-.xd-stone--zhi { left: 168px; top: 150px; } .xd-stone--zhi i { width: 100px; height: 100px; background: var(--pillar-zhi); color: var(--on-pillar-zhi); }
-.xd-stone--li { left: 222px; top: 18px; } .xd-stone--li i { width: 72px; height: 72px; background: var(--pillar-li); color: var(--on-pillar-li); box-shadow: inset 0 0 0 1.5px var(--ink); font-size: 22px; }
+.xd-stone--arts { left: 0; top: 0; } .xd-stone--arts i { width: 148px; height: 148px; background: var(--ink-arts); color: var(--on-ink-arts); font-size: 34px; }
+.xd-stone--academy { left: 168px; top: 150px; } .xd-stone--academy i { width: 100px; height: 100px; background: var(--ink-academy); color: var(--on-ink-academy); }
+.xd-stone--lifestyle { left: 222px; top: 18px; } .xd-stone--lifestyle i { width: 72px; height: 72px; background: var(--ink-lifestyle); color: var(--on-ink-lifestyle); box-shadow: inset 0 0 0 1.5px var(--ink); font-size: 22px; }
 
 /* a loose list: a vertical heading at the left, entries cascading, no boxes */
 .xd-loose { display: grid; grid-template-columns: 48px minmax(0, 1fr); gap: var(--space-16); align-items: start; }
@@ -389,10 +389,10 @@ body { margin: 0; background: var(--paper); color: var(--ink); font: 400 16px/1.
 :root[lang="zh-Hant"] .xd-whisper, :root[lang="zh-Hans"] .xd-whisper { font-size: 13px; letter-spacing: .36em; }
 :root[lang="en"] .xd-brandrow { font-family: var(--font-sans); font-weight: 500; font-size: .82em; text-transform: uppercase; }
 
-/* Ink: put any block on one pillar's ink */
-.xd-ink--mei { background: var(--pillar-mei); color: var(--on-pillar-mei); }
-.xd-ink--zhi { background: var(--pillar-zhi); color: var(--on-pillar-zhi); }
-.xd-ink--li { background: var(--pillar-li); color: var(--on-pillar-li); box-shadow: inset 0 0 0 1px var(--ink); }
+/* Ink: put any block on one brand's ink */
+.xd-ink--arts { background: var(--ink-arts); color: var(--on-ink-arts); }
+.xd-ink--academy { background: var(--ink-academy); color: var(--on-ink-academy); }
+.xd-ink--lifestyle { background: var(--ink-lifestyle); color: var(--on-ink-lifestyle); box-shadow: inset 0 0 0 1px var(--ink); }
 
 /* Lang: EN 繁 简, the current one underlined */
 .xd-lang { display: inline-flex; align-items: center; gap: 2px; }
@@ -443,7 +443,7 @@ body { margin: 0; background: var(--paper); color: var(--ink); font: 400 16px/1.
 .xd-sys__cols { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.2em; }
 .xd-sys__col { min-width: 0; }
 .xd-sys__plate { display: flex; align-items: baseline; gap: .7em; padding: .7em .9em .75em; font-family: var(--font-display); }
-.xd-sys__plate.xd-ink--li { box-shadow: inset 0 0 0 1px var(--ink); }
+.xd-sys__plate.xd-ink--lifestyle { box-shadow: inset 0 0 0 1px var(--ink); }
 .xd-sys__plate b { font: 500 1.35em/1 var(--font-figure); }
 .xd-sys__plate span { font-size: 1.12em; letter-spacing: .12em; }
 .xd-sys__col ul { list-style: none; margin: .4em 0 0; padding: 0; }

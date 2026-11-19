@@ -21,8 +21,8 @@ works this way: [docs/adr/0001](docs/adr/0001-private-and-public-repositories.md
 ## What is here and what is not
 
 Here: the 西顶 XIDING design system (`design-system/`, `showcase/`), the brand files of 西頂廣仁宮 (`brand/`), the
-business-card editor with fictional people (`cards/`), the introduction pages (`src/`, `scripts/`), docs, tools and
-tests.
+business-card editor with fictional people (`cards/`), the introduction pages and the pillar simulator (`src/`,
+`scripts/`), docs, tools and tests.
 
 Not here, on purpose: real people's details, the original brand-book PDF, files that record local paths, and the
 member app. Never add personal data (names with phone numbers or emails of real people, mainland mobile numbers,

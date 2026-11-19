@@ -4,7 +4,7 @@ Status: agreed for now on 2026-11-14; the brands updated on 2026-11-17 and, afte
 
 ## The opening
 
-Only two things: 西顶, and 一方传承大美的自在天地 (English: "A world at ease, of legacy and beauty"). The same lockup
+Only two things: 西顶, and one line, being redrafted (2026-11-19). The same lockup
 opens the deck (slide 2), the site and the overview.
 
 ## 1 – 2 – 3 – X
@@ -18,7 +18,7 @@ opens the deck (slide 2), the site and the overview.
 
 ### 1: who we are
 
-西顶，春秋百载，贯通东西。Then the two values: 传承 (the centre) and 大美.
+西顶 and its line, then the two values, legacy (the centre) and beauty: all being redrafted (2026-11-19).
 
 ### 2: what we do
 
@@ -42,14 +42,14 @@ footer names 西顶文化 and the three brands. The words are in `src/shared/con
 | --- | --- | --- |
 | 1 空间 × 活动 Space × Events | Temple teal | 场地服务; 活动策划与执行; 主题活动; 预约与现场运营 |
 | 2 课程 × 服务 Courses × Services | Black | 课程与培训; 顾问咨询; 落地陪跑; 方案库与 AI 应用 |
-| 3 会员 × 定制 Members × Tailor-made | White, ink hairline | 会籍与邀请制; 大美艺术分享; 定制活动; 会员专属服务 |
+| 3 会员 × 定制 Members × Tailor-made | White, ink hairline | 会籍与邀请制; 艺术分享; 定制活动; 会员专属服务 |
 
 Each pillar's slide shows its four modules side by side: a picture each, the module's name and one line, joined by
 one rail that runs on X (运行于真知与范式). The member calendar uses the same three names and inks.
 
 ### X: the Xiding ecosystem
 
-3 names the three pillars. X shows the whole system in one picture, after the design system's 一底三柱: the
+3 names the three pillars. X shows the whole system in one picture: the
 ecosystem across the top (members, experts, artists, spaces, partners, one agent each), the three pillars standing
 with their twelve modules, and the foundation (底座) as the base; then one slide per pillar shows its four modules
 with a picture each. Headline: AI原生　西顶先行.
@@ -63,7 +63,7 @@ with a picture each. Headline: AI原生　西顶先行.
 
 The logo is the mark and 西顶 from the design system's wide lockup, 西顶 spanning dot rows B to E. Nothing else
 sits with it at the top of a page: on the deck's cover, the site's opening and the overview it is the logo and at
-most one line, 一方传承大美的自在天地. The full lockup (XIDING on row G, the brand row on row H) stays available in
+most one line. The full lockup (XIDING on row G, the brand row on row H) stays available in
 `lockupSvg`. The logo is artwork: it keeps 西顶 in every language.
 
 The overview's head pairs the logo and its one line on the left margin with the mark large in the design system's
@@ -79,7 +79,6 @@ In X, the foundation's second row (开源知识库, A2A智能体生态) is set a
 - "UCE" in "A2A UCE future" is not spelled out yet, so it does not appear on any page.
 - The QR code leads to xidingmiao.com, which did not answer when checked on 2026-11-13. Publish the member calendar there (it is built with the member app), or set `XIDING_EVENTS_URL`, before printing.
 - The modules are a first list. Rename, strike or add in `src/shared/content.ts`.
-- The design system's own introduction (西顶是什么) still describes the earlier three lines of work, 智行、美成、礼遇, on the base 大美、大智、大礼. This repository follows the plan above. One of the two should be updated.
 - 春秋百载 reads as "a hundred years"; the design system dates the temple to 1518, in the Ming dynasty: 508 years in 2026.
 - The public introduction uses 平台 and 赋能, which the design system's voice guide (`design-system/voice.md`) lists as
   words to cut. Its wording was adopted as it stands on 2026-11-18; one of the two should be updated.

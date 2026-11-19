@@ -1,4 +1,6 @@
 // 西顶 XIDING — window.Xiding. Every function returns a string of SVG or HTML: set it as innerHTML, or save it as a file.
+/** The three brands, which are also the three inks. */
+export type BrandId = 'arts' | 'academy' | 'lifestyle';
 export type Colorway = 'teal' | 'ink' | 'night' | 'tealInk';
 export type MarkStyle = 'dot' | 'ring' | 'point';
 export type Geometry = 'extracted' | 'trued';
@@ -123,26 +125,30 @@ declare global {
       points(geometry?: Geometry): { id: string; row: number; col: number; x: number; y: number; half: number }[];
       /** The 40 circles. */
       circles(geometry?: Geometry): { id: string; cx: number; cy: number }[];
+      /** Dot radius in source units: the Dot style, and the outer radius of the Circle style (tokens: mark-dot). */
+      R: number;
+      /** The centre of the field the mark is drawn in. */
+      CENTER: { x: number; y: number };
+      /** The mark's ink box in source units (tokens: mark-width, mark-height). */
+      BOUNDS: { left: number; right: number; top: number; bottom: number };
+      /** Clear space on every side of the mark, in source units (tokens: mark-clear). */
+      PAD: number;
       COLORWAYS: Record<Colorway, { name: string; bg: string; fg: string }>;
       PRESETS: [Colorway, MarkStyle][];
       /** The people on the cards: fictional samples in this repository; a private build swaps in the real ones with setPeople(). */
       PEOPLE: Person[];
       /** Replaces the people on the cards in place, so kit() and card() follow. */
       setPeople(list: Partial<Person>[]): void;
-      /** 大美, 大智, 大礼: id (mei, zhi, li), name, its one word, its one sentence, the English word, the line of work and its motto. */
-      PILLARS: { id: 'mei' | 'zhi' | 'li'; zh: string; word: string; sentence: string; en: string; line: string; motto: string }[];
-      /** The value line: 以美成人，以智行事，以礼相遇。 */
-      LINE: string;
       /** The cultural root: 广仁宫. */
       ROOT: { zh: string; en: string };
-      /** The brand architecture: 西顶文化, the three brands and the three lines of work, with suggested English names. */
+      /** The brand architecture: 西顶文化 and its three brands, with their English names. */
       BRANDS: { zh: string; en: string; level: string; settled: boolean }[];
-      /** The three brands as the public introduction sets them: field, three services, three lines. */
-      BRAND_DETAILS: { zh: string; en: string; latin: string; field: string; services: string[]; lines: string[] }[];
+      /** The three brands as the public introduction sets them: id (also the ink: ink-arts, ink-academy, ink-lifestyle), names, the brand's word in the tagline, field, three services, three lines. */
+      BRAND_DETAILS: { id: BrandId; zh: string; en: string; latin: string; word: string; field: string; services: string[]; lines: string[] }[];
       /** 西顶文化 in three words: 艺术 · 教育 · 生活方式. */
       TAGLINE: string;
-      /** The scene menu by pillar, as the IP document lists it. */
-      SCENES: { pillar: string; id: string; scenes: string[]; use: string }[];
+      /** The scene menu by brand, as the IP document lists it; the last row (担当) stands on the ground ink, id root. */
+      SCENES: { brand: string; id: BrandId | 'root'; scenes: string[]; use: string }[];
       /** The steps of the introduction, as lines of text. */
       STEPS: string[][];
       /** The website, as printed on the card. */
@@ -159,8 +165,10 @@ declare global {
         subBrand(props?: SubBrandProps, slug?: string): Art;
         card(props?: BusinessCardProps, slug?: string): Art;
         wordmark(text: string, kind: 'wordmark' | 'row', ink: 'black' | 'white' | 'teal', slug: string): Art;
+        /** The three brands as three pillars on one base. */
         pillars(theme?: 'light' | 'dark'): Art;
-        pillarPlate(id: 'mei' | 'zhi' | 'li'): Art;
+        /** One brand's square plate on its ink. */
+        pillarPlate(id: BrandId): Art;
         architecture(theme?: 'light' | 'dark'): Art;
         steps(theme?: 'light' | 'dark'): Art;
         avatar(colorway?: Colorway): Art;

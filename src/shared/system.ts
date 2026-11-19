@@ -1,7 +1,7 @@
 import { ecosystem, foundation, pillars, system } from "./content";
 import { type L, type Locale, tr } from "./l10n";
 
-/* X as one picture, after the design system's 一底三柱: the people of the ecosystem across the top, the three pillars
+/* X as one picture: the people of the ecosystem across the top, the three pillars
    standing with their four modules each, and the foundation, 真知 and 范式, as the base they all stand on. */
 
 function label(row: { name: L }, locale: Locale): string {

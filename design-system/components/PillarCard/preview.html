@@ -14,15 +14,10 @@
 <div class="xd-pad pc" id="root"></div>
 <script>
   var X = window.Xiding, root = document.getElementById('root');
-  var lines = {
-    mei: '最近一次你否掉<br>AI 给的方案，<br>凭的是什么？',
-    zhi: '你怎么把一个团队的活<br>装进一个人的工作流？',
-    li: '谁在你最难的时候<br>愿意信你'
-  };
-  root.innerHTML = X.PILLARS.map(function (p) {
-    return '<article class="xd-pcard xd-pcard--' + p.id + '">' +
-      '<div class="xd-pcard__field"><p class="xd-pcard__pillar">' + p.zh + '<span>' + p.word + '</span></p><h3 class="xd-pcard__line">' + lines[p.id] + '</h3></div>' +
-      '<footer class="xd-pcard__foot">' + X.mark({ ink: 'currentColor', ground: 'none', title: '西顶' }) + '<b>西顶学院</b></footer>' +
+  root.innerHTML = X.BRAND_DETAILS.map(function (b) {
+    return '<article class="xd-pcard xd-pcard--' + b.id + '">' +
+      '<div class="xd-pcard__field"><p class="xd-pcard__pillar">' + b.zh + '<span>' + b.word + '</span></p><h3 class="xd-pcard__line">' + b.lines.join('<br>') + '</h3></div>' +
+      '<footer class="xd-pcard__foot">' + X.mark({ ink: 'currentColor', ground: 'none', title: '西顶' }) + '<b>' + b.zh + '</b></footer>' +
       '</article>';
   }).join('');
 </script>

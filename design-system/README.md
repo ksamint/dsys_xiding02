@@ -1,10 +1,8 @@
 西顶 (Xiding) takes its name from 西顶庙 in Haidian, Beijing, a Ming temple known since 1712 as 广仁宫.
 
-西顶文化 is the one short name Xiding goes by to the outside; in English it is Xiding. It is one team with three brands, 西顶艺术 (Xiding Arts), 西顶学院 (Xiding Academy) and 西顶时光 (Xiding Lifestyle): art, education and lifestyle (艺术 · 教育 · 生活方式). It has three lines of work. The three lines carry 大美, 大智 and 大礼 to members and partners.
+西顶文化 is the one short name Xiding goes by to the outside; in English it is Xiding. It is one team with three brands, 西顶艺术 (Xiding Arts), 西顶学院 (Xiding Academy) and 西顶时光 (Xiding Lifestyle): art, education and lifestyle (艺术 · 教育 · 生活方式). Membership runs across all three.
 
-The value line is 以美成人，以智行事，以礼相遇。
-
-The identity is three inks and a field of dots: temple teal, black, white, and a mark of 40 circles. The three inks stand for the three pillars.
+The identity is three inks and a field of dots: temple teal, black, white, and a mark of 40 circles. The three inks stand for the three brands.
 
 Read **西顶是什么** for the full introduction and the names, and **文案 · Voice** before writing a word for 西顶.
 
@@ -18,16 +16,16 @@ Read **西顶是什么** for the full introduction and the names, and **文案 �
 - Headlines state a fact or an act, in one or two lines, broken at a comma. A last line holds three characters or more.
 - Sentences end with a full stop. The system uses no exclamation marks and no emoji.
 - The name is 西顶 in Chinese and Xiding in English text: one word, capital X. The Latin line of a lockup is set in capitals: XIDING, XIDING ARTS, XIDING ACADEMY, XIDING LIFESTYLE. The site is 西顶庙.
-- 西顶文化 is Xiding, 西顶艺术 is Xiding Arts, 西顶学院 is Xiding Academy and 西顶时光 is Xiding Lifestyle. The English names of the three lines of work are suggestions awaiting sign-off: see 西顶是什么.
+- 西顶文化 is Xiding, 西顶艺术 is Xiding Arts, 西顶学院 is Xiding Academy and 西顶时光 is Xiding Lifestyle.
 - Tone: restrained, concrete, sourced (克制、具体、有出处). Business results stay in case studies; every figure carries its source.
 - Interface text is plain sentence case, verb first: "Download SVG", "Show construction lines", "Leave empty to hide".
 
-## The three pillars
+## The three brands
 
-- 大美是眼光。大智是章法。大礼是分寸。 One pillar, one word, one sentence. Use `Xiding.PILLARS` for the names, words and sentences, and `Xiding.LINE` for the value line.
-- In Chinese material a pillar's name is followed by its one word: 大美，眼光. English material uses Taste, Structure, Trust.
-- Each pillar has one ink: 大美 is `pillar-mei` (temple teal), 大智 is `pillar-zhi` (black), 大礼 is `pillar-li` (white, drawn with an `ink` hairline). Text on them is `on-pillar-mei`, `on-pillar-zhi`, `on-pillar-li`. Colour here tells the pillars apart; the pillar's name is written beside it every time.
-- The motif is 一底三柱: three pillars standing on the value line. Use the Pillars component for it, and PillarCard for slice titles and quote cards.
+- Each brand has one ink: 西顶艺术 is `ink-arts` (temple teal), 西顶学院 is `ink-academy` (black), 西顶时光 is `ink-lifestyle` (white, drawn with an `ink` hairline). Text on them is `on-ink-arts`, `on-ink-academy`, `on-ink-lifestyle`. Colour here tells the brands apart; the brand's name is written beside it every time.
+- Use `Xiding.BRAND_DETAILS` for each brand's id (also its ink), names, its word in the tagline (艺术, 教育, 生活方式), field, services and lines, and `Xiding.TAGLINE` for 艺术 · 教育 · 生活方式.
+- The three brands may stand as three pillars on one base: use the Pillars component for it, and PillarCard for slice titles and quote cards.
+- Retired on 2026-11-19: the three lines of work under the brands, the three pillars they stood on and the value line made of their mottos.
 
 ## Colour
 
@@ -63,10 +61,10 @@ Read **西顶是什么** for the full introduction and the names, and **文案 �
 
 Covers, heroes and the first screen of every page are composed like a hanging scroll, not a form.
 
-- **Hang the words.** Titles and the value line may be set vertically (`xd-vert`, right to left): page titles at 88px against the right edge, the value line in three columns. Latin lines run vertically beside them in capitals, tracked 0.42em (`xd-vert--latin`), and never carry Chinese characters.
+- **Hang the words.** Titles and the tagline may be set vertically (`xd-vert`, right to left): page titles at 88px against the right edge, the tagline in three columns. Latin lines run vertically beside them in capitals, tracked 0.42em (`xd-vert--latin`), and never carry Chinese characters.
 - **Leave the space empty.** A composition holds one field, one block of words and the mark. Nothing fills the rest.
 - **Keep the mark whole.** In its field the mark stands as drawn, all 40 dots in place, drawn large and cropped by the field's edge where the layout wants it. Dots never drift out of the mark or scatter across the paper (decided by the owner on 2026-11-18): call `Xiding.scatter()` with `spread: 0` and no `strays`, or use `Xiding.mark()`.
-- **Pillars as stones.** On a first screen 大美, 大智 and 大礼 may stand as three dots of three sizes, set loosely like stones in a courtyard, each with its word hung beside it (`xd-stones`).
+- **Brands as stones.** On a first screen the three brands may stand as three dots of three sizes, set loosely like stones in a courtyard, each with its name hung beside it (`xd-stones`).
 - **Lists cascade.** Under a vertical heading, entries sit in a loose column, every other one stepped in (`xd-loose`, `xd-note`); the action is a word ending on the pair dot (`xd-act`).
 - Forms, rows of facts and buttons stay plain and level: the art is in the composition, never in the controls.
 
@@ -90,7 +88,7 @@ Covers, heroes and the first screen of every page are composed like a hanging sc
 ## Iconography
 
 - The dot is the pictogram. The system has no icon set and no emoji.
-- Pillar tags are round dots of the pillar's ink. On screens, a row's action is a 56px dot carrying a one-word verb (报名, 预约); a call to act ends on the pair dot.
+- Brand tags are round dots of the brand's ink. On screens, a row's action is a 56px dot carrying a one-word verb (报名, 预约); a call to act ends on the pair dot.
 - Contact lines use one-letter labels (M, E, W, A) in `teal-text`.
 - Colour choices are shown with an `xd-swatch` dot beside the colour's name.
 
@@ -106,7 +104,7 @@ Covers, heroes and the first screen of every page are composed like a hanging sc
 - `components/bundle.js` is one classic script that sets `window.Xiding`. It needs no framework. `Xiding.mark()`, `Xiding.subBrand()`, `Xiding.brandRow()` and `Xiding.card()` return strings of SVG or HTML: set them as `innerHTML` or save them as files. Types are in `components/index.d.ts`; the TypeScript source is `components/src/xiding.ts`.
 - `components/bundle.css` holds the `xd-` classes for the controls, the brand row and the hero. It reads the token variables, so load the tokens first.
 - `Xiding.kit()` lists every generated asset as a drawing; `Xiding.toSVG(art)` and `Xiding.toPNG(art)` turn one into a file. The AssetKit page draws the whole kit live and saves files from it. `components/src/build-assets.ts` writes the same kit to disk for outlining.
-- Assets holds the files: Logos (the mark, avatars, PNG), Wordmarks (names), Pillars (the motif and plates), Intro (the architecture and four-step diagrams), Cards (the card front) and Reference (`links.json`).
+- Assets holds the files: Logos (the mark, avatars, PNG), Wordmarks (names), Pillars (the three brands as pillars, and their plates), Intro (the architecture and four-step diagrams), Cards (the card front) and Reference (`links.json`).
 - The H5 components are six mobile screens at 375px that follow the architecture: 首页, 会员, 预约空间, 学院, 展览, 全年日历. Mobile measures are the `h5-*` tokens; mobile type is the H5 group.
 - 参考 · References keeps Xiding's links, the benchmarks, the sources for the facts and the system's own measured figures.
 - Each component's README says what you provide and when to use it.
@@ -118,11 +116,11 @@ These were added to the mark studio's inventory so XIDING ACADEMY material can b
 - The `hero` type style and the Hero layout.
 - The six H5 screens and their tokens. Sample sessions on them are marked 示例.
 - VideoCover, Subtitle, Slide, DoorPlate and SceneMenu: the layouts the IP document lists as still to be specified, drawn with the existing inks and type.
-- The pillar inks: the IP document asks for one identifying colour per pillar and a neutral base; this system assigns the three existing inks and uses `paper` as the base. Pillars and PillarCard are drawn from that document's principles.
+- The brand inks: one identifying colour per brand and a neutral base; this system assigns the three existing inks and uses `paper` as the base (until 2026-11-19 they were the three pillar inks).
 - The stacked sub-brand lockup and the fitted "XIDING ACADEMY" Latin line in SubBrand.
 - Button hover in `teal-text`, so the label holds 4.5:1.
 - v1.8: the source VI of 西頂廣仁宮 (`brand/xiding-guangren-vi/`, 品牌形象-5): its six swatches as `vi-*` tokens, its 13 logo files as the VI asset group, and its nameplate as TempleSign. The brand teal is an open decision (see 尚未统一 · Open decisions).
 - v1.7: the page kit the five live Xiding pages share (Ink, LockupMotion, Photo, Whisper, Export, Go, Lang, FieldBlock, Ecosystem), Cormorant Garamond figures (`--font-figure`), CJK sans fallbacks, and font swaps for `<html lang="en">` and `lang="zh-Hant"`. The full-bleed field is `.xd-fieldblock--bleed`; `.xd-field` is the form Field's alone.
 - 2026-11-18: the mark stays whole. The drifting, scattered dots of v1.6 are retired from every composition (Cover, Hero, the H5 screens, the showcase); `scatter()` keeps its options for compatibility, and every composition calls it with `spread: 0`.
 - The art layer (v1.6): vertical type, `Xiding.scatter()` with `hold`, `avoid` and breathing, the stones, the loose list, the floating tab bar, the held membership card, and the Cover and Hero recomposed on it.
-- The expressive mobile layer (v1.5): full-bleed fields with the cropped mark, the pillar band, ruled numbered lists, action dots, round pillar dots, the black tab bar, `brand-black` on `brand-teal` for dots and buttons, and `Xiding.assemble()`. No hue was added.
+- The expressive mobile layer (v1.5): full-bleed fields with the cropped mark, the brand band, ruled numbered lists, action dots, round brand dots, the black tab bar, `brand-black` on `brand-teal` for dots and buttons, and `Xiding.assemble()`. No hue was added.

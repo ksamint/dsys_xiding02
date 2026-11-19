@@ -9,7 +9,7 @@
 | 官网 | https://xidingmiao.com | 取自名片，付印前确认可访问 |
 | 设计系统 | https://claude.ai/artifact/WgHhHAPoCHpg47YycRq7vk | 本系统 |
 | 标识与名片工具 | https://claude.ai/artifact/JpxJihqg9dsw8qCPxqgdCx | 标识点位、配色、名片版式的来源 |
-| IP 体系文档 | https://claude.ai/artifact/WmZ3Y3Ur3hMcEAEeApcUnz | 两个牌子、三个板块、三柱、语言系统的来源 |
+| IP 体系文档 | https://claude.ai/artifact/WmZ3Y3Ur3hMcEAEeApcUnz | IP 体系与语言系统的来源（其中的三个板块、三柱与价值线已于 2026-11-19 撤下） |
 | Noto Serif SC | https://fonts.google.com/noto/specimen/Noto+Serif+SC | 宋体，500、600、700 |
 | Instrument Sans | https://fonts.google.com/specimen/Instrument+Sans | 拉丁文与界面，400、500、600 |
 

@@ -55,7 +55,7 @@ export const CATEGORIES: readonly ActivityCategory[] = [
 
 /** The tags: what activities, courses and people are about. Members choose their interests from this list. */
 export const TAGS: readonly Tag[] = [
-  { id: "art", name: t("Art sharing", "大美藝術分享", "大美艺术分享") },
+  { id: "art", name: t("Art sharing", "藝術分享", "艺术分享") },
   { id: "guqin", name: t("Guqin", "古琴", "古琴") },
   { id: "exhibit", name: t("Exhibitions and viewing", "策展與鑑賞", "策展与鉴赏") },
   { id: "ai", name: t("AI courses", "AI 課程", "AI 课程") },
@@ -202,7 +202,7 @@ export const PROGRAMMES: readonly Programme[] = [
     id: "g-art",
     pillar: "member",
     format: "series",
-    title: t("Art sharing", "大美藝術分享", "大美艺术分享"),
+    title: t("Art sharing", "藝術分享", "艺术分享"),
     summary: t("One artist and one work, each month.", "每月一位藝術家，一件作品。", "每月一位艺术家，一件作品。"),
     outcomes: [
       t("Twelve works, seen up close", "十二件作品，近看", "十二件作品，近看"),
@@ -256,7 +256,7 @@ const LISTED: readonly Activity[] = [
     id: "e02",
     pillar: "member",
     format: "salon",
-    title: t("Art sharing: one artist, one work", "大美藝術分享：一位藝術家，一件作品", "大美艺术分享：一位艺术家，一件作品"),
+    title: t("Art sharing: one artist, one work", "藝術分享：一位藝術家，一件作品", "艺术分享：一位艺术家，一件作品"),
     summary: t("The artist brings one work and talks about how it was made.", "藝術家帶來一件作品，講它是怎麼做出來的。", "艺术家带来一件作品，讲它是怎么做出来的。"),
     date: "2026-11-19",
     time: "19:30",
@@ -620,7 +620,7 @@ export const BENEFITS: readonly Benefit[] = [
   { id: "b-space", pillar: "space", name: t("The halls", "預約殿院", "预约殿院"), line: t("Hold your own gathering in the halls and courtyards.", "在殿與院裡辦你自己的聚會。", "在殿与院里办你自己的聚会。") },
   { id: "b-course", pillar: "academy", name: t("Courses", "課程禮遇", "课程礼遇"), line: t("Open sessions and the Academy's courses.", "公開課與學院課程。", "公开课与学院课程。") },
   { id: "b-consult", pillar: "academy", name: t("Consulting hours", "顧問時段", "顾问时段"), line: t("Time with a consultant on your own question.", "與顧問談你自己的問題。", "与顾问谈你自己的问题。") },
-  { id: "b-art", pillar: "member", name: t("Art sharing", "大美藝術分享", "大美艺术分享"), line: t("One artist and one work, each month.", "每月一位藝術家，一件作品。", "每月一位艺术家，一件作品。") },
+  { id: "b-art", pillar: "member", name: t("Art sharing", "藝術分享", "艺术分享"), line: t("One artist and one work, each month.", "每月一位藝術家，一件作品。", "每月一位艺术家，一件作品。") },
   { id: "b-tailor", pillar: "member", name: t("Tailor-made", "訂製活動", "定制活动"), line: t("An evening made for your family or guests.", "為你的家人或客人訂製一場。", "为你的家人或客人定制一场。") },
   { id: "b-service", pillar: "member", name: t("Personal service", "專屬服務", "专属服务"), line: t("Someone who knows your calendar.", "有人記得你的日程。", "有人记得你的日程。") },
   { id: "b-agent", pillar: "member", name: t("Your agent", "你的智能體", "你的智能体"), line: t("Keeps your calendar and what you like.", "記得你的日程與喜好。", "记得你的日程与喜好。") },

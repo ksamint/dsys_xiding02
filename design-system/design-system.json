@@ -135,10 +135,7 @@
     "xiding-name-wenhua-black.svg",
     "xiding-name-yishu-black.svg",
     "xiding-name-xueyuan-black.svg",
-    "xiding-name-shiguang-black.svg",
-    "xiding-name-zhixing-black.svg",
-    "xiding-name-meicheng-black.svg",
-    "xiding-name-liyu-black.svg"
+    "xiding-name-shiguang-black.svg"
    ],
    "files": {
     "xiding-wordmark-zh-black.svg": {
@@ -182,24 +179,6 @@
      "blob": "86d474f8585a69e7754164b44b5368ca",
      "size": 2582,
      "type": "image/svg+xml"
-    },
-    "xiding-name-zhixing-black.svg": {
-     "name": "xiding-name-zhixing-black.svg",
-     "blob": "f096fd741ec0d72def35a937fbee73c5",
-     "size": 2910,
-     "type": "image/svg+xml"
-    },
-    "xiding-name-meicheng-black.svg": {
-     "name": "xiding-name-meicheng-black.svg",
-     "blob": "641d875ee109a61b92b52bd9c5c871a6",
-     "size": 3125,
-     "type": "image/svg+xml"
-    },
-    "xiding-name-liyu-black.svg": {
-     "name": "xiding-name-liyu-black.svg",
-     "blob": "716bda03f7d8042abd2c0b68ec4b1cee",
-     "size": 3077,
-     "type": "image/svg+xml"
     }
    }
   },
@@ -209,39 +188,39 @@
    "order": [
     "xiding-pillars-light.svg",
     "xiding-pillars-dark.svg",
-    "xiding-pillar-mei.svg",
-    "xiding-pillar-zhi.svg",
-    "xiding-pillar-li.svg"
+    "xiding-pillar-arts.svg",
+    "xiding-pillar-academy.svg",
+    "xiding-pillar-lifestyle.svg"
    ],
    "files": {
     "xiding-pillars-light.svg": {
      "name": "xiding-pillars-light.svg",
-     "blob": "96ba6e3e0537f6658c6500e2bcd4cf8a",
-     "size": 21024,
+     "blob": "cd8a6fca009b610414ec703a92001c81",
+     "size": 79500,
      "type": "image/svg+xml"
     },
     "xiding-pillars-dark.svg": {
      "name": "xiding-pillars-dark.svg",
-     "blob": "f909a4eb9cca1b6e1b8f1310d994d13a",
-     "size": 21023,
+     "blob": "079ce08863aa3e7de6d6ad8ecb72bb77",
+     "size": 79499,
      "type": "image/svg+xml"
     },
-    "xiding-pillar-mei.svg": {
-     "name": "xiding-pillar-mei.svg",
-     "blob": "6e0e969e4a14e5045565efbe85bfd7df",
-     "size": 2645,
+    "xiding-pillar-arts.svg": {
+     "name": "xiding-pillar-arts.svg",
+     "blob": "edf847d2ce1c1d4b9e62a625520fa880",
+     "size": 6683,
      "type": "image/svg+xml"
     },
-    "xiding-pillar-zhi.svg": {
-     "name": "xiding-pillar-zhi.svg",
-     "blob": "0f5072efb31a2f3f8152a2892acd2e3a",
-     "size": 3136,
+    "xiding-pillar-academy.svg": {
+     "name": "xiding-pillar-academy.svg",
+     "blob": "57f461e5d417c7b655ed07a9f745a59a",
+     "size": 10339,
      "type": "image/svg+xml"
     },
-    "xiding-pillar-li.svg": {
-     "name": "xiding-pillar-li.svg",
-     "blob": "e56b552659612e20393faf3a2f9640ee",
-     "size": 2253,
+    "xiding-pillar-lifestyle.svg": {
+     "name": "xiding-pillar-lifestyle.svg",
+     "blob": "65911a0dc99dc80acf1b3ab6c3696f2c",
+     "size": 9832,
      "type": "image/svg+xml"
     }
    }
@@ -271,14 +250,14 @@
    "files": {
     "xiding-intro-architecture-light.svg": {
      "name": "xiding-intro-architecture-light.svg",
-     "blob": "95f2db62f6ce62f02f1abd6c053c7f17",
-     "size": 116290,
+     "blob": "4b3ffeabfc2f6ca64a639245d8df9571",
+     "size": 80467,
      "type": "image/svg+xml"
     },
     "xiding-intro-steps-light.svg": {
      "name": "xiding-intro-steps-light.svg",
-     "blob": "944bd0f52cd988fee259cbd0d3f13a23",
-     "size": 79235,
+     "blob": "31f1b3dda4ab80060e872942848f1010",
+     "size": 78904,
      "type": "image/svg+xml"
     }
    }
