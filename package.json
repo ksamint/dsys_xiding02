@@ -30,6 +30,7 @@
     "showcase": "node --experimental-strip-types --no-warnings tools/showcase.ts",
     "showcase:serve": "node --experimental-strip-types --no-warnings tools/showcase.ts --serve 4173",
     "showcase:artifact": "node --experimental-strip-types --no-warnings tools/showcase.ts --artifact out/showcase-artifact.html",
+    "showcase:verify": "node --experimental-strip-types --no-warnings tools/showcase.ts --verify",
     "hooks": "git config core.hooksPath .githooks"
   },
   "devDependencies": {
