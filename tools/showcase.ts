@@ -28,6 +28,7 @@ interface Scene { pillar: string; id: string; scenes: string[]; use: string }
 interface Art { name: string; label: string }
 interface XidingAPI {
   version: string; PILLARS: Pillar[]; LINE: string; ROOT: { zh: string; en: string }; BRANDS: Brand[];
+  BRAND_DETAILS: { zh: string; en: string; latin: string; field: string; services: string[]; lines: string[] }[]; TAGLINE: string;
   SCENES: Scene[]; STEPS: string[][]; SITE: string; ADDRESS: string;
   art: { architecture(theme: string): Art; steps(theme: string): Art };
   toSVG(a: Art): string;
@@ -169,9 +170,17 @@ function ipSection(X: XidingAPI): string {
 </article>`).join("");
   const scenes = X.SCENES.map((s) => `<tr><th scope="row"><i class="xd-dot xd-dot--${s.id}"></i>${esc(s.pillar)}</th><td>${s.scenes.map((x) => `<span class="sc-scene">${esc(x)}</span>`).join("")}</td><td class="sc-muted">${esc(s.use)}</td></tr>`).join("");
   const steps = X.STEPS.map((st) => `<li>${st.map(esc).join("")}</li>`).join("");
+  const brandCards = X.BRAND_DETAILS.map((b, i) => `<article class="sc-brand">
+  <p class="sc-brand__field"><span>${esc(b.field)}</span><span>${i + 1} / ${X.BRAND_DETAILS.length}</span></p>
+  <h4>${esc(b.zh)}</h4><p class="sc-latin">${esc(b.latin)} · ${esc(b.en)}</p>
+  <ul class="sc-brand__services">${b.services.map((x) => `<li>${esc(x)}</li>`).join("")}</ul>
+  <p class="sc-brand__lines">${b.lines.map(esc).join("<br>")}</p>
+</article>`).join("");
   const arch = (theme: string) => X.toSVG(X.art.architecture(theme));
   return `<section class="sc-section" id="ip">
 <div class="sc-head"><span class="sc-latin">IP SYSTEM</span><h2>IP 体系</h2><p class="sc-lede">一套班子，三个牌子，三个板块；三柱立在一条价值线上。以下全部读自 <code>Xiding.PILLARS</code>、<code>BRANDS</code>、<code>SCENES</code>、<code>STEPS</code>。</p></div>
+<h3 class="sc-sub">西顶文化 · ${esc(X.TAGLINE)} · 三个牌子</h3>
+<div class="sc-brands">${brandCards}</div>
 <p class="sc-valueline">${esc(X.LINE)}</p>
 <div class="sc-ip-grid">
   <div class="sc-panel"><h3>品牌架构</h3><p class="sc-root">根 <b>${esc(X.ROOT.zh)}</b> <span class="sc-muted">${esc(X.ROOT.en)} · 西顶庙</span></p>${tree}</div>
@@ -406,6 +415,15 @@ code { font: 400 12.5px/1.5 var(--font-mono); background: var(--surface); border
 .sc-rad { display: inline-block; width: 28px; height: 28px; background: var(--teal); margin-right: 8px; vertical-align: middle; }
 .sc-shadow { display: inline-block; width: 48px; height: 30px; background: var(--surface); margin: 6px 12px 6px 0; vertical-align: middle; }
 
+/* the three brands */
+.sc-brands { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 24px; margin: 8px 0 32px; }
+.sc-brand { display: grid; align-content: start; gap: 8px; padding-top: 16px; border-top: 2px solid var(--ink); }
+.sc-brand h4 { margin: 0; font: 700 30px/1.15 var(--font-serif); letter-spacing: .08em; }
+.sc-brand__field { display: flex; justify-content: space-between; margin: 0; font: 500 10px/1.4 var(--font-sans); letter-spacing: .28em; color: var(--teal-text); }
+.sc-brand__services { margin: 6px 0 0; padding: 0; list-style: none; border-top: 1px solid var(--line); }
+.sc-brand__services li { padding: 8px 0; border-bottom: 1px solid var(--line); font: 600 15px/1.4 var(--font-serif); letter-spacing: .1em; }
+.sc-brand__lines { margin: 6px 0 0; font: 600 15px/1.8 var(--font-serif); letter-spacing: .06em; }
+@media (max-width: 760px) { .sc-brands { grid-template-columns: minmax(0, 1fr); gap: 24px; } }
 /* pages */
 .sc-pages { display: flex; flex-wrap: wrap; gap: 0; border-bottom: 2px solid var(--ink); }
 .sc-pages button { display: grid; gap: 4px; justify-items: start; padding: 12px 18px 12px 0; margin-right: 18px; border: 0; border-bottom: 3px solid transparent; margin-bottom: -2px; background: transparent; color: var(--muted); cursor: pointer; text-align: left; }

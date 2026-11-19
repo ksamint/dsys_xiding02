@@ -271,7 +271,7 @@ type Prim =
     ink: { bg: "#000000", fg: "#FFFFFF", mark: "#FFFFFF", name: "Black" },
     teal: { bg: "#628F8A", fg: "#FFFFFF", mark: "#FFFFFF", name: "Teal" },
   };
-  const ADDRESS = "北京市海淀区曙光街道西顶路北侧西顶庙";
+  const ADDRESS = "北京市海淀区曙光街道西顶路西顶庙";
   // The three cards, as the mark studio holds them.
   // The fictional samples of cards/xiding-card/people.sample.json. The real people live only in
   // private/people.json; a private build passes them to Xiding.setPeople() (see tools/showcase.ts --people).
@@ -498,11 +498,13 @@ type Prim =
     { zh: "西顶美成", en: "", level: "板块", settled: false },
     { zh: "西顶礼遇", en: "", level: "板块", settled: false },
   ];
-  /** The three brands and their services, as the public introduction sets them. */
-  const BRAND_SERVICES: [string, string][] = [
-    ["西顶艺术", "艺术策展　品牌共创　私享定制"],
-    ["西顶学院", "课程研修　战略咨询　人才发展"],
-    ["西顶时光", "会员生活　品质社交　精致体验"],
+  /** 西顶文化 in three words. */
+  const TAGLINE = "艺术 · 教育 · 生活方式";
+  /** The three brands, their fields, services and lines, as the public introduction sets them. */
+  const BRAND_DETAILS = [
+    { zh: "西顶艺术", en: "Xiding Arts", latin: "XIDING ARTS", field: "ART / CULTURE", services: ["艺术策展", "品牌共创", "私享定制"], lines: ["以艺术连接文化，", "以创意赋能品牌，", "以体验创造价值。"] },
+    { zh: "西顶学院", en: "Xiding Academy", latin: "XIDING ACADEMY", field: "EDUCATION / LEARNING", services: ["课程研修", "战略咨询", "人才发展"], lines: ["以教育启发认知，", "以咨询推动变革，", "以人才驱动未来。"] },
+    { zh: "西顶时光", en: "Xiding Lifestyle", latin: "XIDING LIFESTYLE", field: "LIFESTYLE / MEMBERSHIP", services: ["会员生活", "品质社交", "精致体验"], lines: ["以时光沉淀价值，", "以品味连接彼此，", "以社群丰富生活。"] },
   ];
   const SCENES = [
     { pillar: "大美", id: "mei", scenes: ["古琴", "艺术鉴赏", "策展"], use: "养品味" },
@@ -643,7 +645,7 @@ type Prim =
     prims.push({ t: "text", text: "西顶文化", x: W / 2, y: 65.5, size: 26, family: "serif", weight: 700, spacing: 0.12, anchor: "middle", fill: k.ink });
     label("三个牌子", 124);
     const wb = (W - 48) / 3;
-    BRAND_SERVICES.forEach(([name, services], i) => {
+    BRAND_DETAILS.map((b) => [b.zh, b.services.join("　")] as const).forEach(([name, services], i) => {
       const x = i * (wb + 24);
       prims.push({ t: "rect", x: x + 0.5, y: 134.5, w: wb - 1, h: 79, stroke: k.ink, sw: 1, rx: 4 });
       prims.push({ t: "text", text: name, x: x + 20, y: 169, size: 26, family: "serif", weight: 700, spacing: 0.12, anchor: "start", fill: k.ink });
@@ -875,7 +877,7 @@ type Prim =
 
   root.Xiding = {
     version: "1.8.0",
-    PILLARS, LINE, ROOT, BRANDS, SCENES, STEPS, SITE,
+    PILLARS, LINE, ROOT, BRANDS, BRAND_DETAILS, TAGLINE, SCENES, STEPS, SITE,
     kit, toSVG, toPNG,
     art: { mark: artMark, subBrand: artSubBrand, card: artCard, wordmark: artWordmark, pillars: artPillars, pillarPlate: artPillarPlate, architecture: artArchitecture, steps: artSteps, avatar: artAvatar },
     R, CENTER, BOUNDS, PAD, COLORWAYS, STYLE_NAMES, PRESETS, PEOPLE, ADDRESS,

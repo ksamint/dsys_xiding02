@@ -178,14 +178,15 @@ async function pdfExport(page: Page, where: string): Promise<void> {
 
 /** "Copy text" puts the whole introduction, in the language on screen, on the clipboard. */
 async function copyCheck(page: Page, where: string): Promise<void> {
-  const want: Record<string, string> = { en: "A world at ease, of legacy and beauty", "zh-Hant": "一方傳承大美的自在天地", "zh-Hans": "一方传承大美的自在天地" };
+  // The opening line is being redrafted (2026-11-19): its slot holds the placeholder.
+  const want: Record<string, string> = { en: "TBD", "zh-Hant": "待填寫", "zh-Hans": "待填写" };
   for (const lang of ["zh-Hant", "en", "zh-Hans"]) {
     await page.click(`[data-lang="${lang}"]`);
     await page.click("#copy-text");
     const text = await page.evaluate(() => navigator.clipboard.readText());
     const line = want[lang] ?? "";
     expect(text.startsWith(`${lang === "en" ? "Xiding" : lang === "zh-Hant" ? "西頂" : "西顶"}\n${line}`), `${where}: copy in ${lang} should start with the name and the line, got ${JSON.stringify(text.slice(0, 40))}`);
-    expect(text.includes("A2A"), `${where}: copy in ${lang} should hold the foundation`);
+    expect(text.includes(lang === "en" ? "Xiding Lifestyle" : lang === "zh-Hant" ? "西頂時光" : "西顶时光"), `${where}: copy in ${lang} should hold the three brands`);
   }
 }
 

@@ -58,22 +58,21 @@ test("Traditional copy quotes with 「」 and Simplified with “”", () => {
 });
 
 test("the architecture is 1 who we are, 2 what we do (the brands), 3 how we do it (the pillars), X the Xiding ecosystem", () => {
-  assert.equal(content.brands.label.hans, "我们做什么");
-  assert.equal(content.pillars.label.hans, "我们怎么做");
-  assert.equal(content.foundation.platform.name.hans, "分账协同");
-  assert.deepEqual(content.foundation.more.map((m) => m.hans), ["开源知识库", "A2A智能体生态"]);
+  // The words of 1, 3 and X are being redrafted (owner, 2026-11-19): their slots hold TBD; the shape stays.
   assert.equal(content.overview.figures.map((f) => f.figure).join(""), "123X");
-  assert.deepEqual(content.overview.figures.map((f) => f.label.hans), ["我们是谁", "我们做什么", "我们怎么做", "西顶生态"]);
   assert.equal(content.brands.items.length, 3);
-  assert.deepEqual(content.pillars.items.map((p) => [p.n, p.id, p.name.hans, p.ink]), [
-    [1, "space", "空间 × 活动", "mei"],
-    [2, "courses", "课程 × 服务", "zhi"],
-    [3, "membership", "会员 × 定制", "li"],
+  assert.deepEqual(content.pillars.items.map((p) => [p.n, p.id, p.ink]), [
+    [1, "space", "mei"],
+    [2, "courses", "zhi"],
+    [3, "membership", "li"],
   ]);
   for (const p of content.pillars.items) assert.equal(p.modules.length, 4, `${p.id} modules`);
   assert.equal(content.values.items.filter((v) => "focus" in v && v.focus).length, 1, "exactly one value is the centre");
   assert.equal(content.ecosystem.members.length, 5);
-  assert.equal(content.ecosystem.label.hans, "西顶生态");
+  assert.equal(content.foundation.more.length, 2);
+  const tbd = [content.thesis.line, content.who.verse, content.brands.label, content.pillars.label, content.ecosystem.label, ...content.overview.figures.flatMap((f) => [f.label, f.line]), ...content.pillars.items.flatMap((p) => [p.name, ...p.modules.flatMap((m) => [m.name, m.line])])];
+  for (const l of tbd) assert.deepEqual(l, content.TBD, "a redrafted slot shows the placeholder");
+  assert.deepEqual([content.TBD.hans, content.TBD.hant, content.TBD.en], ["待填写", "待填寫", "TBD"]);
 });
 
 test("a reader's language list picks the right locale", () => {

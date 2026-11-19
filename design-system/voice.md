@@ -22,7 +22,7 @@ Xiding copy is restrained, concrete and sourced. It says what is here and what h
 
 | | 是什么 | 例 |
 |---|---|---|
-| 处 Place | 一个去得了的地方 | 西顶路北侧、山门、殿里、院子 |
+| 处 Place | 一个去得了的地方 | 西顶路、山门、殿里、院子 |
 | 时 Time | 一个查得到的时间 | 明代、康熙五十一年、周四下午 |
 | 人 Person | 一个叫得出名字的人 | 谁讲、谁来、谁做的 |
 | 事 Act | 一个做得出的动作 | 挑出对的方案、排先后、引荐、听琴 |
@@ -117,7 +117,7 @@ Xiding copy is restrained, concrete and sourced. It says what is here and what h
 - 西顶庙，明代始建，1518 年。到 2026 年，五百零八年。
 - 北京“五顶”之一，西边的这一座，供奉碧霞元君。
 - 清康熙五十一年（1712）更名广仁宫。
-- 北京市海淀区曙光街道西顶路北侧。
+- 北京市海淀区曙光街道西顶路西顶庙。
 - 占地约 7,000 ㎡。
 
 ## 写法 Mechanics
