@@ -13,9 +13,10 @@ import { createHash } from "node:crypto";
 import { createServer, type ServerResponse } from "node:http";
 import { existsSync, readFileSync, readdirSync, statSync, watch, writeFileSync, mkdirSync } from "node:fs";
 import { dirname, extname, join, relative } from "node:path";
+import { execFileSync } from "node:child_process";
 import { runInNewContext } from "node:vm";
 import { markdown, inline, slug } from "./markdown.ts";
-import { loadTokens, toCSS, type Family, type Token, type Tokens } from "./tokens.ts";
+import { copiesIn, loadTokens, sameValues, toCSS, type Family, type Token, type Tokens } from "./tokens.ts";
 
 const ROOT = new URL("../", import.meta.url).pathname;
 const DS = join(ROOT, "design-system");
@@ -415,6 +416,9 @@ code { font: 400 12.5px/1.5 var(--font-mono); background: var(--surface); border
 .sc-rad { display: inline-block; width: 28px; height: 28px; background: var(--teal); margin-right: 8px; vertical-align: middle; }
 .sc-shadow { display: inline-block; width: 48px; height: 30px; background: var(--surface); margin: 6px 12px 6px 0; vertical-align: middle; }
 
+/* source and checks */
+.sc-swatch { display: inline-block; width: 14px; height: 14px; margin-right: 8px; vertical-align: -2px; border-radius: 50%; box-shadow: inset 0 0 0 1px var(--line); }
+.sc-go { color: var(--teal-text); font-weight: 600; text-decoration: underline; text-underline-offset: 4px; }
 /* the three brands */
 .sc-brands { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 24px; margin: 8px 0 32px; }
 .sc-brand { display: grid; align-content: start; gap: 8px; padding-top: 16px; border-top: 2px solid var(--ink); }
@@ -607,15 +611,63 @@ const PAGE_JS = `
 })();
 `;
 
+// ---------- source and checks: where every part comes from, whether this copy is current, what is defined twice ----------
+
+/** The commit a published copy was made from. Only the published page carries it: the repository's own copy cannot
+    name the commit that contains it. */
+export interface Source { repo: string; commit: string; tree: string; date: string }
+const REPO = "ksamint/dsys_xiding01";
+const SOURCES: [string, string, string[]][] = [
+  ["pages", "页面 · 介绍、总览、官网", ["src/shared/content.ts", "src/deck/", "src/onepager/", "src/site/", "scripts/build.ts"]],
+  ["ip", "IP 体系 · 三个牌子、三柱、架构", ["design-system/components/src/xiding.ts", "design-system/intro.md", "src/shared/content.ts"]],
+  ["tokens", "令牌 · 颜色、字体、尺寸", ["design-system/tokens.json"]],
+  ["components", "组件", ["design-system/components/", "design-system/components/bundle.css"]],
+  ["assets", "资产", ["design-system/assets/", "design-system/design-system.json"]],
+  ["book", "品牌手册", ["design-system/README.md", "design-system/intro.md", "design-system/voice.md", "design-system/decisions.md", "design-system/references.md"]],
+  ["vi", "源 VI · 西頂廣仁宮", ["brand/xiding-guangren-vi/"]],
+];
+function sourceSection(t: Tokens, hash: string, src?: Source): string {
+  const at = (path: string): string => {
+    const code = `<code>${esc(path)}</code>`;
+    if (!src) return code;
+    const kind = path.endsWith("/") ? "tree" : "blob";
+    return `<a href="https://github.com/${src.repo}/${kind}/${src.commit}/${encodeURI(path.replace(/\/$/, ""))}" target="_blank" rel="noopener">${code}</a>`;
+  };
+  const rows = SOURCES.map(([id, what, paths]) => `<tr><th scope="row">${id === "vi" ? esc(what) : `<a href="#${id}">${esc(what)}</a>`}</th><td>${paths.map(at).join(" ")}</td></tr>`).join("");
+  const fresh = src
+    ? `<p>本页由 <code>${esc(src.repo)}</code> 的 <code>main</code> 生成：提交 <code>${esc(src.commit.slice(0, 7))}</code>（${esc(src.date)}），树 <code>${esc(src.tree.slice(0, 12))}</code>，输入指纹 <code>${esc(hash.slice(0, 16))}</code>。</p>
+<p><a class="sc-go" href="https://github.com/${src.repo}/compare/${src.commit}...main" target="_blank" rel="noopener">对比 main：本页之后有没有新提交</a>（GitHub 显示没有可比较的内容，就说明本页仍是最新）。代理核对：把本页存下来，运行 <code>npm run showcase:verify -- &lt;文件&gt;</code>。</p>`
+    : `<p>本页由仓库里的文件生成，输入指纹 <code>${esc(hash.slice(0, 16)) }</code>。<code>npm run check</code> 在本页比文件旧时失败；发布到 claude.ai 的那一份另带提交号和对比链接。</p>`;
+  const same = sameValues(t);
+  const copies = copiesIn(readFileSync(join(ROOT, "src/shared/base.css"), "utf8"), t);
+  const drift = copies.filter((c) => c.tokens !== null && !c.same);
+  const pageOnly = copies.filter((c) => c.tokens === null);
+  const sameRows = same.map((d) => `<tr><td><span class="sc-swatch" style="background:${esc(d.value)}"></span><code>${esc(d.value)}</code></td><td>${d.theme === "light" ? "浅" : "深"}</td><td>${d.names.map((n) => `<code>${esc(n)}</code>`).join("、")}</td></tr>`).join("");
+  const driftRows = drift.map((c) => `<tr><td><code>--${esc(c.name)}</code></td><td>${c.theme === "light" ? "浅" : "深"}</td><td><code>${esc(c.here)}</code></td><td><code>${esc(c.tokens ?? "")}</code></td></tr>`).join("");
+  return `<section class="sc-section" id="source">
+<div class="sc-head"><span class="sc-latin">SOURCE</span><h2>来源与核对</h2><p class="sc-lede">本页每一部分都读自 <code>${REPO}</code> 里的一份文件；这里列出是哪一份，本页是否还是最新，哪些值写了两遍。</p></div>
+<div class="sc-ip-grid">
+  <div class="sc-panel"><h3>每一部分的来源</h3><div class="sc-scroll"><table class="sc-table"><tbody>${rows}</tbody></table></div></div>
+  <div class="sc-panel"><h3>是否最新</h3>${fresh}</div>
+</div>
+<div class="sc-ip-grid">
+  <div class="sc-panel"><h3>同一个颜色值，不同的名字（${same.length}）</h3><p class="sc-muted">别名（如 <code>{brand-teal}</code>）是引用，不算重复；这里只列出把同一个值各写一遍的令牌。合并与否待定。</p><div class="sc-scroll"><table class="sc-table"><thead><tr><th>值</th><th>主题</th><th>令牌</th></tr></thead><tbody>${sameRows}</tbody></table></div></div>
+  <div class="sc-panel"><h3>页面里的副本（${copies.length}）</h3><p><code>src/shared/base.css</code> 为三个介绍页再写了一遍 ${copies.length} 个令牌：${copies.length - drift.length - pageOnly.length} 个与 <code>tokens.json</code> 一致，${drift.length} 个不一致${pageOnly.length ? `，${pageOnly.length} 个只属于页面（${pageOnly.map((c) => `<code>--${esc(c.name)}</code>`).join("、")}）` : ""}。不一致时 <code>npm run check</code> 失败。</p>${drift.length ? `<div class="sc-scroll"><table class="sc-table"><thead><tr><th>属性</th><th>主题</th><th>页面</th><th>tokens.json</th></tr></thead><tbody>${driftRows}</tbody></table></div>` : ""}</div>
+</div>
+</section>`;
+}
+
 export interface Built { doc: string; fragment: string; hash: string }
 
 /** Real people for the cards, read only when a build asks for them (the published page); repository builds keep the samples. */
-export function buildShowcase(peopleFile?: string): Built {
+export function buildShowcase(peopleFile?: string, src?: Source): Built {
   const inputs = files(DS);
   const h = createHash("sha256");
   for (const p of inputs) { h.update(relative(DS, p)); h.update("\0"); h.update(readFileSync(p)); h.update("\0"); }
   const pages = readPages();
   for (const p of PAGES) { h.update(`dist/${p.dir}/index.html`); h.update("\0"); h.update(pages[p.id] ?? ""); h.update("\0"); }
+  // What draws the page is an input too: a change to the generator or to the files it reads changes the page.
+  for (const f of ["tools/showcase.ts", "tools/tokens.ts", "tools/markdown.ts", "src/shared/base.css"]) { h.update(f); h.update("\0"); h.update(readFileSync(join(ROOT, f))); h.update("\0"); }
   const hash = h.digest("hex");
 
   const t = loadTokens(join(DS, "tokens.json"));
@@ -644,7 +696,7 @@ export function buildShowcase(peopleFile?: string): Built {
   const style = `<style>\n${toCSS(t, true)}\n${bundleCSS}\n${PAGE_CSS}</style>`;
   const body = `<div class="sc-bar"><div class="sc-wrap">
 <a class="sc-bar__brand" href="#top">${markSVG}西顶</a>
-<nav class="sc-nav" aria-label="章节"><a href="#pages">页面</a><a href="#ip">IP 体系</a><a href="#tokens">令牌</a><a href="#components">组件</a><a href="#assets">资产</a><a href="#book">品牌手册</a></nav>
+<nav class="sc-nav" aria-label="章节"><a href="#pages">页面</a><a href="#ip">IP 体系</a><a href="#tokens">令牌</a><a href="#components">组件</a><a href="#assets">资产</a><a href="#book">品牌手册</a><a href="#source">来源</a></nav>
 <div class="sc-theme" role="group" aria-label="主题"><button type="button" value="system" id="sc-theme-system">系统</button><button type="button" value="light" id="sc-theme-light">浅</button><button type="button" value="dark" id="sc-theme-dark">深</button></div>
 </div></div>
 <main class="sc-wrap">
@@ -655,6 +707,7 @@ ${tokenSection(t)}
 ${componentSection(cs)}
 ${assetSection(idx)}
 ${bookSection()}
+${sourceSection(t, hash, src)}
 <footer class="sc-foot">
 <p>由 <code>npm run showcase</code> 从 <code>design-system/</code> 生成。每次提交时 <code>.githooks/pre-commit</code> 重新生成本页，<code>npm run check</code> 在本页与文件不一致时失败。</p>
 <p>输入指纹 <code>${hash.slice(0, 16)}</code> · ${inputs.length} 个系统文件 + ${PAGES.length} 个页面 · 组件包 v${esc(X.version)}${idx.lastChange ? ` · 最近改动 ${esc(idx.lastChange.at)}（${esc(idx.lastChange.by)}）` : ""}</p>
@@ -662,7 +715,8 @@ ${bookSection()}
 </main>
 <script type="application/json" id="sc-data">${data}</script>
 <script>${PAGE_JS}</script>`;
-  const head = `<title>西顶设计系统</title>\n<meta name="claude:viewport-fit-sides" content="cover">\n<meta name="xd-showcase-inputs" content="${hash}">`;
+  const provenance = src ? `\n<meta name="xd-source" content="${esc(JSON.stringify({ repo: src.repo, commit: src.commit, tree: src.tree, date: src.date, inputs: hash }))}">` : "";
+  const head = `<title>西顶设计系统</title>\n<meta name="claude:viewport-fit-sides" content="cover">\n<meta name="xd-showcase-inputs" content="${hash}">${provenance}`;
   const fragment = `${head}\n${fonts}\n${style}\n${body}\n`;
   const doc = `<!doctype html>\n<html lang="zh-Hans">\n<head>\n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">\n${head}\n${fonts}\n${style}\n</head>\n<body>\n${body}\n</body>\n</html>\n`;
   return { doc, fragment, hash };
@@ -712,11 +766,37 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
       const current = existsSync(OUT) ? readFileSync(OUT, "utf8") : "";
       if (current !== b.doc) { console.error("showcase/index.html is out of date: run `npm run showcase`"); process.exit(1); }
       console.log(`showcase/index.html matches design-system/ (${b.hash.slice(0, 12)})`);
+    } else if (args.includes("--verify")) {
+      // Is a saved copy of the published page still what main builds? Exit 0 if so, 1 if not.
+      const file = args[args.indexOf("--verify") + 1];
+      if (!file || !existsSync(file)) { console.error("usage: showcase.ts --verify <saved page.html>"); process.exit(2); }
+      const m = /<meta name="xd-source" content="([^"]+)">/.exec(readFileSync(file, "utf8"));
+      if (!m) { console.error(`${file}: no source record (xd-source); it was not built by --artifact`); process.exit(1); }
+      const rec = JSON.parse((m[1] ?? "").replace(/&quot;/g, '"').replace(/&amp;/g, "&")) as Source & { inputs: string };
+      const git = (...a: string[]): string => { try { return execFileSync("git", a, { cwd: ROOT, encoding: "utf8", stdio: ["ignore", "pipe", "ignore"] }).trim(); } catch { return ""; } };
+      const head = git("rev-parse", "HEAD"), main = git("rev-parse", "origin/main");
+      const dirty = git("status", "--porcelain", "--untracked-files=no") !== "";
+      const sameInputs = rec.inputs === b.hash;
+      console.log(`published:     ${rec.repo} ${rec.commit.slice(0, 7)} (${rec.date}), inputs ${rec.inputs.slice(0, 12)}`);
+      console.log(`this checkout: ${head.slice(0, 7)}${dirty ? " with uncommitted changes" : ""}${main && main !== head ? ` (origin/main is ${main.slice(0, 7)}: check on a clean main to compare with main)` : ""}, inputs ${b.hash.slice(0, 12)}`);
+      if (sameInputs) { console.log(rec.commit === head ? "up to date: built from this commit" : "up to date: commits came after it, but nothing the page shows changed"); process.exit(0); }
+      // What differs between the published commit and this checkout, uncommitted changes included.
+      const known = git("cat-file", "-t", rec.commit) === "commit";
+      const changed = known ? git("diff", "--name-only", rec.commit, "--", "design-system", "src", "scripts", "brand", "tools").split("\n").filter(Boolean) : [];
+      console.log(`stale: this checkout builds a different page. ${known ? `Changed since ${rec.commit.slice(0, 7)}:${changed.length ? "\n  " + changed.join("\n  ") : " only built files (dist/): run npm run build"}` : `Commit ${rec.commit.slice(0, 7)} is not in this clone: git fetch origin to list the files.`}`);
+      console.log("republish: npm run build && npm run showcase:artifact, then publish out/showcase-artifact.html to the same link");
+      process.exit(1);
     } else if (args.includes("--artifact")) {
       const out = args[args.indexOf("--artifact") + 1];
-      const pf = args.includes("--people") ? args[args.indexOf("--people") + 1] : undefined;
-      if (pf && !existsSync(pf)) console.warn(`${pf} not found: the cards keep the samples`);
-      const ab = buildShowcase(pf);
+      if (args.includes("--people")) { console.error("--people is refused: the published page carries the sample people only (AGENTS.md)"); process.exit(1); }
+      const git = (...a: string[]): string => execFileSync("git", a, { cwd: ROOT, encoding: "utf8" }).trim();
+      if (git("status", "--porcelain", "--untracked-files=no")) { console.error("the working tree has changes: publish only from a clean checkout of main"); process.exit(1); }
+      const commit = git("rev-parse", "HEAD");
+      let main = "";
+      try { main = git("rev-parse", "origin/main"); } catch { /* no remote here */ }
+      if (main && main !== commit) console.warn(`warning: HEAD ${commit.slice(0, 7)} is not origin/main ${main.slice(0, 7)}; the page will say it was built from ${commit.slice(0, 7)}`);
+      const src: Source = { repo: REPO, commit, tree: git("rev-parse", "HEAD^{tree}"), date: git("show", "-s", "--format=%cs", "HEAD") };
+      const ab = buildShowcase(undefined, src);
       if (!out || extname(out) !== ".html") { console.error("--artifact needs an .html path"); process.exit(1); }
       mkdirSync(dirname(out), { recursive: true });
       writeFileSync(out, ab.fragment);

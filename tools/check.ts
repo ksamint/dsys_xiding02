@@ -1,7 +1,7 @@
 /* The full local check suite for the design system. Exits non-zero on any failure. */
 import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
 import { join } from "node:path";
-import { loadTokens, validate } from "./tokens.ts";
+import { copiesIn, loadTokens, validate } from "./tokens.ts";
 import { buildBundle } from "./bundle.ts";
 import { buildShowcase } from "./showcase.ts";
 import { scan } from "./public-export.ts";
@@ -14,6 +14,15 @@ const fail = (msg: string) => { failures.push(msg); console.log(`FAIL  ${msg}`);
 // 1. tokens.json follows the shape the design-system page reads
 const tokenErrs = validate(loadTokens(join(DS, "tokens.json")));
 tokenErrs.length ? tokenErrs.forEach((e) => fail(`tokens: ${e}`)) : ok("tokens.json: every token readable, named once, with a usage note");
+
+// 1b. the pages' copy of the tokens (src/shared/base.css) says what tokens.json says
+{
+  const copies = copiesIn(readFileSync(new URL("../src/shared/base.css", import.meta.url), "utf8"), loadTokens(join(DS, "tokens.json")));
+  const drift = copies.filter((c) => c.tokens !== null && !c.same);
+  drift.length
+    ? drift.forEach((c) => fail(`src/shared/base.css --${c.name} (${c.theme}) is ${c.here}; tokens.json says ${c.tokens}`))
+    : ok(`src/shared/base.css: ${copies.length} token copies, each the same as tokens.json`);
+}
 
 // 2. bundle.js is a fresh build of the TypeScript source
 const bundle = readFileSync(join(DS, "components/bundle.js"), "utf8");
