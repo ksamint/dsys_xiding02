@@ -2,8 +2,6 @@
 
 These differences between the pages and this system were left as they are, for the owner to decide.
 
-- **Member Home** redefines eight components locally — `xd-item`, `xd-list`, `xd-cta`, `xd-memcard`, `xd-rows`, `xd-monthhead`, `xd-event`, `xd-tag` — as bordered cards on `surface` and a teal membership card, where this system has ruled rows and a black card.
-
 - **Xiding App** uses its own `ap-*` kit: 18–24px radii, pill buttons, blur bars and chips, against this system's 3–4px corners.
 
 - **Dot** (settled 2026-11-18): the shared page kit's `xd-dot` (`src/shared/base.css`) is round again, as this system has it. The member page that drew its pillar tags with it is developed in a separate repository, which takes the same fix.

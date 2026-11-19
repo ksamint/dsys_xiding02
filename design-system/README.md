@@ -61,11 +61,9 @@ Read **西顶是什么** for the full introduction and the names, and **文案 �
 
 Covers, heroes and the first screen of every page are composed like a hanging scroll, not a form.
 
-- **Hang the words.** Titles and the tagline may be set vertically (`xd-vert`, right to left): page titles at 88px against the right edge, the tagline in three columns. Latin lines run vertically beside them in capitals, tracked 0.42em (`xd-vert--latin`), and never carry Chinese characters.
+- **Hang the words.** Titles and the tagline may be set vertically (`xd-vert`, right to left): page titles at 88px against the right edge, the tagline in three columns.
 - **Leave the space empty.** A composition holds one field, one block of words and the mark. Nothing fills the rest.
 - **Keep the mark whole.** In its field the mark stands as drawn, all 40 dots in place, drawn large and cropped by the field's edge where the layout wants it. Dots never drift out of the mark or scatter across the paper (decided by the owner on 2026-11-18): call `Xiding.scatter()` with `spread: 0` and no `strays`, or use `Xiding.mark()`.
-- **Brands as stones.** On a first screen the three brands may stand as three dots of three sizes, set loosely like stones in a courtyard, each with its name hung beside it (`xd-stones`).
-- **Lists cascade.** Under a vertical heading, entries sit in a loose column, every other one stepped in (`xd-loose`, `xd-note`); the action is a word ending on the pair dot (`xd-act`).
 - Forms, rows of facts and buttons stay plain and level: the art is in the composition, never in the controls.
 
 ## Layout, space and edges
@@ -105,7 +103,6 @@ Covers, heroes and the first screen of every page are composed like a hanging sc
 - `components/bundle.css` holds the `xd-` classes for the controls, the brand row and the hero. It reads the token variables, so load the tokens first.
 - `Xiding.kit()` lists every generated asset as a drawing; `Xiding.toSVG(art)` and `Xiding.toPNG(art)` turn one into a file. The AssetKit page draws the whole kit live and saves files from it. `components/src/build-assets.ts` writes the same kit to disk for outlining.
 - Assets holds the files: Logos (the mark, avatars, PNG), Wordmarks (names), Pillars (the three brands as pillars, and their plates), Intro (the architecture and four-step diagrams), Cards (the card front) and Reference (`links.json`).
-- The H5 components are six mobile screens at 375px that follow the architecture: 首页, 会员, 预约空间, 学院, 展览, 全年日历. Mobile measures are the `h5-*` tokens; mobile type is the H5 group.
 - 参考 · References keeps Xiding's links, the benchmarks, the sources for the facts and the system's own measured figures.
 - Each component's README says what you provide and when to use it.
 
@@ -114,13 +111,13 @@ Covers, heroes and the first screen of every page are composed like a hanging sc
 These were added to the mark studio's inventory so XIDING ACADEMY material can be made from this system:
 
 - The `hero` type style and the Hero layout.
-- The six H5 screens and their tokens. Sample sessions on them are marked 示例.
+- Retired on 2026-11-19 by the owner: the six H5 screens (首页, 会员, 预约空间, 学院, 展览, 全年日历), FieldBlock, the `h5-*` tokens and every part only they used (the brand band, lists, calls to act, tab bar, membership card, detail rows, pickers, calendar, stones, loose list, poem, held card).
 - VideoCover, Subtitle, Slide, DoorPlate and SceneMenu: the layouts the IP document lists as still to be specified, drawn with the existing inks and type.
 - The brand inks: one identifying colour per brand and a neutral base; this system assigns the three existing inks and uses `paper` as the base (until 2026-11-19 they were the three pillar inks).
 - The stacked sub-brand lockup and the fitted "XIDING ACADEMY" Latin line in SubBrand.
 - Button hover in `teal-text`, so the label holds 4.5:1.
 - v1.8: the source VI of 西頂廣仁宮 (`brand/xiding-guangren-vi/`, 品牌形象-5): its six swatches as `vi-*` tokens, its 13 logo files as the VI asset group, and its nameplate as TempleSign. The brand teal is an open decision (see 尚未统一 · Open decisions).
-- v1.7: the page kit the five live Xiding pages share (Ink, LockupMotion, Photo, Whisper, Export, Go, Lang, FieldBlock, Ecosystem), Cormorant Garamond figures (`--font-figure`), CJK sans fallbacks, and font swaps for `<html lang="en">` and `lang="zh-Hant"`. The full-bleed field is `.xd-fieldblock--bleed`; `.xd-field` is the form Field's alone.
-- 2026-11-18: the mark stays whole. The drifting, scattered dots of v1.6 are retired from every composition (Cover, Hero, the H5 screens, the showcase); `scatter()` keeps its options for compatibility, and every composition calls it with `spread: 0`.
-- The art layer (v1.6): vertical type, `Xiding.scatter()` with `hold`, `avoid` and breathing, the stones, the loose list, the floating tab bar, the held membership card, and the Cover and Hero recomposed on it.
-- The expressive mobile layer (v1.5): full-bleed fields with the cropped mark, the brand band, ruled numbered lists, action dots, round brand dots, the black tab bar, `brand-black` on `brand-teal` for dots and buttons, and `Xiding.assemble()`. No hue was added.
+- v1.7: the page kit the five live Xiding pages share (Ink, LockupMotion, Photo, Whisper, Export, Go, Lang, Ecosystem; FieldBlock was retired with the H5 screens), Cormorant Garamond figures (`--font-figure`), CJK sans fallbacks, and font swaps for `<html lang="en">` and `lang="zh-Hant"`. `.xd-field` is the form Field's alone.
+- 2026-11-18: the mark stays whole. The drifting, scattered dots of v1.6 are retired from every composition (Cover, Hero, the showcase); `scatter()` keeps its options for compatibility, and every composition calls it with `spread: 0`.
+- The art layer (v1.6): vertical type, `Xiding.scatter()` with `hold`, `avoid` and breathing, and the Cover and Hero recomposed on it.
+- The expressive mobile layer (v1.5): `brand-black` on `brand-teal` for dots and buttons, round brand dots, and `Xiding.assemble()`. No hue was added. Its mobile screens were retired on 2026-11-19.
