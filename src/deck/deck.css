@@ -109,7 +109,7 @@ html, body { height: 100%; }
 /* Three pillars, three inks, edge to edge */
 .bands { position: absolute; inset: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
 .band { display: flex; flex-direction: column; justify-content: space-between; padding: 44u 40u 48u; box-shadow: none; }
-.band.xd-ink--li { background: var(--paper); color: var(--ink); box-shadow: none; }
+.band.xd-ink--lifestyle { background: var(--paper); color: var(--ink); box-shadow: none; }
 .band__n { font: 500 120u/.8 var(--font-figure); font-variant-numeric: lining-nums; }
 .band__name { font: 500 30u/1.3 var(--font-display); letter-spacing: .14em; }
 
@@ -133,7 +133,7 @@ html, body { height: 100%; }
 :root[lang="en"] .what .bp__name { font-size: 42u; line-height: 1.05; letter-spacing: .01em; text-wrap: balance; }
 :root[lang="en"] .what .bp__alt { font-size: 16u; }
 
-/* X · the whole system, 一底三柱 */
+/* X · the whole system */
 .syshead { position: absolute; left: 48u; right: 48u; top: 70u; display: flex; align-items: baseline; gap: 18u; }
 .syshead .fig { font-size: 60u; }
 .syshead__line { font: 500 28u/1.2 var(--font-display); letter-spacing: .14em; }
@@ -151,7 +151,7 @@ html, body { height: 100%; }
 .mod__photo { height: 180u; aspect-ratio: auto !important; }
 .mod__photo figcaption { left: 12u; right: 12u; bottom: 12u; font-size: 7.5u; letter-spacing: .18em; }
 .mod__dot { position: relative; display: block; width: 9u; height: 9u; margin-top: 10u; border-radius: 50%; }
-.mod__dot.xd-ink--li { box-shadow: inset 0 0 0 1u var(--ink); }
+.mod__dot.xd-ink--lifestyle { box-shadow: inset 0 0 0 1u var(--ink); }
 .mod__n { display: block; margin-top: 14u; font: 500 14u/1 var(--font-figure); letter-spacing: .12em; color: var(--teal-text); font-variant-numeric: lining-nums; }
 .mod__name { margin-top: 8u; font: 500 16u/1.35 var(--font-display); letter-spacing: .08em; }
 .mod__line { margin-top: 6u; font: 400 10.5u/1.6 var(--font-sans); letter-spacing: .04em; color: var(--soft); }

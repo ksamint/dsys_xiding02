@@ -62,9 +62,9 @@ test("the architecture is 1 who we are, 2 what we do (the brands), 3 how we do i
   assert.equal(content.overview.figures.map((f) => f.figure).join(""), "123X");
   assert.equal(content.brands.items.length, 3);
   assert.deepEqual(content.pillars.items.map((p) => [p.n, p.id, p.ink]), [
-    [1, "space", "mei"],
-    [2, "courses", "zhi"],
-    [3, "membership", "li"],
+    [1, "space", "arts"],
+    [2, "courses", "academy"],
+    [3, "membership", "lifestyle"],
   ]);
   for (const p of content.pillars.items) assert.equal(p.modules.length, 4, `${p.id} modules`);
   assert.equal(content.values.items.filter((v) => "focus" in v && v.focus).length, 1, "exactly one value is the centre");

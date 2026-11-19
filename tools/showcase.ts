@@ -23,13 +23,12 @@ const DS = join(ROOT, "design-system");
 const OUT = join(ROOT, "showcase", "index.html");
 
 // ---------- reading the system ----------
-interface Pillar { id: string; zh: string; word: string; sentence: string; en: string; line: string; motto: string }
 interface Brand { zh: string; en: string; level: string; settled: boolean }
-interface Scene { pillar: string; id: string; scenes: string[]; use: string }
+interface Scene { brand: string; id: string; scenes: string[]; use: string }
 interface Art { name: string; label: string }
 interface XidingAPI {
-  version: string; PILLARS: Pillar[]; LINE: string; ROOT: { zh: string; en: string }; BRANDS: Brand[];
-  BRAND_DETAILS: { zh: string; en: string; latin: string; field: string; services: string[]; lines: string[] }[]; TAGLINE: string;
+  version: string; ROOT: { zh: string; en: string }; BRANDS: Brand[];
+  BRAND_DETAILS: { id: string; zh: string; en: string; latin: string; word: string; field: string; services: string[]; lines: string[] }[]; TAGLINE: string;
   SCENES: Scene[]; STEPS: string[][]; SITE: string; ADDRESS: string;
   art: { architecture(theme: string): Art; steps(theme: string): Art };
   toSVG(a: Art): string;
@@ -121,7 +120,7 @@ function hero(X: XidingAPI, idx: Index, t: Tokens, stats: string): string {
 <div class="sc-hero__art">${art}</div>
 <div class="sc-hero__words">
   <div class="sc-hero__name"><h1>西顶</h1><span class="sc-latin">XIDING DESIGN SYSTEM</span></div>
-  <p class="sc-hero__line xd-vert">${X.LINE.replace(/，/g, "，<br>")}</p>
+  <p class="sc-hero__line xd-vert">${X.TAGLINE.split(" · ").map(esc).join("<br>")}</p>
 </div>
 <dl class="sc-stats">${stats}</dl>
 <p class="sc-hero__note">${esc(t.name)} · 设计系统展示。本页由仓库里的 <code>design-system/</code> 生成：令牌、IP 体系、组件、资产和品牌手册都从文件读出，提交即同步。${idx.lastChange ? ` 最近一次改动：${esc(idx.lastChange.note ?? "")}` : ""}</p>
@@ -157,40 +156,31 @@ ${PAGES.map((p, i) => `<p class="sc-pagenote" data-note="${p.id}"${i === 0 ? "" 
 }
 
 function ipSection(X: XidingAPI): string {
-  const levels = ["整体", "牌子", "板块"];
+  const levels = ["整体", "牌子"];
   const brand = (b: Brand) => `<li class="sc-brand"><b>${esc(b.zh)}</b>${b.en ? `<span>${esc(b.en)}</span>` : ""}${b.settled ? "" : `<em class="sc-chip">英文名待确认</em>`}</li>`;
   const tree = levels.map((lv) => {
     const bs = X.BRANDS.filter((b) => b.level === lv);
     return bs.length ? `<div class="sc-tier"><span class="sc-tier__label">${lv}</span><ul>${bs.map(brand).join("")}</ul></div>` : "";
   }).join("");
-  const pillars = X.PILLARS.map((p) => `<article class="sc-pillar sc-pillar--${p.id}">
-  <i class="sc-pillar__stone" aria-hidden="true"></i>
-  <div class="sc-pillar__head"><h4>${esc(p.zh)}</h4><span class="sc-pillar__word">${esc(p.word)}</span><span class="sc-latin">${esc(p.en.toUpperCase())}</span></div>
-  <p class="sc-pillar__sentence">${esc(p.sentence)}</p>
-  <p class="sc-pillar__meta">${esc(p.motto)} · 板块 ${esc(p.line)}</p>
-</article>`).join("");
-  const scenes = X.SCENES.map((s) => `<tr><th scope="row"><i class="xd-dot xd-dot--${s.id}"></i>${esc(s.pillar)}</th><td>${s.scenes.map((x) => `<span class="sc-scene">${esc(x)}</span>`).join("")}</td><td class="sc-muted">${esc(s.use)}</td></tr>`).join("");
+  const scenes = X.SCENES.map((s) => `<tr><th scope="row"><i class="xd-dot xd-dot--${s.id}"></i>${esc(s.brand)}</th><td>${s.scenes.map((x) => `<span class="sc-scene">${esc(x)}</span>`).join("")}</td><td class="sc-muted">${esc(s.use)}</td></tr>`).join("");
   const steps = X.STEPS.map((st) => `<li>${st.map(esc).join("")}</li>`).join("");
   const brandCards = X.BRAND_DETAILS.map((b, i) => `<article class="sc-brand">
-  <p class="sc-brand__field"><span>${esc(b.field)}</span><span>${i + 1} / ${X.BRAND_DETAILS.length}</span></p>
-  <h4>${esc(b.zh)}</h4><p class="sc-latin">${esc(b.latin)} · ${esc(b.en)}</p>
+  <p class="sc-brand__field"><span><i class="sc-brand__ink sc-brand__ink--${esc(b.id)}" aria-hidden="true"></i>${esc(b.field)}</span><span>${i + 1} / ${X.BRAND_DETAILS.length}</span></p>
+  <h4>${esc(b.zh)}</h4><p class="sc-latin">${esc(b.latin)} · ${esc(b.word)}</p>
   <ul class="sc-brand__services">${b.services.map((x) => `<li>${esc(x)}</li>`).join("")}</ul>
   <p class="sc-brand__lines">${b.lines.map(esc).join("<br>")}</p>
 </article>`).join("");
   const arch = (theme: string) => X.toSVG(X.art.architecture(theme));
   return `<section class="sc-section" id="ip">
-<div class="sc-head"><span class="sc-latin">IP SYSTEM</span><h2>IP 体系</h2><p class="sc-lede">一套班子，三个牌子，三个板块；三柱立在一条价值线上。以下全部读自 <code>Xiding.PILLARS</code>、<code>BRANDS</code>、<code>SCENES</code>、<code>STEPS</code>。</p></div>
+<div class="sc-head"><span class="sc-latin">IP SYSTEM</span><h2>IP 体系</h2><p class="sc-lede">一套班子，三个牌子，每个牌子一种墨色（<code>ink-arts</code>、<code>ink-academy</code>、<code>ink-lifestyle</code>）。以下全部读自 <code>Xiding.BRAND_DETAILS</code>、<code>BRANDS</code>、<code>SCENES</code>、<code>STEPS</code>。</p></div>
 <h3 class="sc-sub">西顶文化 · ${esc(X.TAGLINE)} · 三个牌子</h3>
 <div class="sc-brands">${brandCards}</div>
-<p class="sc-valueline">${esc(X.LINE)}</p>
 <div class="sc-ip-grid">
   <div class="sc-panel"><h3>品牌架构</h3><p class="sc-root">根 <b>${esc(X.ROOT.zh)}</b> <span class="sc-muted">${esc(X.ROOT.en)} · 西顶庙</span></p>${tree}</div>
   <div class="sc-panel sc-arch"><h3>架构图</h3><div class="sc-only-light">${arch("light")}</div><div class="sc-only-dark">${arch("dark")}</div></div>
 </div>
-<h3 class="sc-sub">三柱 · 大美 大智 大礼</h3>
-<div class="sc-pillars">${pillars}</div>
 <div class="sc-ip-grid">
-  <div class="sc-panel"><h3>场景</h3><div class="sc-scroll"><table class="sc-table"><thead><tr><th>柱</th><th>场景</th><th>用处</th></tr></thead><tbody>${scenes}</tbody></table></div></div>
+  <div class="sc-panel"><h3>场景</h3><div class="sc-scroll"><table class="sc-table"><thead><tr><th>牌子</th><th>场景</th><th>用处</th></tr></thead><tbody>${scenes}</tbody></table></div></div>
   <div class="sc-panel"><h3>${"一二三四五六"[X.STEPS.length - 1] ?? ""}步</h3><ol class="sc-steps">${steps}</ol></div>
 </div>
 <p class="sc-facts"><span>官网 <code>${esc(X.SITE)}</code></span><span>地址 ${esc(X.ADDRESS)}</span></p>
@@ -359,7 +349,6 @@ code { font: 400 12.5px/1.5 var(--font-mono); background: var(--surface); border
 .sc-scroll { overflow-x: auto; min-width: 0; }
 
 /* IP */
-.sc-valueline { margin: 0; font: 700 clamp(28px, 4.4vw, 52px)/1.3 var(--font-serif); letter-spacing: .06em; text-wrap: balance; }
 .sc-ip-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr)); gap: 16px; }
 .sc-root { font-size: 15px; }
 .sc-tier { display: grid; grid-template-columns: 48px minmax(0, 1fr); gap: 12px; padding-top: 12px; border-top: 1px solid var(--line); }
@@ -373,17 +362,10 @@ code { font: 400 12.5px/1.5 var(--font-mono); background: var(--surface); border
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .sc-only-dark { display: block; } :root:not([data-theme="light"]) .sc-only-light { display: none; } }
 :root[data-theme="dark"] .sc-only-dark { display: block; }
 :root[data-theme="dark"] .sc-only-light { display: none; }
-.sc-pillars { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: 16px; }
-.sc-pillar { display: grid; gap: 12px; align-content: start; padding: 20px 0; }
-.sc-pillar__stone { display: block; border-radius: var(--radius-full); width: 96px; height: 96px; }
-.sc-pillar--mei .sc-pillar__stone { background: var(--pillar-mei); width: 120px; height: 120px; }
-.sc-pillar--zhi .sc-pillar__stone { background: var(--pillar-zhi); }
-.sc-pillar--li .sc-pillar__stone { background: var(--pillar-li); box-shadow: inset 0 0 0 1.5px var(--ink); width: 72px; height: 72px; }
-.sc-pillar__head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 14px; }
-.sc-pillar h4 { margin: 0; font: 700 40px/1 var(--font-serif); letter-spacing: .04em; }
-.sc-pillar__word { font: 600 20px/1 var(--font-serif); letter-spacing: .3em; }
-.sc-pillar__sentence { margin: 0; font: 500 18px/1.6 var(--font-serif); max-width: 24em; }
-.sc-pillar__meta { margin: 0; color: var(--muted); font-size: 13px; }
+.sc-brand__ink { display: inline-block; width: 14px; height: 14px; margin-right: 8px; vertical-align: -2px; border-radius: var(--radius-full); }
+.sc-brand__ink--arts { background: var(--ink-arts); }
+.sc-brand__ink--academy { background: var(--ink-academy); }
+.sc-brand__ink--lifestyle { background: var(--ink-lifestyle); box-shadow: inset 0 0 0 1.5px var(--ink); }
 .sc-scene { display: inline-block; margin: 2px 6px 2px 0; padding: 2px 8px; border: 1px solid var(--line); border-radius: var(--radius-sm); font: 600 14px/1.5 var(--font-serif); }
 .sc-steps { margin: 0; padding-left: 1.6em; display: grid; gap: 10px; font: 500 16px/1.6 var(--font-serif); }
 .sc-steps li::marker { color: var(--teal-text); font: 700 16px var(--font-sans); }
@@ -619,7 +601,7 @@ export interface Source { repo: string; commit: string; tree: string; date: stri
 const REPO = "ksamint/dsys_xiding01";
 const SOURCES: [string, string, string[]][] = [
   ["pages", "页面 · 介绍、总览、官网", ["src/shared/content.ts", "src/deck/", "src/onepager/", "src/site/", "scripts/build.ts"]],
-  ["ip", "IP 体系 · 三个牌子、三柱、架构", ["design-system/components/src/xiding.ts", "design-system/intro.md", "src/shared/content.ts"]],
+  ["ip", "IP 体系 · 三个牌子、墨色、架构", ["design-system/components/src/xiding.ts", "design-system/intro.md", "src/shared/content.ts"]],
   ["tokens", "令牌 · 颜色、字体、尺寸", ["design-system/tokens.json"]],
   ["components", "组件", ["design-system/components/", "design-system/components/bundle.css"]],
   ["assets", "资产", ["design-system/assets/", "design-system/design-system.json"]],
@@ -680,7 +662,7 @@ export function buildShowcase(peopleFile?: string, src?: Source): Built {
   const nTokens = t.color.tokens.length + t.type.groups.reduce((n, g) => n + g.styles.length, 0) +
     Object.entries(t).filter(([k, v]) => k !== "color" && k !== "type" && typeof v === "object" && v !== null && Array.isArray((v as Family).tokens))
       .reduce((n, [, v]) => n + (v as Family).tokens.length, 0);
-  const stats = [["Tokens", String(nTokens)], ["Components", String(cs.length)], ["Assets", String(nAssets)], ["Pages", String(PAGES.length)], ["Pillars", String(X.PILLARS.length)], ["Bundle", `v${X.version}`]]
+  const stats = [["Tokens", String(nTokens)], ["Components", String(cs.length)], ["Assets", String(nAssets)], ["Pages", String(PAGES.length)], ["Brands", String(X.BRAND_DETAILS.length)], ["Bundle", `v${X.version}`]]
     .map(([k, v]) => `<div><dt>${k}</dt><dd>${esc(v ?? "")}</dd></div>`).join("");
 
   const data = JSON.stringify({

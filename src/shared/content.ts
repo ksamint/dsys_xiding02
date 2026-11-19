@@ -10,7 +10,7 @@ export const TBD: L = t("TBD", "待填寫", "待填写");
    no exclamation marks. Traditional copy uses 「」; Simplified copy uses “”. */
 
 /** One ink per line of work: temple teal, black, and white drawn with an ink hairline. */
-export type Ink = "mei" | "zhi" | "li";
+export type Ink = "arts" | "academy" | "lifestyle";
 
 export const brand = {
   name: t("Xiding", "西頂", "西顶"),
@@ -79,14 +79,14 @@ export const values = {
       id: "legacy",
       name: TBD,
       alt: TBD,
-      ink: "zhi",
+      ink: "academy",
       focus: true,
     },
     {
       id: "beauty",
       name: TBD,
       alt: TBD,
-      ink: "mei",
+      ink: "arts",
     },
   ] satisfies readonly Value[],
 } as const;
@@ -123,7 +123,7 @@ export const brands = {
       name: brand.arts,
       latin: "XIDING ARTS",
       field: "ART / CULTURE",
-      ink: "mei",
+      ink: "arts",
       services: [t("Art and cultural curation", "藝術策展", "艺术策展"), t("Brand collaboration", "品牌共創", "品牌共创"), t("Bespoke experiences", "私享訂製", "私享定制")],
       lines: [
         t("Art that connects cultures.", "以藝術連接文化，", "以艺术连接文化，"),
@@ -136,7 +136,7 @@ export const brands = {
       name: brand.academy,
       latin: "XIDING ACADEMY",
       field: "EDUCATION / LEARNING",
-      ink: "zhi",
+      ink: "academy",
       services: [t("Learning and executive education", "課程研修", "课程研修"), t("Strategy consulting", "戰略諮詢", "战略咨询"), t("Talent development", "人才發展", "人才发展")],
       lines: [
         t("Education that opens minds.", "以教育啟發認知，", "以教育启发认知，"),
@@ -149,7 +149,7 @@ export const brands = {
       name: brand.lifestyle,
       latin: "XIDING LIFESTYLE",
       field: "LIFESTYLE / MEMBERSHIP",
-      ink: "li",
+      ink: "lifestyle",
       services: [t("Membership", "會員生活", "会员生活"), t("Social gatherings", "品質社交", "品质社交"), t("Curated experiences", "精緻體驗", "精致体验")],
       lines: [
         t("Time that deepens value.", "以時光沉澱價值，", "以时光沉淀价值，"),
@@ -183,7 +183,7 @@ export const pillars = {
     {
       id: "space",
       n: 1,
-      ink: "mei",
+      ink: "arts",
       name: TBD,
       modules: [
         {
@@ -211,7 +211,7 @@ export const pillars = {
     {
       id: "courses",
       n: 2,
-      ink: "zhi",
+      ink: "academy",
       name: TBD,
       modules: [
         {
@@ -239,7 +239,7 @@ export const pillars = {
     {
       id: "membership",
       n: 3,
-      ink: "li",
+      ink: "lifestyle",
       name: TBD,
       modules: [
         {
@@ -297,7 +297,7 @@ export const closing = {
   events: TBD,
 } as const;
 
-/** X as one picture, 一底三柱: the ecosystem on top, the three pillars and their modules standing, the foundation under them. */
+/** X as one picture: the ecosystem on top, the three pillars and their modules standing, the foundation under them. */
 export const system = {
   eco: { name: TBD },
   solutions: { name: TBD },

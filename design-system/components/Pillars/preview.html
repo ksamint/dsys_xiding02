@@ -11,13 +11,12 @@
 <div class="xd-pad"><div id="root" class="xd-pillars"></div></div>
 <script>
   var X = window.Xiding, root = document.getElementById('root');
-  var br = function (s) { var i = s.lastIndexOf('，'); return i < 0 ? s : s.slice(0, i + 1) + '<br>' + s.slice(i + 1); };
   root.innerHTML =
-    X.PILLARS.map(function (p) { return '<div class="xd-pillars__cap">' + p.line + '</div>'; }).join('') +
-    X.PILLARS.map(function (p) { return '<div class="xd-pillar xd-pillar--' + p.id + '"><span class="xd-pillar__word">' + p.word + '</span><span class="xd-pillar__name">' + p.zh + '</span></div>'; }).join('') +
+    X.BRAND_DETAILS.map(function (b) { return '<div class="xd-pillars__cap">' + b.latin + '</div>'; }).join('') +
+    X.BRAND_DETAILS.map(function (b) { return '<div class="xd-pillar xd-pillar--' + b.id + '"><span class="xd-pillar__word">' + b.word + '</span><span class="xd-pillar__name">' + b.zh + '</span></div>'; }).join('') +
     '<div class="xd-pillars__base"></div>' +
-    X.PILLARS.map(function (p) { return '<div class="xd-pillars__motto">' + p.motto + '</div>'; }).join('') +
-    X.PILLARS.map(function (p) { return '<p class="xd-pillars__sentence">' + br(p.sentence) + '</p>'; }).join('');
+    X.BRAND_DETAILS.map(function (b) { return '<div class="xd-pillars__motto">' + b.services.join(' · ') + '</div>'; }).join('') +
+    X.BRAND_DETAILS.map(function (b) { return '<p class="xd-pillars__sentence">' + b.lines.join('<br>') + '</p>'; }).join('');
 </script>
 </body>
 </html>

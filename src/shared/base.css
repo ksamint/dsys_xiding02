@@ -104,9 +104,9 @@ button { font: inherit; color: inherit; }
 .xd-whisper { font: 500 11px/1.4 var(--font-sans); letter-spacing: .3em; text-transform: uppercase; }
 
 /* Inks for the three lines of work: temple teal, black, and white drawn with an ink hairline. */
-.xd-ink--mei { background: var(--brand-teal); color: var(--brand-white); }
-.xd-ink--zhi { background: var(--ink); color: var(--surface); }
-.xd-ink--li { background: var(--surface); color: var(--ink); box-shadow: inset 0 0 0 1px var(--ink); }
+.xd-ink--arts { background: var(--brand-teal); color: var(--brand-white); }
+.xd-ink--academy { background: var(--ink); color: var(--surface); }
+.xd-ink--lifestyle { background: var(--surface); color: var(--ink); box-shadow: inset 0 0 0 1px var(--ink); }
 .xd-dot { display: inline-block; width: 10px; height: 10px; flex: none; border-radius: 50%; }
 
 /* Photo slot: holds a photograph, or a quiet field that says which one belongs here. */

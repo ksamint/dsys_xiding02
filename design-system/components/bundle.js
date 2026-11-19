@@ -445,33 +445,24 @@
         const ps = side === "front" ? frontPrims(c) : backPrims(c, person);
         return primsSVG(c, ps, { bleed: !!o.bleed, guides: !!o.guides, label: side === "front" ? "Xiding business card, front" : `Xiding business card, back, ${person.nameEn}` });
     }
-    const PILLARS = [
-        { id: "mei", zh: "大美", word: "眼光", sentence: "AI 交来十个方案，你看得出哪一个对。", en: "Taste", line: "美成", motto: "以美成人" },
-        { id: "zhi", zh: "大智", word: "章法", sentence: "十件事同时在跑，你排得出先后，知道哪一环会断。", en: "Structure", line: "智行", motto: "以智行事" },
-        { id: "li", zh: "大礼", word: "分寸", sentence: "你待人有分寸，关键的人肯为你引荐、担保。", en: "Trust", line: "礼遇", motto: "以礼相遇" },
-    ];
-    const LINE = "以美成人，以智行事，以礼相遇。";
     const ROOT = { zh: "广仁宫", en: "Guangren Palace" };
     const BRANDS = [
         { zh: "西顶文化", en: "Xiding", level: "整体", settled: true },
         { zh: "西顶艺术", en: "Xiding Arts", level: "牌子", settled: true },
         { zh: "西顶学院", en: "Xiding Academy", level: "牌子", settled: true },
         { zh: "西顶时光", en: "Xiding Lifestyle", level: "牌子", settled: true },
-        { zh: "西顶智行", en: "Xiding Praxis", level: "板块", settled: false },
-        { zh: "西顶美成", en: "", level: "板块", settled: false },
-        { zh: "西顶礼遇", en: "", level: "板块", settled: false },
     ];
     const TAGLINE = "艺术 · 教育 · 生活方式";
     const BRAND_DETAILS = [
-        { zh: "西顶艺术", en: "Xiding Arts", latin: "XIDING ARTS", field: "ART / CULTURE", services: ["艺术策展", "品牌共创", "私享定制"], lines: ["以艺术连接文化，", "以创意赋能品牌，", "以体验创造价值。"] },
-        { zh: "西顶学院", en: "Xiding Academy", latin: "XIDING ACADEMY", field: "EDUCATION / LEARNING", services: ["课程研修", "战略咨询", "人才发展"], lines: ["以教育启发认知，", "以咨询推动变革，", "以人才驱动未来。"] },
-        { zh: "西顶时光", en: "Xiding Lifestyle", latin: "XIDING LIFESTYLE", field: "LIFESTYLE / MEMBERSHIP", services: ["会员生活", "品质社交", "精致体验"], lines: ["以时光沉淀价值，", "以品味连接彼此，", "以社群丰富生活。"] },
+        { id: "arts", zh: "西顶艺术", en: "Xiding Arts", latin: "XIDING ARTS", word: "艺术", field: "ART / CULTURE", services: ["艺术策展", "品牌共创", "私享定制"], lines: ["以艺术连接文化，", "以创意赋能品牌，", "以体验创造价值。"] },
+        { id: "academy", zh: "西顶学院", en: "Xiding Academy", latin: "XIDING ACADEMY", word: "教育", field: "EDUCATION / LEARNING", services: ["课程研修", "战略咨询", "人才发展"], lines: ["以教育启发认知，", "以咨询推动变革，", "以人才驱动未来。"] },
+        { id: "lifestyle", zh: "西顶时光", en: "Xiding Lifestyle", latin: "XIDING LIFESTYLE", word: "生活方式", field: "LIFESTYLE / MEMBERSHIP", services: ["会员生活", "品质社交", "精致体验"], lines: ["以时光沉淀价值，", "以品味连接彼此，", "以社群丰富生活。"] },
     ];
     const SCENES = [
-        { pillar: "大美", id: "mei", scenes: ["古琴", "艺术鉴赏", "策展"], use: "养品味" },
-        { pillar: "大智", id: "zhi", scenes: ["咨询", "培训", "落地陪跑对接"], use: "解决问题" },
-        { pillar: "大礼", id: "li", scenes: ["生日", "下午茶", "私宴"], use: "经营关系" },
-        { pillar: "担当", id: "root", scenes: ["心理辅导", "教练"], use: "养心力" },
+        { brand: "西顶艺术", id: "arts", scenes: ["古琴", "艺术鉴赏", "策展"], use: "养品味" },
+        { brand: "西顶学院", id: "academy", scenes: ["咨询", "培训", "落地陪跑对接"], use: "解决问题" },
+        { brand: "西顶时光", id: "lifestyle", scenes: ["生日", "下午茶", "私宴"], use: "经营关系" },
+        { brand: "担当", id: "root", scenes: ["心理辅导", "教练"], use: "养心力" },
     ];
     function rowPrims(parts, x, y, size, anchor, fill) {
         const spacing = 0.28, gap = size * 1.5;
@@ -546,43 +537,42 @@
             prims: (ink === "white" ? [{ t: "rect", x: 0, y: 0, w: tw + 2 * pad, h: size * 0.9 + 2 * pad, fill: "#628F8A" }] : []).concat([{ t: "text", text, x: pad, y: pad + size * 0.84, size, family: "serif", weight, spacing, anchor: "start", fill: INKS[ink] }]),
         };
     }
-    function pillarInks(id, dark) {
-        if (id === "mei") {
+    function brandInks(id, dark) {
+        if (id === "arts") {
             return { fill: "#628F8A", on: "#FFFFFF" };
         }
-        if (id === "zhi") {
+        if (id === "academy") {
             return dark ? { fill: "#FFFFFF", on: "#141B1A" } : { fill: "#000000", on: "#FFFFFF" };
         }
         return dark ? { fill: "#141B1A", on: "#FFFFFF", stroke: "#FFFFFF" } : { fill: "#FFFFFF", on: "#000000", stroke: "#000000" };
     }
     function artPillars(theme = "light") {
         const dark = theme === "dark", ink = dark ? "#FFFFFF" : "#000000";
-        const W = 960, M = 24, G = 24, cw = (W - 2 * M - 2 * G) / 3, top = 56, ph = 200, base = top + ph;
+        const W = 960, M = 24, G = 24, cw = (W - 2 * M - 2 * G) / 3, top = 24, ph = 200, base = top + ph;
         const prims = [];
-        PILLARS.forEach((p, i) => {
-            const x = M + i * (cw + G), k = pillarInks(p.id, dark);
-            prims.push({ t: "text", text: p.line, x, y: 36, size: 14, family: "serif", weight: 600, spacing: 0.28, anchor: "start", fill: ink });
+        BRAND_DETAILS.forEach((b, i) => {
+            const x = M + i * (cw + G), k = brandInks(b.id, dark);
             prims.push({ t: "rect", x, y: top, w: cw, h: ph, fill: k.fill, rx: 4 });
             prims.push({ t: "rect", x, y: base - 6, w: cw, h: 6, fill: k.fill });
             if (k.stroke) {
                 prims.push({ t: "rect", x: x + 0.5, y: top + 0.5, w: cw - 1, h: ph - 0.5, stroke: k.stroke, sw: 1, rx: 4 });
             }
-            prims.push({ t: "text", text: p.word, x: x + 20, y: top + 20 + 24 * 0.84, size: 24, family: "serif", weight: 600, spacing: 0.12, anchor: "start", fill: k.on });
-            prims.push({ t: "text", text: p.zh, x: x + 20, y: base - 20 - 56 * 0.06, size: 56, family: "serif", weight: 700, spacing: 0.04, anchor: "start", fill: k.on });
-            prims.push({ t: "text", text: p.motto, x, y: base + 2 + 12 + 22 * 0.84, size: 22, family: "serif", weight: 700, spacing: 0.12, anchor: "start", fill: ink });
+            prims.push({ t: "text", text: b.word, x: x + 20, y: top + 20 + 24 * 0.84, size: 24, family: "serif", weight: 600, spacing: 0.12, anchor: "start", fill: k.on });
+            prims.push({ t: "text", text: b.zh, x: x + 20, y: base - 20 - 44 * 0.06, size: 44, family: "serif", weight: 700, spacing: 0.04, anchor: "start", fill: k.on });
+            prims.push({ t: "text", text: b.services.join("　"), x, y: base + 2 + 12 + 16 * 0.84, size: 16, family: "serif", weight: 600, spacing: 0.04, anchor: "start", fill: ink });
         });
         prims.push({ t: "rect", x: M, y: base, w: W - 2 * M, h: 2, fill: ink });
-        return { name: `xiding-pillars-${theme}`, label: `一底三柱, for a ${theme} ground`, group: "Pillars", fonts: "serif", x: 0, y: 0, w: W, h: base + 2 + 12 + 22 + 24, px: 1920, prims };
+        return { name: `xiding-pillars-${theme}`, label: `西顶艺术、西顶学院、西顶时光, for a ${theme} ground`, group: "Pillars", fonts: "serif", x: 0, y: 0, w: W, h: base + 2 + 12 + 16 + 24, px: 1920, prims };
     }
     function artPillarPlate(id) {
-        const p = PILLARS.filter((q) => q.id === id)[0], k = pillarInks(id, false), S = 512;
+        const b = BRAND_DETAILS.filter((q) => q.id === id)[0], k = brandInks(id, false), S = 512;
         const prims = [{ t: "rect", x: 0, y: 0, w: S, h: S, fill: k.fill }];
         if (k.stroke) {
             prims.push({ t: "rect", x: 2, y: 2, w: S - 4, h: S - 4, stroke: k.stroke, sw: 4 });
         }
-        prims.push({ t: "text", text: p.word, x: 48, y: 48 + 64 * 0.84, size: 64, family: "serif", weight: 600, spacing: 0.12, anchor: "start", fill: k.on });
-        prims.push({ t: "text", text: p.zh, x: 48, y: S - 48 - 160 * 0.06, size: 160, family: "serif", weight: 700, spacing: 0.04, anchor: "start", fill: k.on });
-        return { name: `xiding-pillar-${id}`, label: `${p.zh}，${p.word}`, group: "Pillars", fonts: "serif", x: 0, y: 0, w: S, h: S, px: 1024, prims };
+        prims.push({ t: "text", text: b.word, x: 48, y: 48 + 64 * 0.84, size: 64, family: "serif", weight: 600, spacing: 0.12, anchor: "start", fill: k.on });
+        prims.push({ t: "text", text: b.zh, x: 48, y: S - 48 - 96 * 0.06, size: 96, family: "serif", weight: 700, spacing: 0.04, anchor: "start", fill: k.on });
+        return { name: `xiding-pillar-${id}`, label: `${b.zh}，${b.word}`, group: "Pillars", fonts: "serif", x: 0, y: 0, w: S, h: S, px: 1024, prims };
     }
     const themeInks = (theme) => theme === "dark"
         ? { ink: "#FFFFFF", muted: "#A9B6B3", accent: "#9CC2BC" }
@@ -590,7 +580,7 @@
     const SITE = "xidingmiao.com";
     const STEPS = [
         ["人和内容带来", "艺术家和行业专家。"],
-        ["三个板块把专家的能力", "交付给会员和合作伙伴。"],
+        ["三个牌子把专家的能力", "交付给会员和合作伙伴。"],
         ["智能体之间完成", "匹配、预约与分账，", "收益回到出力的人手里。"],
     ];
     function artArchitecture(theme = "light") {
@@ -608,19 +598,7 @@
             prims.push({ t: "text", text: name, x: x + 20, y: 169, size: 26, family: "serif", weight: 700, spacing: 0.12, anchor: "start", fill: k.ink });
             prims.push({ t: "text", text: services, x: x + 20, y: 198, size: 15, family: "serif", weight: 600, spacing: 0.04, anchor: "start", fill: k.muted });
         });
-        label("三个板块", 250);
-        const w3 = (W - 48) / 3;
-        PILLARS.forEach((p, i) => {
-            const x = i * (w3 + 24), c = pillarInks(p.id, dark);
-            prims.push({ t: "rect", x, y: 260, w: w3, h: 80, fill: c.fill, rx: 4 });
-            if (c.stroke) {
-                prims.push({ t: "rect", x: x + 0.5, y: 260.5, w: w3 - 1, h: 79, stroke: c.stroke, sw: 1, rx: 4 });
-            }
-            prims.push({ t: "text", text: p.line, x: x + 20, y: 310, size: 28, family: "serif", weight: 700, spacing: 0.12, anchor: "start", fill: c.on });
-            prims.push({ t: "text", text: p.zh, x: x + w3 - 20 - cjkW(p.zh, 20, 0.04), y: 307, size: 20, family: "serif", weight: 700, spacing: 0.04, anchor: "start", fill: c.on });
-            prims.push({ t: "text", text: p.motto, x, y: 368, size: 18, family: "serif", weight: 600, spacing: 0.12, anchor: "start", fill: k.ink });
-        });
-        return { name: `xiding-intro-architecture-${theme}`, label: `一套班子，三个牌子，三个板块, for a ${theme} ground`, group: "Intro", fonts: "serif", x: 0, y: 0, w: W, h: 380, px: 1920, prims };
+        return { name: `xiding-intro-architecture-${theme}`, label: `一套班子，三个牌子, for a ${theme} ground`, group: "Intro", fonts: "serif", x: 0, y: 0, w: W, h: 224, px: 1920, prims };
     }
     function artSteps(theme = "light") {
         const k = themeInks(theme), W = 960, n = STEPS.length, w = (W - 24 * (n - 1)) / n;
@@ -739,10 +717,10 @@
         out.push(artSubBrand({ layout: "wide", latin: "XIDING LIFESTYLE", brands: ["西顶时光"], colorway: "ink" }, "shiguang"));
         out.push(artSubBrand({ layout: "wide", brands: ["西顶艺术", "西顶学院", "西顶时光"], colorway: "ink" }, "all"));
         ["black", "white", "teal"].forEach((k) => out.push(artWordmark("西顶", "wordmark", k, "wordmark-zh")));
-        const slugs = ["wenhua", "yishu", "xueyuan", "shiguang", "zhixing", "meicheng", "liyu"];
+        const slugs = ["wenhua", "yishu", "xueyuan", "shiguang"];
         BRANDS.forEach((b, i) => out.push(artWordmark(b.zh, "row", "black", "name-" + slugs[i])));
         out.push(artPillars("light"), artPillars("dark"));
-        ["mei", "zhi", "li"].forEach((id) => out.push(artPillarPlate(id)));
+        BRAND_DETAILS.forEach((b) => out.push(artPillarPlate(b.id)));
         out.push(artArchitecture("light"), artArchitecture("dark"), artSteps("light"), artSteps("dark"));
         ["teal", "night", "ink"].forEach((c) => out.push(artAvatar(c)));
         out.push(artCard({ side: "front" }, "card-front"));
@@ -824,7 +802,7 @@
     }
     root.Xiding = {
         version: "1.8.0",
-        PILLARS, LINE, ROOT, BRANDS, BRAND_DETAILS, TAGLINE, SCENES, STEPS, SITE,
+        ROOT, BRANDS, BRAND_DETAILS, TAGLINE, SCENES, STEPS, SITE,
         kit, toSVG, toPNG,
         art: { mark: artMark, subBrand: artSubBrand, card: artCard, wordmark: artWordmark, pillars: artPillars, pillarPlate: artPillarPlate, architecture: artArchitecture, steps: artSteps, avatar: artAvatar },
         R, CENTER, BOUNDS, PAD, COLORWAYS, STYLE_NAMES, PRESETS, PEOPLE, ADDRESS,

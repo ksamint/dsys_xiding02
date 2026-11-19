@@ -1,11 +1,11 @@
 # H5Courses
 
-The Academy's list: the programme on a black field, the courses and the next step after training, filtered by pillar. Built from `xd-picks`, `xd-fieldblock--night`, `xd-cta--teal`, `xd-list` and `xd-item`.
+The Academy's list: the programme on a black field, the courses and the next step after training, filtered by brand. Built from `xd-picks`, `xd-fieldblock--night`, `xd-cta--teal`, `xd-list` and `xd-item`.
 
-**You provide** each course: its pillar, its title, where and when, and its action.
+**You provide** each course: its brand, its title, where and when, and its action.
 
-- 西顶学院 looks after content, so this tab leads with the programme 听 XX 讲大美、大智、大礼 on a short black field with the `ring` mark in teal, and the teal button to sign up for the next session under it.
-- The filter row is 全部 and the three pillars. One filter is on at a time; the chosen one is filled with `ink`.
+- 西顶学院 looks after content, so this tab leads with the programme 听 XX 讲艺术、教育、生活方式 on a short black field with the `ring` mark in teal, and the teal button to sign up for the next session under it.
+- The filter row is 全部 and the three brands. One filter is on at a time; the chosen one is filled with `ink`.
 - A course title follows the title rules in 文案 · Voice: a fact, an act or a question, on one or two lines.
 - Courses are numbered ruled rows. Actions are one word on a dot: 报名, 咨询, 预约. A full session shows 已满 in `muted` on an outlined dot.
 - Course names marked 待定 or 示例 are placeholders.

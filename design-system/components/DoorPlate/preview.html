@@ -11,10 +11,10 @@
 <div class="xd-pad xd-row" id="root" style="align-items:flex-start"></div>
 <script>
   var X = window.Xiding, root = document.getElementById('root');
-  var plates = [['mei', '古琴'], ['zhi', '咨询'], ['li', '下午茶']];
+  var plates = [['arts', '古琴'], ['academy', '咨询'], ['lifestyle', '下午茶']];
   root.innerHTML = plates.map(function (pl) {
-    var p = X.PILLARS.filter(function (q) { return q.id === pl[0]; })[0];
-    return '<div class="xd-plate xd-plate--' + p.id + '"><div class="xd-plate__field">' + pl[1] + '</div><div class="xd-plate__foot">' + X.brandRow([p.zh, p.word]) + '</div></div>';
+    var b = X.BRAND_DETAILS.filter(function (q) { return q.id === pl[0]; })[0];
+    return '<div class="xd-plate xd-plate--' + b.id + '"><div class="xd-plate__field">' + pl[1] + '</div><div class="xd-plate__foot">' + X.brandRow([b.zh]) + '</div></div>';
   }).join('');
 </script>
 </body>

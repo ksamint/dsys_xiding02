@@ -24,9 +24,9 @@ export interface CalEvent {
 
 export const KINDS: Readonly<Record<EventKind, { name: L; ink: Ink }>> = {
   /* The three pillars, in their order and inks: 1 space, 2 courses, 3 membership. */
-  space: { name: t("Space × Events", "空間 × 活動", "空间 × 活动"), ink: "mei" },
-  academy: { name: t("Courses × Services", "課程 × 服務", "课程 × 服务"), ink: "zhi" },
-  member: { name: t("Members × Tailor-made", "會員 × 訂製", "会员 × 定制"), ink: "li" },
+  space: { name: t("Space × Events", "空間 × 活動", "空间 × 活动"), ink: "arts" },
+  academy: { name: t("Courses × Services", "課程 × 服務", "课程 × 服务"), ink: "academy" },
+  member: { name: t("Members × Tailor-made", "會員 × 訂製", "会员 × 定制"), ink: "lifestyle" },
 };
 
 /** The interests a member can choose: the tags, from the one list in catalog.ts. */

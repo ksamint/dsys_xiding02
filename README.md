@@ -12,7 +12,7 @@
 | `showcase/` | One self-contained page showing the whole system and the three introduction pages; open `showcase/index.html` |
 | `brand/` | The source visual identity of 西頂廣仁宮: logos (SVG, PNG), palette, the brand-book pages as images, and the text taken from it |
 | `cards/` | The business-card editor (TypeScript, with a Rust snap engine built to WebAssembly). The people on the cards are fictional samples |
-| `src/`, `scripts/` | The introduction to Xiding: a 12-slide deck, the official site and a one-page overview, in English, Traditional and Simplified Chinese |
+| `src/`, `scripts/` | The introduction to Xiding: a 12-slide deck, the official site and a one-page overview, in English, Traditional and Simplified Chinese; and the pillar simulator (`src/simulator/`), which draws the mark in each style and colour with its ratio, spacing and clear space measured |
 | `docs/` | The content architecture and the decision records |
 | `tools/`, `tests/` | Builds and checks |
 
@@ -38,7 +38,8 @@ npm run check
 ```
 
 `npm run build` writes the introduction pages to `dist/`; `npm run showcase` rebuilds `showcase/index.html`;
-`npm run build:card:public` writes the card editor to `out/xiding-card.public.html`.
+`npm run build:card:public` writes the card editor to `out/xiding-card.public.html`; `npm run build:simulator` writes the
+pillar simulator to `dist/simulator/index.html`.
 
 ## Contributing
 

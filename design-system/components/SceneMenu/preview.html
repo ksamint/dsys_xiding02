@@ -12,7 +12,7 @@
 <script>
   var X = window.Xiding, root = document.getElementById('root');
   root.innerHTML = X.SCENES.map(function (s) {
-    return '<div class="xd-menu__row"><div class="xd-menu__pillar xd-menu__pillar--' + s.id + '">' + s.pillar + '</div>' +
+    return '<div class="xd-menu__row"><div class="xd-menu__pillar xd-menu__pillar--' + s.id + '">' + s.brand + '</div>' +
       '<div class="xd-menu__scenes">' + X.brandRow(s.scenes) + '</div><div class="xd-menu__use">' + s.use + '</div></div>';
   }).join('');
 </script>
