@@ -56,3 +56,15 @@ test("retired: the three lines of work, the three pillars and the value line are
   const hits = files.flatMap((f) => { const s = readFileSync(f, "utf8"); return words.filter((w) => w.test(s)).map((w) => `${f}: ${w.source}`); });
   assert.deepEqual(hits, []);
 });
+
+test("retired: the H5 screens, FieldBlock, the h5-* tokens and the parts only they used are gone", async () => {
+  const { existsSync, readdirSync, readFileSync } = await import("node:fs");
+  const comps = readdirSync("design-system/components");
+  assert.deepEqual(comps.filter((c) => /^H5|^FieldBlock$/.test(c)), []);
+  const tokens = JSON.parse(readFileSync("design-system/tokens.json", "utf8")) as Record<string, unknown>;
+  assert.equal(tokens["h5"], undefined, "tokens.json has no h5 family");
+  const css = readFileSync("design-system/components/bundle.css", "utf8");
+  for (const cls of ["xd-h5", "xd-fieldblock", "xd-tabbar", "xd-memcard", "xd-item", "xd-list", "xd-cta", "xd-band", "xd-stone", "xd-loose", "xd-note", "xd-poem", "xd-held", "xd-picks", "xd-slots", "xd-days", "xd-monthhead", "xd-event", "xd-rows", "--h5-"])
+    assert.ok(!css.includes(cls), `bundle.css still has ${cls}`);
+  assert.ok(css.includes(".xd-dot {") && existsSync("design-system/components/Cover/preview.html"), "the dots and the other components stay");
+});
