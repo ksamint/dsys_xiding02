@@ -137,6 +137,10 @@ declare global {
       ROOT: { zh: string; en: string };
       /** The brand architecture: 西顶文化, the three brands and the three lines of work, with suggested English names. */
       BRANDS: { zh: string; en: string; level: string; settled: boolean }[];
+      /** The three brands as the public introduction sets them: field, three services, three lines. */
+      BRAND_DETAILS: { zh: string; en: string; latin: string; field: string; services: string[]; lines: string[] }[];
+      /** 西顶文化 in three words: 艺术 · 教育 · 生活方式. */
+      TAGLINE: string;
       /** The scene menu by pillar, as the IP document lists it. */
       SCENES: { pillar: string; id: string; scenes: string[]; use: string }[];
       /** The steps of the introduction, as lines of text. */

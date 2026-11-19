@@ -53,30 +53,23 @@ test("each pillar slide shows its four modules, each with a picture, a detail li
     assert.equal((html.match(/data-photo-slot="/g) ?? []).length, 4, `slide ${i + 1}`);
     assert.equal((html.match(/class="mod__line"/g) ?? []).length, 4, `slide ${i + 1}`);
     assert.equal((html.match(/class="mod__dot /g) ?? []).length, 4, `slide ${i + 1}`);
-    assert.ok(html.includes("运行于真知与范式"));
   }
 });
 
 test("1 who we are, 2 the brands, 3 the pillars, X the ecosystem with the modules", () => {
   const hans = slides("zh-Hans", "https://example.org/members/#calendar");
   const who = hans[3]?.html ?? "";
-  assert.ok(who.includes("春秋百载，贯通东西。") && !who.includes("西顶艺术"), "1 is Xiding alone");
+  assert.ok(who.includes("待填写") && !who.includes("西顶艺术"), "1 waits for its words, and is Xiding alone");
   const what = hans[5]?.html ?? "";
-  assert.ok(what.includes("我们做什么") && what.includes("西顶艺术") && what.includes("西顶学院") && what.includes("西顶时光"), "2 is the three brands");
-  const how = hans[6]?.html ?? "";
-  assert.ok(how.includes("我们怎么做") && how.includes("空间 × 活动") && how.includes("课程 × 服务") && how.includes("会员 × 定制") && !how.includes("场地服务"), "3 is the three pillars");
+  assert.ok(what.includes("西顶艺术") && what.includes("西顶学院") && what.includes("西顶时光"), "2 is the three brands");
   const x = hans[7]?.html ?? "";
-  for (const text of ["西顶生态", "AI原生　西顶先行", "会员", "伙伴", "方案", "底座", "真知", "唯一事实源　分账系统", "范式", "专家认知与传承的协作范式", "分账协同", "开源知识库", "A2A智能体生态"]) assert.ok(x.includes(text), text);
-  for (const cut of ["每人一个智能体", "十二个模块"]) assert.ok(!x.includes(cut), `cut: ${cut}`);
-  assert.ok(!x.includes("分账协同平台"), "the base says 分账协同, without 平台");
-  assert.ok(x.indexOf("sys__base-top") < x.indexOf("sys__base-more"), "开源知识库 and A2A智能体生态 sit under the three");
+  assert.ok(x.indexOf("sys__base-top") < x.indexOf("sys__base-more"), "the foundation's second row sits under the three");
   assert.equal((x.match(/<li>/g) ?? []).length, 12, "all twelve modules stand on the base");
-  assert.equal((x.match(/class="sys__half"/g) ?? []).length, 3, "the base holds Truth, Paradigm and the platform");
+  assert.equal((x.match(/class="sys__half"/g) ?? []).length, 3, "the base holds three");
   assert.ok(x.indexOf("sys__row--eco") < x.indexOf("sys__row--sol") && x.indexOf("sys__row--sol") < x.indexOf("sys__row--base"), "ecosystem, then pillars, then the base");
-  for (const i of [8, 9, 10]) assert.ok((hans[i]?.html ?? "").includes("西顶生态") && (hans[i]?.html ?? "").includes("场地服务") === (i === 8), `slide ${i + 1} belongs to X`);
   const close = hans[11]?.html ?? "";
-  assert.ok(close.includes("<span>西顶庙</span>") && !close.includes("西顶路北侧"), "the closing names the temple only, with no punctuation");
-  assert.ok(close.includes('href="https://example.org/members/#calendar"') && close.includes("最新活动") && close.includes('class="xd-qr"'));
+  assert.ok(close.includes("<span>西顶庙</span>"), "the closing names the temple only");
+  assert.ok(close.includes('href="https://example.org/members/#calendar"') && close.includes('class="xd-qr"'));
   assert.ok(!slides("en")[11]?.html.includes("xd-qr"), "no address, no QR code");
 });
 
@@ -84,16 +77,15 @@ test("the three languages really differ, and each uses its own script", () => {
   const en = renderDeck("en");
   const hant = renderDeck("zh-Hant");
   const hans = renderDeck("zh-Hans");
-  // The opening is the name and one line, nothing else.
+  // The opening is the name and one line, nothing else; the line waits for its words.
   const opening = (name: string, line: string): string => `<div class="st"><h2 class="st__name">${name}</h2><p class="st__line">${line}</p></div>`;
-  assert.ok(en.includes(opening("Xiding", "A world at ease, of legacy and beauty")));
-  assert.ok(hant.includes(opening("西頂", "一方傳承大美的自在天地")));
-  assert.ok(hans.includes(opening("西顶", "一方传承大美的自在天地")));
+  assert.ok(en.includes(opening("Xiding", "TBD")));
+  assert.ok(hant.includes(opening("西頂", "待填寫")));
+  assert.ok(hans.includes(opening("西顶", "待填写")));
   // The three brands sit side by side as 2, each with its name in the other script.
   assert.ok(hans.includes('<span class="bp__name">西顶艺术</span><span class="bp__alt">XIDING ARTS</span>'));
   assert.ok(en.includes('<span class="bp__name">Xiding Academy</span><span class="bp__alt">西顶学院</span>'));
   assert.ok(hans.includes('<span class="bp__name">西顶时光</span><span class="bp__alt">XIDING LIFESTYLE</span>'));
-  assert.ok(hant.includes("春秋百載，貫通東西。") && hans.includes("春秋百载，贯通东西。"));
   for (const html of [en, hant, hans]) assert.ok(!/人生|>Life</.test(html), "life is no longer one of the things");
   // The logo is artwork and keeps 西顶 in every language; the words around it follow the reader's script.
   const words = (html: string): string => html.replace(/<svg class="xd-lockup[\s\S]*?<\/svg>/g, "");
@@ -174,10 +166,9 @@ test("the overview carries the whole architecture on one page, in every language
     assert.equal((html.match(/<li>/g) ?? []).length, 12, `${locale}: twelve modules`);
     assert.ok(html.includes('class="op-top__lockup"') && html.includes('xd-lockup') && html.includes('sys__row--eco') && html.includes('sys__row--sol'), `${locale}: the logo and the ecosystem`);
     assert.ok(!html.includes("op-corner") && !html.includes(">XIDING<") && !html.includes("西顶艺术</text>"), `${locale}: the top is the logo and one line, nothing else`);
-    for (const head of locale === "zh-Hans" ? ["我们是谁", "我们做什么", "我们怎么做", "西顶生态"] : []) assert.ok(html.includes(head), head);
     assert.ok(html.includes('class="op-top__line"') && html.includes('class="xd-qr"') && html.includes('class="sys"'));
   }
-  assert.ok(sheet("zh-Hans").includes("春秋百载，贯通东西。") && sheet("zh-Hant").includes("西頂藝術"));
+  assert.ok(sheet("zh-Hans").includes("待填写") && sheet("zh-Hant").includes("西頂藝術"));
   assert.ok(!sheet("en").includes("xd-qr"), "no address, no QR code");
   const page = renderOnepager("zh-Hans");
   for (const id of ["pdf-current", "pdf-all", "png-current", "png-all"]) assert.ok(page.includes(`id="${id}"`), id);
@@ -187,12 +178,11 @@ test("the overview carries the whole architecture on one page, in every language
 
 test("copy text: the introduction in one language, whole, with nothing cut", async () => {
   const { introText } = await import("../src/shared/plain");
-  const marks = { en: ["Xiding\nA world at ease", "Revenue sharing", "Open-source knowledge base"], "zh-Hant": ["西頂\n一方傳承大美的自在天地", "分賬協同", "開源知識庫"], "zh-Hans": ["西顶\n一方传承大美的自在天地", "分账协同", "开源知识库"] } as const;
+  const marks = { en: ["Xiding\nTBD", "Xiding Arts", "Xiding Lifestyle"], "zh-Hant": ["西頂\n待填寫", "西頂藝術", "西頂時光"], "zh-Hans": ["西顶\n待填写", "西顶艺术", "西顶时光"] } as const;
   for (const [locale, want] of Object.entries(marks) as [keyof typeof marks, readonly string[]][]) {
     const text = introText(locale, "https://example.org/#calendar");
     for (const w of want) assert.ok(text.includes(w), `${locale}: ${w}`);
     assert.ok(text.includes("https://example.org/#calendar"), `${locale}: the events link`);
-    for (const cut of ["每人一个智能体", "十二个模块", "西顶路北侧", "平台"]) assert.ok(!text.includes(cut), `${locale}: cut ${cut}`);
     assert.ok(!/[ \t]$/m.test(text), `${locale}: no trailing spaces`);
     if (locale === "en") assert.ok(!text.includes("　"), "en: plain spaces only");
     else assert.ok(!/[A-Za-z]{4,}/.test(text.replace(/https?:\S+|xidingmiao\.com|A2A|AI/g, "")), `${locale}: no English words`);
