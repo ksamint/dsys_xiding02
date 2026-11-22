@@ -18,7 +18,7 @@ export const brand = {
   /** 西顶文化: the one short name Xiding goes by to the outside, over its three brands. In English, Xiding. */
   org: t("Xiding", "西頂文化", "西顶文化"),
   arts: t("Xiding Arts", "西頂藝術", "西顶艺术"),
-  academy: t("Xiding Academy", "西頂學院", "西顶学院"),
+  academy: t("Xiding Education", "西頂教育", "西顶教育"),
   /** 西顶时光 (Xiding Lifestyle): the third brand, membership and the life around it. */
   lifestyle: t("Xiding Lifestyle", "西頂時光", "西顶时光"),
   /** The three brands in three words. */
@@ -134,7 +134,7 @@ export const brands = {
     {
       id: "academy",
       name: brand.academy,
-      latin: "XIDING ACADEMY",
+      latin: "XIDING EDUCATION",
       field: "EDUCATION / LEARNING",
       ink: "academy",
       services: [t("Learning and executive education", "課程研修", "课程研修"), t("Strategy consulting", "戰略諮詢", "战略咨询"), t("Talent development", "人才發展", "人才发展")],

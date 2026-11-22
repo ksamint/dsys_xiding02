@@ -35,9 +35,9 @@ export interface MarkProps {
 export interface SubBrandProps extends MarkProps {
   /** wide: 西顶 spans dot rows B–E, the Latin line sits on row G, the brand row on row H. stacked: brand row under the Latin line. Default wide. */
   layout?: 'stacked' | 'wide';
-  /** The Latin line. Default "XIDING"; "XIDING ACADEMY" is fitted to the width of 西顶. */
+  /** The Latin line. Default "XIDING"; "XIDING EDUCATION" is fitted to the width of 西顶. */
   latin?: string;
-  /** Sub-brand names in Chinese, joined by the pair dot: ['西顶学院'] or ['西顶艺术', '西顶学院', '西顶时光']. */
+  /** Sub-brand names in Chinese, joined by the pair dot: ['西顶教育'] or ['西顶艺术', '西顶教育', '西顶时光']. */
   brands?: string[];
 }
 
@@ -100,7 +100,7 @@ export interface BusinessCardProps {
   frontLayout?: 'mark' | 'lockup';
   /** Default left. */
   backLayout?: 'left' | 'center';
-  /** Sub-brands under the logo, separated by spaces. Default "西顶艺术　西顶学院　西顶时光"; empty hides the row. */
+  /** Sub-brands under the logo, separated by spaces. Default "西顶艺术　西顶教育　西顶时光"; empty hides the row. */
   brands?: string;
   /** Show the trim and 4 mm safe-area guides. */
   guides?: boolean;

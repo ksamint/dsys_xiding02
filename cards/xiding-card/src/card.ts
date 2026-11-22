@@ -57,7 +57,7 @@ const DEFAULTS: Settings = {
  * from its own store when it opens; see loadPeople in store.ts.
  */
 const PEOPLE: Person[] = PEOPLE_INIT.map((p) => ({ ...p }));
-const BRANDS = ["西顶艺术", "西顶学院", "西顶时光"];
+const BRANDS = ["西顶艺术", "西顶教育", "西顶时光"];
 
 interface Field { bg: string; ink: string; accent: string; zh: string; en: string }
 /** ink: the logo's colour on the field; accent: 西顶文化 and the icon dots on charcoal (the field colour where it reads at 3:1 or more). */
@@ -229,7 +229,7 @@ function back(inks: 2 | 3): string {
   const h = S.backMark, w = h * MARK_ASPECT, top = 23.5 + S.backY - h / 2;
   return el("ground", "底色 Ground", groundRect(C.charcoal), true) +
     el("backMark", "标志 Logo", viMark(W / 2 - w / 2, top, h, C.ivory)) +
-    el("brands", "西顶艺术 · 西顶学院 · 西顶时光", nameRow(BRANDS, W / 2, BASE, S.brand, inks === 3 ? C.sand : C.ivory));
+    el("brands", "西顶艺术 · 西顶教育 · 西顶时光", nameRow(BRANDS, W / 2, BASE, S.brand, inks === 3 ? C.sand : C.ivory));
 }
 
 // ---- H 印 Seal: a field in a VI colour holding the full mark and 西頂廣仁宮; the person on charcoal ----

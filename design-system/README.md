@@ -1,6 +1,6 @@
 西顶 (Xiding) takes its name from 西顶庙 in Haidian, Beijing, a Ming temple known since 1712 as 广仁宫.
 
-西顶文化 is the one short name Xiding goes by to the outside; in English it is Xiding. It is one team with three brands, 西顶艺术 (Xiding Arts), 西顶学院 (Xiding Academy) and 西顶时光 (Xiding Lifestyle): art, education and lifestyle (艺术 · 教育 · 生活方式). Membership runs across all three.
+西顶文化 is the one short name Xiding goes by to the outside; in English it is Xiding. It is one team with three brands, 西顶艺术 (Xiding Arts), 西顶教育 (Xiding Education) and 西顶时光 (Xiding Lifestyle): art, education and lifestyle (艺术 · 教育 · 生活方式). Membership runs across all three.
 
 The identity is three inks and a field of dots: temple teal, black, white, and a mark of 40 circles. The three inks stand for the three brands.
 
@@ -15,14 +15,14 @@ Read **西顶是什么** for the full introduction and the names, and **文案 �
 - Cut slogan endings such as 「今天还开课」. A sentence stops on its fact.
 - Headlines state a fact or an act, in one or two lines, broken at a comma. A last line holds three characters or more.
 - Sentences end with a full stop. The system uses no exclamation marks and no emoji.
-- The name is 西顶 in Chinese and Xiding in English text: one word, capital X. The Latin line of a lockup is set in capitals: XIDING, XIDING ARTS, XIDING ACADEMY, XIDING LIFESTYLE. The site is 西顶庙.
-- 西顶文化 is Xiding, 西顶艺术 is Xiding Arts, 西顶学院 is Xiding Academy and 西顶时光 is Xiding Lifestyle.
+- The name is 西顶 in Chinese and Xiding in English text: one word, capital X. The Latin line of a lockup is set in capitals: XIDING, XIDING ARTS, XIDING EDUCATION, XIDING LIFESTYLE. The site is 西顶庙.
+- 西顶文化 is Xiding, 西顶艺术 is Xiding Arts, 西顶教育 is Xiding Education and 西顶时光 is Xiding Lifestyle.
 - Tone: restrained, concrete, sourced (克制、具体、有出处). Business results stay in case studies; every figure carries its source.
 - Interface text is plain sentence case, verb first: "Download SVG", "Show construction lines", "Leave empty to hide".
 
 ## The three brands
 
-- Each brand has one ink: 西顶艺术 is `ink-arts` (temple teal), 西顶学院 is `ink-academy` (black), 西顶时光 is `ink-lifestyle` (white, drawn with an `ink` hairline). Text on them is `on-ink-arts`, `on-ink-academy`, `on-ink-lifestyle`. Colour here tells the brands apart; the brand's name is written beside it every time.
+- Each brand has one ink: 西顶艺术 is `ink-arts` (temple teal), 西顶教育 is `ink-academy` (black), 西顶时光 is `ink-lifestyle` (white, drawn with an `ink` hairline). Text on them is `on-ink-arts`, `on-ink-academy`, `on-ink-lifestyle`. Colour here tells the brands apart; the brand's name is written beside it every time.
 - Use `Xiding.BRAND_DETAILS` for each brand's id (also its ink), names, its word in the tagline (艺术, 教育, 生活方式), field, services and lines, and `Xiding.TAGLINE` for 艺术 · 教育 · 生活方式.
 - The three brands may stand as three pillars on one base: use the Pillars component for it, and PillarCard for slice titles and quote cards.
 - Retired on 2026-11-19: the three lines of work under the brands, the three pillars they stood on and the value line made of their mottos.
@@ -108,13 +108,13 @@ Covers, heroes and the first screen of every page are composed like a hanging sc
 
 ## Intentional additions
 
-These were added to the mark studio's inventory so XIDING ACADEMY material can be made from this system:
+These were added to the mark studio's inventory so XIDING EDUCATION material can be made from this system:
 
 - The `hero` type style and the Hero layout.
 - Retired on 2026-11-19 by the owner: the six H5 screens (首页, 会员, 预约空间, 学院, 展览, 全年日历), FieldBlock, the `h5-*` tokens and every part only they used (the brand band, lists, calls to act, tab bar, membership card, detail rows, pickers, calendar, stones, loose list, poem, held card).
 - VideoCover, Subtitle, Slide, DoorPlate and SceneMenu: the layouts the IP document lists as still to be specified, drawn with the existing inks and type.
 - The brand inks: one identifying colour per brand and a neutral base; this system assigns the three existing inks and uses `paper` as the base (until 2026-11-19 they were the three pillar inks).
-- The stacked sub-brand lockup and the fitted "XIDING ACADEMY" Latin line in SubBrand.
+- The stacked sub-brand lockup and the fitted "XIDING EDUCATION" Latin line in SubBrand.
 - Button hover in `teal-text`, so the label holds 4.5:1.
 - v1.8: the source VI of 西頂廣仁宮 (`brand/xiding-guangren-vi/`, 品牌形象-5): its six swatches as `vi-*` tokens, its 13 logo files as the VI asset group, and its nameplate as TempleSign. The brand teal is an open decision (see 尚未统一 · Open decisions).
 - v1.7: the page kit the five live Xiding pages share (Ink, LockupMotion, Photo, Whisper, Export, Go, Lang, Ecosystem; FieldBlock was retired with the H5 screens), Cormorant Garamond figures (`--font-figure`), CJK sans fallbacks, and font swaps for `<html lang="en">` and `lang="zh-Hant"`. `.xd-field` is the form Field's alone.

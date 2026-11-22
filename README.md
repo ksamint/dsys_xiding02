@@ -17,7 +17,7 @@
 | `tools/`, `tests/` | Builds and checks |
 
 The names: 西顶文化 (Xiding) is the one short name used to the outside: 艺术 · 教育 · 生活方式. Its three brands are
-西顶艺术 (Xiding Arts), 西顶学院 (Xiding Academy) and 西顶时光 (Xiding Lifestyle). The public introduction:
+西顶艺术 (Xiding Arts), 西顶教育 (Xiding Education) and 西顶时光 (Xiding Lifestyle). The public introduction:
 https://claude.ai/artifact/EmhEzgmXoCQuTV1GL5VRHV
 
 ## What is not here
@@ -49,7 +49,7 @@ opened here is read, and its change is made there.
 ## Licence
 
 The code is licensed under the Apache License 2.0 (`LICENSE`). The brand and content are not: the names and marks
-(西顶, Xiding, 西顶文化, 西顶艺术, 西顶学院, 西顶时光, 西頂廣仁宮 and the dot mark), `brand/`, the design system's
+(西顶, Xiding, 西顶文化, 西顶艺术, 西顶教育, 西顶时光, 西頂廣仁宮 and the dot mark), `brand/`, the design system's
 tokens, assets and brand book, `showcase/`, and the introduction's words and artwork are all rights reserved, and may be
 read here but not reused. `NOTICE` lists exactly what is which.
 

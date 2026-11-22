@@ -19,7 +19,7 @@
 
 | 对标 | 看什么 | 西顶可以取的 | 留意 |
 | --- | --- | --- | --- |
-| [Aspen Executive Seminar](https://www.aspeninstitute.org/programs/aspen-leadership-seminars/programs-for-individuals/aspen-executive-seminar/) | 学院的形式 | 每期 15 到 20 人，住下来七天，围着固定文本由主持人带着谈，1950 年办到现在。固定的框架加小班，同每期四问、嘉宾轮换是一个路数 | 它的文本是两千年的经典；西顶的材料是嘉宾自己的取舍与决定 |
+| [Aspen Executive Seminar](https://www.aspeninstitute.org/programs/aspen-leadership-seminars/programs-for-individuals/aspen-executive-seminar/) | 教育的形式 | 每期 15 到 20 人，住下来七天，围着固定文本由主持人带着谈，1950 年办到现在。固定的框架加小班，同每期四问、嘉宾轮换是一个路数 | 它的文本是两千年的经典；西顶的材料是嘉宾自己的取舍与决定 |
 | [MIT Media Lab 标识](https://www.pentagram.com/news/mit-media-lab)（Pentagram，2014），[品牌规范](https://www.media.mit.edu/posts/MLBrandPortal/) | 标识与子品牌 | 一张 7×7 的网格生成主标识和 23 个研究组的标识；子标识的留白、并排间距都写成规则。西顶的点阵标识加品牌行是同一个思路 | 它为每个组另画一个标识；西顶的牌子和板块共用一个标识，名字写在品牌行上 |
 | [Temple 东景缘（智珠寺）](https://www.visitbeijing.com.cn/article/4CkCoIQJzkj)，[访谈](https://www.theworldofchinese.com/podcasts/temple-dongjingyuan-how-to-bring-a-ancient-temple-back-to-life/) | 古寺新用 | 明代寺院，2007 年起按修旧如旧修缮，如今办展览、演出和餐饮。老建筑原样留着，里面的表达是当代的 | 2014 年因“寺庙里的会所”受到舆论批评。西顶写邀请制时，把公众能来的时间和内容一并写清楚 |
 

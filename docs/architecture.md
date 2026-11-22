@@ -12,7 +12,7 @@ opens the deck (slide 2), the site and the overview.
 | Count | What | 简体 | English |
 | --- | --- | --- | --- |
 | 1 | Who we are | 我们是谁：西顶，春秋百载，贯通东西 | Who we are |
-| 2 | What we do: the three brands | 我们做什么：西顶艺术、西顶学院、西顶时光 | What we do |
+| 2 | What we do: the three brands | 我们做什么：西顶艺术、西顶教育、西顶时光 | What we do |
 | 3 | How we do it: the three pillars | 我们怎么做：空间 × 活动、课程 × 服务、会员 × 定制 | How we do it |
 | X | The Xiding ecosystem: modules, ecosystem, foundation | 西顶生态 | Xiding ecosystem |
 
@@ -29,7 +29,7 @@ opens the deck (slide 2), the site and the overview.
 | Brand | Field | Services | Lines |
 | --- | --- | --- | --- |
 | 西顶艺术 Xiding Arts | ART / CULTURE | 艺术策展, 品牌共创, 私享定制 | 以艺术连接文化，以创意赋能品牌，以体验创造价值。 |
-| 西顶学院 Xiding Academy | EDUCATION / LEARNING | 课程研修, 战略咨询, 人才发展 | 以教育启发认知，以咨询推动变革，以人才驱动未来。 |
+| 西顶教育 Xiding Education | EDUCATION / LEARNING | 课程研修, 战略咨询, 人才发展 | 以教育启发认知，以咨询推动变革，以人才驱动未来。 |
 | 西顶时光 Xiding Lifestyle | LIFESTYLE / MEMBERSHIP | 会员生活, 品质社交, 精致体验 | 以时光沉淀价值，以品味连接彼此，以社群丰富生活。 |
 
 The deck and the overview set the three side by side, hairlines between them. The site's "What we do" adds the
