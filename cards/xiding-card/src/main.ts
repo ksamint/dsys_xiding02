@@ -28,7 +28,7 @@ const SLIDERS: Record<string, SliderDef[]> = {
   "sl-back": [
     ["backMark", "背面标志 Back logo", 10, 26, 0.5, "Back"],
     ["backY", "背面标志上下 Back logo up or down", -8, 8, 0.1, "Back"],
-    ["brand", "西顶艺术 · 西顶学院 · 西顶时光", 2, 3.8, 0.05, "Back"],
+    ["brand", "西顶艺术 · 西顶教育 · 西顶时光", 2, 3.8, 0.05, "Back"],
   ],
 };
 const SLIDER_KEYS: SliderKey[] = Object.values(SLIDERS).flat().map((r) => r[0]);
@@ -53,7 +53,7 @@ function render(): void {
   $("cap-front").textContent = `正面 · ${LAYOUTS[state.logo].zh}${p.nameZh ? " · " + p.nameZh : ""}`;
   $("cap-inks").textContent = state.inks === 3 ? "Three inks" : "Two inks";
   const inks: [string, string][] = [["#404041", "vi-charcoal · ground"], ["#F3F1E8", "vi-ivory · logo, name, contacts"]];
-  if (state.inks === 3) inks.push(["#C3A585", "vi-sand · 西顶艺术, 西顶学院, 西顶时光, 西顶文化"]);
+  if (state.inks === 3) inks.push(["#C3A585", "vi-sand · 西顶艺术, 西顶教育, 西顶时光, 西顶文化"]);
   $("inks").innerHTML = inks.map(([c, t]) => `<span><i style="background:${c}"></i>${t}</span>`).join("");
   for (const k of SLIDER_KEYS) {
     const o = document.getElementById(`o-${k}`);

@@ -134,7 +134,7 @@
     "xiding-wordmark-zh-teal.svg",
     "xiding-name-wenhua-black.svg",
     "xiding-name-yishu-black.svg",
-    "xiding-name-xueyuan-black.svg",
+    "xiding-name-jiaoyu-black.svg",
     "xiding-name-shiguang-black.svg"
    ],
    "files": {
@@ -168,10 +168,10 @@
      "size": 4578,
      "type": "image/svg+xml"
     },
-    "xiding-name-xueyuan-black.svg": {
-     "name": "xiding-name-xueyuan-black.svg",
-     "blob": "1e3dfa06e486c7e022719b7379261c2b",
-     "size": 3361,
+    "xiding-name-jiaoyu-black.svg": {
+     "name": "xiding-name-jiaoyu-black.svg",
+     "blob": "e0ec5d1eed5e223726c8cc4612057a72",
+     "size": 6347,
      "type": "image/svg+xml"
     },
     "xiding-name-shiguang-black.svg": {
@@ -195,14 +195,14 @@
    "files": {
     "xiding-pillars-light.svg": {
      "name": "xiding-pillars-light.svg",
-     "blob": "cd8a6fca009b610414ec703a92001c81",
-     "size": 79500,
+     "blob": "1ba84b0e0b4c6716d562153defec6901",
+     "size": 79641,
      "type": "image/svg+xml"
     },
     "xiding-pillars-dark.svg": {
      "name": "xiding-pillars-dark.svg",
-     "blob": "079ce08863aa3e7de6d6ad8ecb72bb77",
-     "size": 79499,
+     "blob": "03a3a83d9febb70e9251600f7aaf65d4",
+     "size": 79640,
      "type": "image/svg+xml"
     },
     "xiding-pillar-arts.svg": {
@@ -213,8 +213,8 @@
     },
     "xiding-pillar-academy.svg": {
      "name": "xiding-pillar-academy.svg",
-     "blob": "57f461e5d417c7b655ed07a9f745a59a",
-     "size": 10339,
+     "blob": "ee776b3902cdf3467197c98d2b331cc6",
+     "size": 10019,
      "type": "image/svg+xml"
     },
     "xiding-pillar-lifestyle.svg": {
@@ -234,8 +234,8 @@
    "files": {
     "xiding-card-front.svg": {
      "name": "xiding-card-front.svg",
-     "blob": "4e1629a6f09e9987f956436a51c59f9b",
-     "size": 8721,
+     "blob": "51dc4bbf9ce5dc0580bd25fc941d1e35",
+     "size": 10381,
      "type": "image/svg+xml"
     }
    }
@@ -250,8 +250,8 @@
    "files": {
     "xiding-intro-architecture-light.svg": {
      "name": "xiding-intro-architecture-light.svg",
-     "blob": "4b3ffeabfc2f6ca64a639245d8df9571",
-     "size": 80467,
+     "blob": "ca32cb6732b130c8e19fe90e0617fcf5",
+     "size": 81112,
      "type": "image/svg+xml"
     },
     "xiding-intro-steps-light.svg": {

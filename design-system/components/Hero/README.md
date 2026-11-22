@@ -9,4 +9,4 @@ A temple-teal field, the mark standing whole in it, and one line of Songti: the 
 - The facts are hung vertically on the paper third: the names at 22px in `ink`, the address at 13px in `muted`. Pass their boxes and the headline's as `avoid`.
 - One hero per document.
 
-Added for XIDING ACADEMY material.
+Added for XIDING EDUCATION material.

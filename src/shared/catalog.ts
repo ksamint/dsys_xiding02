@@ -618,7 +618,7 @@ export const BENEFITS: readonly Benefit[] = [
   { id: "b-priority", pillar: "space", name: t("Early registration", "優先報名", "优先报名"), line: t("Register before the calendar opens to all.", "在公開報名之前先報。", "在公开报名之前先报。") },
   { id: "b-guests", pillar: "space", name: t("Guests", "同行客人", "同行客人"), line: t("Bring guests to members' sessions.", "帶客人參加會員活動。", "带客人参加会员活动。") },
   { id: "b-space", pillar: "space", name: t("The halls", "預約殿院", "预约殿院"), line: t("Hold your own gathering in the halls and courtyards.", "在殿與院裡辦你自己的聚會。", "在殿与院里办你自己的聚会。") },
-  { id: "b-course", pillar: "academy", name: t("Courses", "課程禮遇", "课程礼遇"), line: t("Open sessions and the Academy's courses.", "公開課與學院課程。", "公开课与学院课程。") },
+  { id: "b-course", pillar: "academy", name: t("Courses", "課程禮遇", "课程礼遇"), line: t("Open sessions and our education courses.", "公開課與教育課程。", "公开课与教育课程。") },
   { id: "b-consult", pillar: "academy", name: t("Consulting hours", "顧問時段", "顾问时段"), line: t("Time with a consultant on your own question.", "與顧問談你自己的問題。", "与顾问谈你自己的问题。") },
   { id: "b-art", pillar: "member", name: t("Art sharing", "藝術分享", "艺术分享"), line: t("One artist and one work, each month.", "每月一位藝術家，一件作品。", "每月一位艺术家，一件作品。") },
   { id: "b-tailor", pillar: "member", name: t("Tailor-made", "訂製活動", "定制活动"), line: t("An evening made for your family or guests.", "為你的家人或客人訂製一場。", "为你的家人或客人定制一场。") },
