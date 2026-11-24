@@ -30,7 +30,7 @@ npm run check      # the repository check: typecheck, tests (the QR decode test 
   get theirs oldest first. 标签: type them split by commas, 、 or spaces (# allowed), up to 8. 说明: a free description.
   Tags and description save with the entry, and edits to the current entry update it as you type.
 - Above the list: a search (ID, name, address, tags, description) and tag filters, most used first.
-- Browsers start with example.org/space (扫码登陆, 方 · 空, 匾), example.org and example.org/show
+- Browsers start with space.apuch.cn/home/xiding (扫码登陆, 方 · 空, 匾), xiding.apuch.cn and show01.opcglobal.cn/xiding
   (`SEEDS` in history.ts). Each link is added once, so a deleted one stays deleted; a link added later reaches every
   browser and opens first on its next visit.
 - 版式 立轴 (default), 横卷, 门牌 (the banner), or 方 (1:1, 1440 × 1440) in three 构图, all from one idea — the mark is forty dots and the code is dots:

@@ -576,7 +576,7 @@
     const themeInks = (theme) => theme === "dark"
         ? { ink: "#FFFFFF", muted: "#A9B6B3", accent: "#9CC2BC" }
         : { ink: "#000000", muted: "#4E5A58", accent: "#3D6560" };
-    const SITE = "example.org";
+    const SITE = "xidingmiao.com";
     const STEPS = [
         ["人和内容带来", "艺术家和行业专家。"],
         ["把专家的能力", "交付给会员和合作伙伴。"],

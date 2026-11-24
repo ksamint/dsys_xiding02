@@ -17,7 +17,8 @@
 | `tools/`, `tests/` | Builds and checks |
 
 The names: 西顶文化 (Xiding) is the one short name used to the outside: 艺术 · 教育 · 生活方式. Its three brands are
-西顶艺术 (Xiding Arts), 西顶新知 (Xiding Insights) and 西顶时光 (Xiding Lifestyle).
+西顶艺术 (Xiding Arts), 西顶新知 (Xiding Insights) and 西顶时光 (Xiding Lifestyle). The public introduction:
+https://claude.ai/artifact/EmhEzgmXoCQuTV1GL5VRHV
 
 ## What is not here
 

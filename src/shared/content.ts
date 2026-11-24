@@ -28,7 +28,7 @@ export const brand = {
     "北京市海淀區曙光街道西頂路西頂廟",
     "北京市海淀区曙光街道西顶路西顶庙",
   ),
-  web: "example.org",
+  web: "xidingmiao.com",
   year: "2026",
 } as const;
 
@@ -91,7 +91,8 @@ export const values = {
   ] satisfies readonly Value[],
 } as const;
 
-/* 2 — what we do: the three brands, in the words of the public introduction. */
+/* 2 — what we do: the three brands, in the words of the public introduction
+   (https://claude.ai/artifact/EmhEzgmXoCQuTV1GL5VRHV, built from the member-app repository's about page). */
 export interface Brand {
   readonly id: "arts" | "academy" | "lifestyle";
   readonly name: L;

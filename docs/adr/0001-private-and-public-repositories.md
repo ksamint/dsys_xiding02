@@ -44,7 +44,7 @@ The export (`tools/public-export.ts`) refuses to write anything when:
 
 - a real person's name, number or email is left in any spelling: as written, in other cases, with spaces or line
   breaks, JSON-escaped, behind HTML entities, %-escapes or `\u` escapes;
-- any mainland mobile number or staff email (`…@example.org`, subdomains included) is left, with any separators;
+- any mainland mobile number or staff email (`…@xidingmiao.com`, subdomains included) is left, with any separators;
 - a binary file (image, PDF, font, WebAssembly) is not listed in `binaries` with the SHA-256 of bytes a person has
   looked at, or its bytes changed since; binary bytes are also scanned for the real people's values;
 - the output folder is not under `out/` or outside the repository.

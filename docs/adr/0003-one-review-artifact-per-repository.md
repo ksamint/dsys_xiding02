@@ -25,6 +25,7 @@ ADR 0001 split the work into a private source and a generated public copy. Revie
    `design-system/assets/` and its index, the brand book, the three pages and the "来源与核对" provenance section
    (commit, tree, input hash).
    - `dsys_xiding01`'s artifact is built from the private tree and carries the sample people only, never `private/`.
+     It stays at https://claude.ai/artifact/6rgrKNpvGvJoz7wXE3gX5o.
    - `dsys_xiding02`'s artifact is built, by the same command, from a clean checkout of the synced public branch. It
      shows exactly what the public repository holds, nothing more. It is a separate artifact with its own link.
    - Each page names its repository and commit in its `xd-source` meta, so a reviewer can tell which one they read and
@@ -43,3 +44,5 @@ ADR 0001 split the work into a private source and a generated public copy. Revie
   the export.
 - Owner action: publish the `dsys_xiding02` artifact once the next sync merges, and record its link here and in
   `AGENTS.md` of that repository (generated from `docs/public-agents.md`).
+- Addresses (owner decision, 2026-11-24): the public copy keeps the project's real addresses and links. The export can
+  rewrite text and refuse addresses through the manifest's `rewrite` and `forbidden` lists; both are empty.

@@ -20,7 +20,8 @@ const jsQR = ((await import("jsqr")) as unknown as {
 }).default;
 
 const CASES = [
-  "https://example.org",
+  "https://xiding.cn",
+  "https://claude.ai/artifact/8TTnAE4EXKC3qiKKJYXpo5",
   "https://例子.中国/西顶/素材库?q=大美&r=大智#大礼",
   "HELLO WORLD",
   "a",

@@ -94,9 +94,9 @@ interface Seed {
   look?: Partial<Look>;
 }
 const SEEDS: Seed[] = [
-  { text: "https://example.org/space", title: "扫码登陆", look: { layout: "square", square: "blank", photo: "plaque" } },
-  { text: "https://example.org" },
-  { text: "https://example.org/show" },
+  { text: "https://space.apuch.cn/home/xiding", title: "扫码登陆", look: { layout: "square", square: "blank", photo: "plaque" } },
+  { text: "https://xiding.apuch.cn" },
+  { text: "https://show01.opcglobal.cn/xiding" },
 ];
 
 /** Adds the seeds this browser has not had yet. `fresh` is the newest one added now, to open on. */

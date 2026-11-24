@@ -24,7 +24,7 @@ opens the deck (slide 2), the site and the overview.
 
 西顶文化 is the one short name Xiding uses to the outside (Xiding in English): art, education and lifestyle
 (艺术 · 教育 · 生活方式). It is one team with three brands, as the public introduction sets them
-(a draft whose pictures are still to come):
+([https://claude.ai/artifact/EmhEzgmXoCQuTV1GL5VRHV](https://claude.ai/artifact/EmhEzgmXoCQuTV1GL5VRHV), a draft whose pictures are still to come):
 
 | Brand | Field | Services | Lines |
 | --- | --- | --- | --- |
@@ -77,7 +77,7 @@ In X, the foundation's second row (开源知识库, A2A智能体生态) is set a
 ## Open points
 
 - "UCE" in "A2A UCE future" is not spelled out yet, so it does not appear on any page.
-- The QR code leads to example.org, which did not answer when checked on 2026-11-13. Publish the member calendar there (it is built with the member app), or set `XIDING_EVENTS_URL`, before printing.
+- The QR code leads to xidingmiao.com, which did not answer when checked on 2026-11-13. Publish the member calendar there (it is built with the member app), or set `XIDING_EVENTS_URL`, before printing.
 - The modules are a first list. Rename, strike or add in `src/shared/content.ts`.
 - 春秋百载 reads as "a hundred years"; the design system dates the temple to 1518, in the Ming dynasty: 508 years in 2026.
 - The public introduction uses 平台 and 赋能, which the design system's voice guide (`design-system/voice.md`) lists as
