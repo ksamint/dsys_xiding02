@@ -10,6 +10,7 @@
 | 西顶新知 | Xiding Insights | XIDING INSIGHTS | 教育 / 学习 | 课程研修、战略咨询、人才发展 | 以教育启发认知，以咨询推动变革，以人才驱动未来。 |
 | 西顶时光 | Xiding Lifestyle | XIDING LIFESTYLE | 生活方式 / 会员 | 会员生活、品质社交、精致体验 | 以时光沉淀价值，以品味连接彼此，以社群丰富生活。 |
 
+对外的介绍页：https://claude.ai/artifact/EmhEzgmXoCQuTV1GL5VRHV（西顶文化｜艺术 · 教育 · 生活方式，草稿，图片待替换）。
 
 根在广仁宫。
 

@@ -58,7 +58,7 @@ const usePrivate = !!peopleFile && existsSync(peopleFile);
 const people = JSON.parse(readFileSync(usePrivate ? peopleFile! : join(CARD, "people.sample.json"), "utf8")) as Record<string, string>[];
 must(Array.isArray(people) && people.length > 0 && people.every((p) => typeof p.nameZh === "string"), "people list");
 // 5b. the QR code on the portrait card, to the website
-const QR_URL = "https://example.org/";
+const QR_URL = "https://xiding.apuch.cn/";
 const qr = qrcode(0, "M");
 qr.addData(QR_URL);
 qr.make();
