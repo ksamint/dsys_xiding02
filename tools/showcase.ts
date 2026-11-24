@@ -35,7 +35,7 @@ interface XidingAPI {
   scatter(o: Record<string, unknown>): string;
   mark(o: Record<string, unknown>): string;
 }
-interface AssetFile { name: string; blob: string; size: number; type: string }
+interface AssetFile { name: string; id?: string; kind?: string; variant?: string; tags?: string[]; blob: string; size: number; type: string }
 interface Index {
   title: string; namespace: string; groups: string[];
   assetGroups: Record<string, { order: string[]; files: Record<string, AssetFile> }>;
@@ -128,19 +128,22 @@ function hero(X: XidingAPI, idx: Index, t: Tokens, stats: string): string {
 }
 
 // ---------- the three Xiding introduction pages, built from src/ by `npm run build` ----------
-interface PageDef { id: string; dir: string; zh: string; en: string; w: number; h: number; note: string }
+interface PageDef { id: string; dir: string; zh: string; en: string; w: number; h: number; note: string; file?: string }
 const PAGES: PageDef[] = [
   { id: "intro", dir: "deck", zh: "介绍", en: "Introduction", w: 1280, h: 720, note: "12 张横版幻灯片，16:9，三种语言，可导出 PDF。源：src/deck/。" },
   { id: "overview", dir: "onepager", zh: "总览", en: "Overview", w: 794, h: 1123, note: "整个架构在一张 A4 竖版上，可导出 PDF 或图片分享。源：src/onepager/。" },
+  { id: "card", dir: "card", file: "out/xiding-card.public.html", zh: "名片", en: "Business card", w: 1280, h: 900, note: "名片编辑器：横版、竖版、数字名片，可拖动、吸附、导出。这里用虚构的样例人物（张三、李四、王小五），真实人物不进入本页。源：cards/xiding-card/。" },
+  { id: "qr", dir: "qr", zh: "二维码", en: "QR share card", w: 1100, h: 900, note: "输入网址，生成带二维码的西顶分享卡片（PNG），可调版式、配色、照片，历史记录存在本机浏览器。源：cards/xiding-qr/。" },
   { id: "site", dir: "site", zh: "官网", en: "Official site", w: 1280, h: 860, note: "同一套介绍，做成一页滚动阅读。页内链接会切到相应页面。源：src/site/。" },
 ];
 const DIST = join(ROOT, "dist");
-function pageFiles(): string[] { return PAGES.map((p) => join(DIST, p.dir, "index.html")); }
+const pagePath = (p: PageDef): string => p.file ? join(ROOT, p.file) : join(DIST, p.dir, "index.html");
+function pageFiles(): string[] { return PAGES.map(pagePath); }
 function readPages(): Record<string, string> {
   const out: Record<string, string> = {};
   for (const p of PAGES) {
-    const f = join(DIST, p.dir, "index.html");
-    if (!existsSync(f)) throw new Error(`dist/${p.dir}/index.html is missing: run \`npm run build\` first`);
+    const f = pagePath(p);
+    if (!existsSync(f)) throw new Error(`${f.slice(ROOT.length + 1)} is missing: run \`npm run build\` and \`npm run build:tools\` first`);
     out[p.id] = readFileSync(f, "utf8");
   }
   return out;
@@ -148,7 +151,7 @@ function readPages(): Record<string, string> {
 function pagesSection(): string {
   const tabs = PAGES.map((p, i) => `<button type="button" role="tab" id="pg-tab-${p.id}" aria-controls="pg-panel" aria-selected="${i === 0}" data-page="${p.id}"><b>${esc(p.zh)}</b><span>${esc(p.en)}</span></button>`).join("");
   return `<section class="sc-section" id="pages">
-<div class="sc-head"><span class="sc-latin">PAGES</span><h2>页面</h2><p class="sc-lede">西顶的三个介绍页面，由仓库里的 <code>src/</code> 构建（<code>npm run build</code>），在这里现场打开。每页右上角都有自己的语言切换；导出按钮在这里没有文件可下载，请到已发布的页面导出。</p></div>
+<div class="sc-head"><span class="sc-latin">PAGES</span><h2>页面</h2><p class="sc-lede">西顶的三个介绍页面、名片编辑器和二维码分享卡片，由仓库里的 <code>src/</code> 与 <code>cards/</code> 构建（<code>npm run build</code>），在这里现场打开。介绍页右上角各有自己的语言切换；导出和保存按钮在这里可能没有文件可下载，请到已发布的页面使用。</p></div>
 <div class="sc-pages" role="tablist" aria-label="页面">${tabs}</div>
 ${PAGES.map((p, i) => `<p class="sc-pagenote" data-note="${p.id}"${i === 0 ? "" : " hidden"}>${esc(p.note)} <span class="sc-muted">${p.w} × ${p.h}</span></p>`).join("")}
 <div class="sc-pageframe" id="pg-panel" role="tabpanel" aria-labelledby="pg-tab-${PAGES[0]?.id ?? "intro"}"><p class="sc-frame__wait">正在打开页面</p></div>
@@ -172,8 +175,8 @@ function ipSection(X: XidingAPI): string {
 </article>`).join("");
   const arch = (theme: string) => X.toSVG(X.art.architecture(theme));
   return `<section class="sc-section" id="ip">
-<div class="sc-head"><span class="sc-latin">IP SYSTEM</span><h2>IP 体系</h2><p class="sc-lede">一套班子，三个牌子，每个牌子一种墨色（<code>ink-arts</code>、<code>ink-academy</code>、<code>ink-lifestyle</code>）。以下全部读自 <code>Xiding.BRAND_DETAILS</code>、<code>BRANDS</code>、<code>SCENES</code>、<code>STEPS</code>。</p></div>
-<h3 class="sc-sub">西顶文化 · ${esc(X.TAGLINE)} · 三个牌子</h3>
+<div class="sc-head"><span class="sc-latin">IP SYSTEM</span><h2>IP 体系</h2><p class="sc-lede">一套班子，每个牌子一种墨色（<code>ink-arts</code>、<code>ink-academy</code>、<code>ink-lifestyle</code>）。以下全部读自 <code>Xiding.BRAND_DETAILS</code>、<code>BRANDS</code>、<code>SCENES</code>、<code>STEPS</code>。</p></div>
+<h3 class="sc-sub">西顶文化 · ${esc(X.TAGLINE)}</h3>
 <div class="sc-brands">${brandCards}</div>
 <div class="sc-ip-grid">
   <div class="sc-panel"><h3>品牌架构</h3><p class="sc-root">根 <b>${esc(X.ROOT.zh)}</b> <span class="sc-muted">${esc(X.ROOT.en)} · 西顶庙</span></p>${tree}</div>
@@ -200,7 +203,7 @@ function tokenSection(t: Tokens): string {
       const c = resolve(tok.name, th);
       return `<span>${th === "light" ? "浅" : "深"} ${ratio(c, resolve("paper", th))} · ${ratio(c, resolve("surface", th))}</span>`;
     }).join("");
-    return `<tr><th scope="row"><code>${esc(tok.name)}</code></th>${cells}<td class="sc-contrast">${contrast}</td><td class="sc-usage">${inline(tok.usage ?? "")}</td></tr>`;
+    return `<tr data-q="${esc([tok.name, tok.usage ?? ""].join(" ").toLowerCase())}"><th scope="row"><code>${esc(tok.name)}</code></th>${cells}<td class="sc-contrast">${contrast}</td><td class="sc-usage">${inline(tok.usage ?? "")}</td></tr>`;
   }).join("");
   const typeGroups = t.type.groups.map((g) => `<div class="sc-typegroup"><h4>${esc(g.name)} <span class="sc-muted">${esc(g.family)}</span></h4>${g.note ? `<p class="sc-muted">${inline(g.note)}</p>` : ""}
 ${g.styles.map((s) => `<div class="sc-type"><div class="sc-type__meta"><code>${esc(s.name)}</code><span>${esc(String(s.fontSize))} / ${esc(String(s.lineHeight ?? ""))} · ${esc(String(s.fontWeight ?? ""))}${s.letterSpacing ? ` · ${esc(s.letterSpacing)}` : ""}</span><span class="sc-muted">${inline(s.usage ?? "")}</span></div><div class="sc-type__sample"><span class="${esc(s.name)}">${esc(s.sample ?? s.name)}</span></div></div>`).join("")}</div>`).join("");
@@ -214,7 +217,7 @@ ${g.styles.map((s) => `<div class="sc-type"><div class="sc-type__meta"><code>${e
       if (k === "shadow") return `<span class="sc-shadow" style="box-shadow:var(--${esc(tok.name)})"></span>`;
       return "";
     };
-    return `<div class="sc-panel"><h4>${esc(k)} <span class="sc-muted">${f.tokens.length}</span></h4>${f.note ? `<p class="sc-muted">${inline(f.note)}</p>` : ""}<div class="sc-scroll"><table class="sc-table sc-table--fam"><tbody>${f.tokens.map((tok) => `<tr><th scope="row"><code>${esc(tok.name)}</code></th><td>${viz(tok)}<code>${esc(val(tok))}</code></td><td class="sc-usage">${inline(tok.usage ?? "")}</td></tr>`).join("")}</tbody></table></div></div>`;
+    return `<div class="sc-panel"><h4>${esc(k)} <span class="sc-muted">${f.tokens.length}</span></h4>${f.note ? `<p class="sc-muted">${inline(f.note)}</p>` : ""}<div class="sc-scroll"><table class="sc-table sc-table--fam"><tbody>${f.tokens.map((tok) => `<tr data-q="${esc([tok.name, tok.usage ?? ""].join(" ").toLowerCase())}"><th scope="row"><code>${esc(tok.name)}</code></th><td>${viz(tok)}<code>${esc(val(tok))}</code></td><td class="sc-usage">${inline(tok.usage ?? "")}</td></tr>`).join("")}</tbody></table></div></div>`;
   };
   const count = t.color.tokens.length + t.type.groups.reduce((n, g) => n + g.styles.length, 0) + fams.reduce((n, [, f]) => n + f.tokens.length, 0);
   return `<section class="sc-section" id="tokens">
@@ -235,7 +238,7 @@ function componentSection(cs: Card[]): string {
   const card = (c: Card) => {
     const md = markdown(c.readme.replace(/^#\s.*\n/, ""), `c-${slug(c.name)}-`);
     const summary = /^(.+?[。.])(\s|$)/.exec(c.readme.replace(/^#\s.*\n+/, "").trim())?.[1] ?? "";
-    return `<article class="sc-comp" id="c-${slug(c.name)}">
+    return `<article class="sc-comp" id="c-${slug(c.name)}" data-q="${esc([c.name, c.group, summary].join(" ").toLowerCase())}">
 <header><h4>${esc(c.name)}</h4><span class="sc-chip">${esc(c.group)}</span><span class="sc-muted sc-dim">${c.width} × ${c.height}</span></header>
 ${summary ? `<p class="sc-comp__sum">${inline(summary)}</p>` : ""}
 <div class="sc-frame" data-card="${esc(c.name)}" style="--w:${c.width};--h:${c.height}"><p class="sc-frame__wait">正在绘制 ${esc(c.name)}</p></div>
@@ -260,7 +263,8 @@ function assetSection(idx: Index): string {
       if (!f) return "";
       const p = join(DS, "assets", g, f.name);
       const dark = /night|white/.test(f.name);
-      return `<figure class="sc-asset${dark ? " sc-asset--dark" : ""}"><div class="sc-asset__img"><img src="${dataURI(p, f.type)}" alt="${esc(f.name)}" loading="lazy"></div><figcaption><code>${esc(f.name)}</code><span>${(f.size / 1024).toFixed(1)} KB</span></figcaption></figure>`;
+      const q = [f.id, f.name, f.kind, f.variant, g, ...(f.tags ?? [])].filter(Boolean).join(" ");
+      return `<figure class="sc-asset${dark ? " sc-asset--dark" : ""}" data-q="${esc(q.toLowerCase())}"><div class="sc-asset__img"><img src="${dataURI(p, f.type)}" alt="${esc(f.name)}" loading="lazy"></div><figcaption><code>${esc(f.id ?? f.name)}</code><span>${esc(f.name)} · ${(f.size / 1024).toFixed(1)} KB</span><span class="sc-tags">${(f.tags ?? []).map((t) => `<i class="sc-chip">${esc(t)}</i>`).join("")}</span></figcaption></figure>`;
     }).join("");
     const others = extra.map((n) => `<li><code>${esc(n)}</code> <span class="sc-muted">${(statSync(join(DS, "assets", g, n)).size / 1024).toFixed(1)} KB</span></li>`).join("");
     return `<div class="sc-assetgroup" id="a-${slug(g)}"><h3 class="sc-sub">${esc(g)} <span class="sc-muted">${ag ? ag.order.length : 0}</span></h3>
@@ -316,6 +320,12 @@ code { font: 400 12.5px/1.5 var(--font-mono); background: var(--surface); border
 .sc-nav { display: flex; gap: 4px; overflow-x: auto; min-width: 0; flex: 1; scrollbar-width: none; }
 .sc-nav a { padding: 6px 10px; border-radius: var(--radius-sm); color: var(--ink); text-decoration: none; font: 600 14px/1 var(--font-serif); letter-spacing: .08em; white-space: nowrap; }
 .sc-nav a:hover { background: var(--surface); }
+.sc-search { flex: 0 1 240px; min-width: 0; font: 400 13px/1 var(--font-sans); padding: 8px 10px; border: 1px solid var(--line); border-radius: var(--radius-sm); background: var(--surface); color: var(--ink); }
+.sc-search::placeholder { color: var(--muted); }
+.sc-searchstatus { position: sticky; top: calc(var(--sc-bar) + env(safe-area-inset-top, 0px)); z-index: 8; margin: 0; padding: 8px 0; background: var(--paper); border-bottom: 1px solid var(--line); font-size: 13px; color: var(--muted); }
+.sc-tags { display: flex; flex-wrap: wrap; gap: 4px; }
+.sc-tags .sc-chip { padding: 0 6px; font-size: 11px; }
+[data-q][hidden] { display: none !important; }
 .sc-theme { display: flex; border: 1px solid var(--line); border-radius: var(--radius-sm); flex: none; }
 .sc-theme button { border: 0; background: transparent; color: var(--muted); font: 500 12px/1 var(--font-sans); padding: 7px 9px; cursor: pointer; }
 .sc-theme button[aria-pressed="true"] { background: var(--ink); color: var(--surface); }
@@ -479,6 +489,33 @@ const PAGE_JS = `
 (function () {
   var data = JSON.parse(document.getElementById('sc-data').textContent);
   var root = document.documentElement;
+  // meta search: filter every [data-q] item (assets by id, kind, tags; components; tokens) by all the words typed
+  (function () {
+    var box = document.getElementById('sc-q'), note = document.getElementById('sc-qstatus');
+    if (!box || !note) return;
+    var items = [].slice.call(document.querySelectorAll('[data-q]'));
+    function run() {
+      var words = box.value.toLowerCase().split(/\\s+/).filter(Boolean), n = 0;
+      items.forEach(function (el) {
+        var q = el.getAttribute('data-q') || '', hit = words.every(function (w) { return q.indexOf(w) >= 0; });
+        el.hidden = !hit; if (hit) n++;
+      });
+      [].slice.call(document.querySelectorAll('.sc-assetgroup, .sc-panel')).forEach(function (g) {
+        var inner = g.querySelectorAll('[data-q]'); if (!inner.length) return;
+        g.hidden = words.length > 0 && !g.querySelector('[data-q]:not([hidden])');
+      });
+      note.hidden = words.length === 0;
+      note.textContent = words.length ? n + ' 个匹配：' + words.join(' ') : '';
+      var first = words.length ? document.querySelector('[data-q]:not([hidden])') : null;
+      if (first) first.scrollIntoView({ block: 'start' });
+    }
+    box.addEventListener('input', run);
+    document.addEventListener('keydown', function (e) {
+      var t = e.target, typing = t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.isContentEditable);
+      if (e.key === '/' && !typing) { e.preventDefault(); box.focus(); }
+      else if (e.key === 'Escape' && t === box) { box.value = ''; run(); box.blur(); }
+    });
+  })();
   function theme() {
     var t = root.getAttribute('data-theme');
     if (t === 'light' || t === 'dark') return t;
@@ -583,6 +620,12 @@ const PAGE_JS = `
     if (pages.some(function (p) { return p.id === id; })) { openPage(id, true); return true; }
     return false;
   }
+  // a page that knows its own height (the card editor, inside the frame) tells the frame, so nothing is cut off
+  window.addEventListener('message', function (e) {
+    if (!pframe || !current || e.source !== pframe.contentWindow) return;
+    var h = e.data && e.data.xdFrameHeight;
+    if (typeof h === 'number' && h >= 300 && h <= 12000) { current.h = Math.ceil(h); fitPage(); }
+  });
   window.addEventListener('hashchange', fromHash);
   if (pages.length && !fromHash()) {
     if ('IntersectionObserver' in window) {
@@ -600,8 +643,8 @@ const PAGE_JS = `
 export interface Source { repo: string; commit: string; tree: string; date: string }
 const REPO = "ksamint/dsys_xiding01";
 const SOURCES: [string, string, string[]][] = [
-  ["pages", "页面 · 介绍、总览、官网", ["src/shared/content.ts", "src/deck/", "src/onepager/", "src/site/", "scripts/build.ts"]],
-  ["ip", "IP 体系 · 三个牌子、墨色、架构", ["design-system/components/src/xiding.ts", "design-system/intro.md", "src/shared/content.ts"]],
+  ["pages", "页面 · 介绍、总览、名片、二维码、官网", ["src/shared/content.ts", "src/deck/", "src/onepager/", "src/site/", "cards/xiding-card/", "cards/xiding-qr/", "scripts/build.ts"]],
+  ["ip", "IP 体系 · 墨色、架构", ["design-system/components/src/xiding.ts", "design-system/intro.md", "src/shared/content.ts"]],
   ["tokens", "令牌 · 颜色、字体、尺寸", ["design-system/tokens.json"]],
   ["components", "组件", ["design-system/components/", "design-system/components/bundle.css"]],
   ["assets", "资产", ["design-system/assets/", "design-system/design-system.json"]],
@@ -679,9 +722,11 @@ export function buildShowcase(peopleFile?: string, src?: Source): Built {
   const body = `<div class="sc-bar"><div class="sc-wrap">
 <a class="sc-bar__brand" href="#top">${markSVG}西顶</a>
 <nav class="sc-nav" aria-label="章节"><a href="#pages">页面</a><a href="#ip">IP 体系</a><a href="#tokens">令牌</a><a href="#components">组件</a><a href="#assets">资产</a><a href="#book">品牌手册</a><a href="#source">来源</a></nav>
+<input class="sc-search" id="sc-q" type="search" placeholder="搜索 id、名称、标签（按 /）" aria-label="搜索资产、组件和令牌" autocomplete="off">
 <div class="sc-theme" role="group" aria-label="主题"><button type="button" value="system" id="sc-theme-system">系统</button><button type="button" value="light" id="sc-theme-light">浅</button><button type="button" value="dark" id="sc-theme-dark">深</button></div>
 </div></div>
 <main class="sc-wrap">
+<p class="sc-searchstatus" id="sc-qstatus" role="status" hidden></p>
 ${hero(X, idx, t, stats)}
 ${pagesSection()}
 ${ipSection(X)}

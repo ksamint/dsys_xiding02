@@ -91,14 +91,14 @@ test("a reader's language list picks the right locale", () => {
   assert.equal(matchLocale("de"), null);
 });
 
-test("the brands, as the public introduction sets them: 西顶文化 over 西顶艺术, 西顶教育 and 西顶时光", () => {
+test("the brands, as the public introduction sets them: 西顶文化 over 西顶艺术, 西顶新知 and 西顶时光", () => {
   const { brand, brands } = content;
   assert.deepEqual([brand.org.hans, brand.org.hant, brand.org.en], ["西顶文化", "西頂文化", "Xiding"]);
   assert.deepEqual(
     brands.items.map((b) => [b.id, b.name.hans, b.name.hant, b.name.en, b.latin]),
     [
       ["arts", "西顶艺术", "西頂藝術", "Xiding Arts", "XIDING ARTS"],
-      ["academy", "西顶教育", "西頂教育", "Xiding Education", "XIDING EDUCATION"],
+      ["academy", "西顶新知", "西頂新知", "Xiding Insights", "XIDING INSIGHTS"],
       ["lifestyle", "西顶时光", "西頂時光", "Xiding Lifestyle", "XIDING LIFESTYLE"],
     ],
   );

@@ -24,7 +24,7 @@ const root = process.cwd(), tree = resolve(root, "out/public"), work = resolve(r
 const git = (cwd: string, ...a: string[]): string => execFileSync("git", a, { cwd, encoding: "utf8", stdio: ["ignore", "pipe", "pipe"] }).trim();
 
 // 1. the public copy, checked for personal details
-const r = exportPublic(root, tree);
+const r = exportPublic(root, tree, { regenerate: true });
 
 // 2. the public repository, as it stands on the remote (or a new one if the branch does not exist yet)
 if (existsSync(work)) rmSync(work, { recursive: true, force: true });

@@ -90,7 +90,7 @@ async function copyInto(files: readonly string[], fromDir: string, toDir: string
 }
 
 /** The QR code on the deck and the site leads to the member calendar on the official site. */
-export const DEFAULT_EVENTS_URL = "https://xidingmiao.com/members/#calendar";
+export const DEFAULT_EVENTS_URL = "https://example.org/members/#calendar";
 
 function eventsUrl(): string {
   const v = (process.env["XIDING_EVENTS_URL"] ?? "").trim();

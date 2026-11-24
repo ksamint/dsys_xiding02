@@ -12,7 +12,7 @@ opens the deck (slide 2), the site and the overview.
 | Count | What | 简体 | English |
 | --- | --- | --- | --- |
 | 1 | Who we are | 我们是谁：西顶，春秋百载，贯通东西 | Who we are |
-| 2 | What we do: the three brands | 我们做什么：西顶艺术、西顶教育、西顶时光 | What we do |
+| 2 | What we do: the three brands | 我们做什么：西顶艺术、西顶新知、西顶时光 | What we do |
 | 3 | How we do it: the three pillars | 我们怎么做：空间 × 活动、课程 × 服务、会员 × 定制 | How we do it |
 | X | The Xiding ecosystem: modules, ecosystem, foundation | 西顶生态 | Xiding ecosystem |
 
@@ -24,12 +24,12 @@ opens the deck (slide 2), the site and the overview.
 
 西顶文化 is the one short name Xiding uses to the outside (Xiding in English): art, education and lifestyle
 (艺术 · 教育 · 生活方式). It is one team with three brands, as the public introduction sets them
-([https://claude.ai/artifact/EmhEzgmXoCQuTV1GL5VRHV](https://claude.ai/artifact/EmhEzgmXoCQuTV1GL5VRHV), a draft whose pictures are still to come):
+(a draft whose pictures are still to come):
 
 | Brand | Field | Services | Lines |
 | --- | --- | --- | --- |
 | 西顶艺术 Xiding Arts | ART / CULTURE | 艺术策展, 品牌共创, 私享定制 | 以艺术连接文化，以创意赋能品牌，以体验创造价值。 |
-| 西顶教育 Xiding Education | EDUCATION / LEARNING | 课程研修, 战略咨询, 人才发展 | 以教育启发认知，以咨询推动变革，以人才驱动未来。 |
+| 西顶新知 Xiding Insights | EDUCATION / LEARNING | 课程研修, 战略咨询, 人才发展 | 以教育启发认知，以咨询推动变革，以人才驱动未来。 |
 | 西顶时光 Xiding Lifestyle | LIFESTYLE / MEMBERSHIP | 会员生活, 品质社交, 精致体验 | 以时光沉淀价值，以品味连接彼此，以社群丰富生活。 |
 
 The deck and the overview set the three side by side, hairlines between them. The site's "What we do" adds the
@@ -77,7 +77,7 @@ In X, the foundation's second row (开源知识库, A2A智能体生态) is set a
 ## Open points
 
 - "UCE" in "A2A UCE future" is not spelled out yet, so it does not appear on any page.
-- The QR code leads to xidingmiao.com, which did not answer when checked on 2026-11-13. Publish the member calendar there (it is built with the member app), or set `XIDING_EVENTS_URL`, before printing.
+- The QR code leads to example.org, which did not answer when checked on 2026-11-13. Publish the member calendar there (it is built with the member app), or set `XIDING_EVENTS_URL`, before printing.
 - The modules are a first list. Rename, strike or add in `src/shared/content.ts`.
 - 春秋百载 reads as "a hundred years"; the design system dates the temple to 1518, in the Ming dynasty: 508 years in 2026.
 - The public introduction uses 平台 and 赋能, which the design system's voice guide (`design-system/voice.md`) lists as

@@ -22,6 +22,10 @@ declare const VI: ViGeometry;
 declare const PEOPLE_INIT: { nameZh: string; nameEn: string; company: string; titleEn: string; titleZh: string; phone: string; email: string; web: string; address: string }[];
 /** The Rust snap engine compiled to WebAssembly, base64. Empty when the build had no wasm. */
 declare const SNAP_WASM_B64: string;
+/** The QR code to the website, made at build time: modules per side, and the dark modules as one path in module units. */
+declare const QR: { url: string; n: number; d: string };
+/** Layer 2's picture, built into the page as a data URL from the private repository (null in the public build). */
+declare const PHOTO_INIT: string | null;
 
 /** The design system's bundle (window.Xiding), used to draw the "before" card. */
 interface XidingBundle {

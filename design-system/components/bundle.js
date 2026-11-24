@@ -437,7 +437,7 @@
         const c = {
             front: o.front || "teal", back: o.back || "paper", orientation: o.orientation || "landscape",
             frontLayout: o.frontLayout || "mark", backLayout: o.backLayout || "left",
-            brands: o.brands == null ? "西顶艺术　西顶教育　西顶时光" : o.brands,
+            brands: o.brands == null ? "西顶艺术　西顶新知　西顶时光" : o.brands,
             mark: stateOf({ style: o.style, geometry: o.geometry, size: o.size, ring: o.ring }),
         };
         const person = { ...PEOPLE[0], ...(o.person || {}) };
@@ -449,20 +449,19 @@
     const BRANDS = [
         { zh: "西顶文化", en: "Xiding", level: "整体", settled: true },
         { zh: "西顶艺术", en: "Xiding Arts", level: "牌子", settled: true },
-        { zh: "西顶教育", en: "Xiding Education", level: "牌子", settled: true },
+        { zh: "西顶新知", en: "Xiding Insights", level: "牌子", settled: true },
         { zh: "西顶时光", en: "Xiding Lifestyle", level: "牌子", settled: true },
     ];
     const TAGLINE = "艺术 · 教育 · 生活方式";
     const BRAND_DETAILS = [
         { id: "arts", zh: "西顶艺术", en: "Xiding Arts", latin: "XIDING ARTS", word: "艺术", field: "ART / CULTURE", services: ["艺术策展", "品牌共创", "私享定制"], lines: ["以艺术连接文化，", "以创意赋能品牌，", "以体验创造价值。"] },
-        { id: "academy", zh: "西顶教育", en: "Xiding Education", latin: "XIDING EDUCATION", word: "教育", field: "EDUCATION / LEARNING", services: ["课程研修", "战略咨询", "人才发展"], lines: ["以教育启发认知，", "以咨询推动变革，", "以人才驱动未来。"] },
+        { id: "academy", zh: "西顶新知", en: "Xiding Insights", latin: "XIDING INSIGHTS", word: "教育", field: "EDUCATION / LEARNING", services: ["课程研修", "战略咨询", "人才发展"], lines: ["以教育启发认知，", "以咨询推动变革，", "以人才驱动未来。"] },
         { id: "lifestyle", zh: "西顶时光", en: "Xiding Lifestyle", latin: "XIDING LIFESTYLE", word: "生活方式", field: "LIFESTYLE / MEMBERSHIP", services: ["会员生活", "品质社交", "精致体验"], lines: ["以时光沉淀价值，", "以品味连接彼此，", "以社群丰富生活。"] },
     ];
     const SCENES = [
         { brand: "西顶艺术", id: "arts", scenes: ["古琴", "艺术鉴赏", "策展"], use: "养品味" },
-        { brand: "西顶教育", id: "academy", scenes: ["咨询", "培训", "落地陪跑对接"], use: "解决问题" },
+        { brand: "西顶新知", id: "academy", scenes: ["咨询", "培训", "落地陪跑对接"], use: "解决问题" },
         { brand: "西顶时光", id: "lifestyle", scenes: ["生日", "下午茶", "私宴"], use: "经营关系" },
-        { brand: "担当", id: "root", scenes: ["心理辅导", "教练"], use: "养心力" },
     ];
     function rowPrims(parts, x, y, size, anchor, fill) {
         const spacing = 0.28, gap = size * 1.5;
@@ -509,7 +508,7 @@
     function artSubBrand(o = {}, slug = "subbrand") {
         const l = subBrandLayout(o), cw = COLORWAYS[l.s.colorway];
         const extra = l.row ? rowPrims(l.row.parts, l.row.x, l.row.y, l.row.size, l.row.anchor, l.fg) : [];
-        const who = slug === "academy" ? "Academy" : slug === "arts" ? "Arts" : slug === "shiguang" ? "Lifestyle" : slug === "all" ? "The three brands" : (o.brands || []).join(" ");
+        const who = slug === "academy" ? "Insights" : slug === "arts" ? "Arts" : slug === "shiguang" ? "Lifestyle" : slug === "all" ? "The three brands" : (o.brands || []).join(" ");
         const a = frameArt(`xiding-${slug}-${o.layout || "wide"}-${l.s.colorway}`, `${who}, ${o.layout === "stacked" ? "stacked" : "wide"}, ${cw.name.toLowerCase()}`, "Sub-brands", l.s, l.f, o, extra);
         a.fonts = "mixed";
         return a;
@@ -518,7 +517,7 @@
         const c = {
             front: o.front || "teal", back: o.back || "paper", orientation: o.orientation || "landscape",
             frontLayout: o.frontLayout || "mark", backLayout: o.backLayout || "left",
-            brands: o.brands == null ? "西顶艺术　西顶教育　西顶时光" : o.brands,
+            brands: o.brands == null ? "西顶艺术　西顶新知　西顶时光" : o.brands,
             mark: stateOf({ style: o.style, geometry: o.geometry, size: o.size, ring: o.ring }),
         };
         const person = { ...PEOPLE[0], ...(o.person || {}) };
@@ -562,7 +561,7 @@
             prims.push({ t: "text", text: b.services.join("　"), x, y: base + 2 + 12 + 16 * 0.84, size: 16, family: "serif", weight: 600, spacing: 0.04, anchor: "start", fill: ink });
         });
         prims.push({ t: "rect", x: M, y: base, w: W - 2 * M, h: 2, fill: ink });
-        return { name: `xiding-pillars-${theme}`, label: `西顶艺术、西顶教育、西顶时光, for a ${theme} ground`, group: "Pillars", fonts: "serif", x: 0, y: 0, w: W, h: base + 2 + 12 + 16 + 24, px: 1920, prims };
+        return { name: `xiding-pillars-${theme}`, label: `西顶艺术、西顶新知、西顶时光, for a ${theme} ground`, group: "Pillars", fonts: "serif", x: 0, y: 0, w: W, h: base + 2 + 12 + 16 + 24, px: 1920, prims };
     }
     function artPillarPlate(id) {
         const b = BRAND_DETAILS.filter((q) => q.id === id)[0], k = brandInks(id, false), S = 512;
@@ -577,10 +576,10 @@
     const themeInks = (theme) => theme === "dark"
         ? { ink: "#FFFFFF", muted: "#A9B6B3", accent: "#9CC2BC" }
         : { ink: "#000000", muted: "#4E5A58", accent: "#3D6560" };
-    const SITE = "xidingmiao.com";
+    const SITE = "example.org";
     const STEPS = [
         ["人和内容带来", "艺术家和行业专家。"],
-        ["三个牌子把专家的能力", "交付给会员和合作伙伴。"],
+        ["把专家的能力", "交付给会员和合作伙伴。"],
         ["智能体之间完成", "匹配、预约与分账，", "收益回到出力的人手里。"],
     ];
     function artArchitecture(theme = "light") {
@@ -590,7 +589,6 @@
         label("一套班子", 14);
         prims.push({ t: "rect", x: 0.5, y: 24.5, w: W - 1, h: 63, stroke: k.ink, sw: 1, rx: 4 });
         prims.push({ t: "text", text: "西顶文化", x: W / 2, y: 65.5, size: 26, family: "serif", weight: 700, spacing: 0.12, anchor: "middle", fill: k.ink });
-        label("三个牌子", 124);
         const wb = (W - 48) / 3;
         BRAND_DETAILS.map((b) => [b.zh, b.services.join("　")]).forEach(([name, services], i) => {
             const x = i * (wb + 24);
@@ -598,7 +596,7 @@
             prims.push({ t: "text", text: name, x: x + 20, y: 169, size: 26, family: "serif", weight: 700, spacing: 0.12, anchor: "start", fill: k.ink });
             prims.push({ t: "text", text: services, x: x + 20, y: 198, size: 15, family: "serif", weight: 600, spacing: 0.04, anchor: "start", fill: k.muted });
         });
-        return { name: `xiding-intro-architecture-${theme}`, label: `一套班子，三个牌子, for a ${theme} ground`, group: "Intro", fonts: "serif", x: 0, y: 0, w: W, h: 224, px: 1920, prims };
+        return { name: `xiding-intro-architecture-${theme}`, label: `一套班子, for a ${theme} ground`, group: "Intro", fonts: "serif", x: 0, y: 0, w: W, h: 224, px: 1920, prims };
     }
     function artSteps(theme = "light") {
         const k = themeInks(theme), W = 960, n = STEPS.length, w = (W - 24 * (n - 1)) / n;
@@ -711,13 +709,13 @@
             out.push(artMark({ lockup: "stacked", colorway: c }));
             out.push(artMark({ lockup: "horizontal", colorway: c }));
         });
-        ["teal", "ink", "night"].forEach((c) => out.push(artSubBrand({ layout: "wide", latin: "XIDING EDUCATION", brands: ["西顶教育"], colorway: c }, "academy")));
-        out.push(artSubBrand({ layout: "stacked", latin: "XIDING EDUCATION", brands: ["西顶教育"], colorway: "teal" }, "academy"));
+        ["teal", "ink", "night"].forEach((c) => out.push(artSubBrand({ layout: "wide", latin: "XIDING INSIGHTS", brands: ["西顶新知"], colorway: c }, "academy")));
+        out.push(artSubBrand({ layout: "stacked", latin: "XIDING INSIGHTS", brands: ["西顶新知"], colorway: "teal" }, "academy"));
         out.push(artSubBrand({ layout: "wide", latin: "XIDING ARTS", brands: ["西顶艺术"], colorway: "ink" }, "arts"));
         out.push(artSubBrand({ layout: "wide", latin: "XIDING LIFESTYLE", brands: ["西顶时光"], colorway: "ink" }, "shiguang"));
-        out.push(artSubBrand({ layout: "wide", brands: ["西顶艺术", "西顶教育", "西顶时光"], colorway: "ink" }, "all"));
+        out.push(artSubBrand({ layout: "wide", brands: ["西顶艺术", "西顶新知", "西顶时光"], colorway: "ink" }, "all"));
         ["black", "white", "teal"].forEach((k) => out.push(artWordmark("西顶", "wordmark", k, "wordmark-zh")));
-        const slugs = ["wenhua", "yishu", "jiaoyu", "shiguang"];
+        const slugs = ["wenhua", "yishu", "xinzhi", "shiguang"];
         BRANDS.forEach((b, i) => out.push(artWordmark(b.zh, "row", "black", "name-" + slugs[i])));
         out.push(artPillars("light"), artPillars("dark"));
         BRAND_DETAILS.forEach((b) => out.push(artPillarPlate(b.id)));

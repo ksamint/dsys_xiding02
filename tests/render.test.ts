@@ -61,7 +61,7 @@ test("1 who we are, 2 the brands, 3 the pillars, X the ecosystem with the module
   const who = hans[3]?.html ?? "";
   assert.ok(who.includes("待填写") && !who.includes("西顶艺术"), "1 waits for its words, and is Xiding alone");
   const what = hans[5]?.html ?? "";
-  assert.ok(what.includes("西顶艺术") && what.includes("西顶教育") && what.includes("西顶时光"), "2 is the three brands");
+  assert.ok(what.includes("西顶艺术") && what.includes("西顶新知") && what.includes("西顶时光"), "2 is the three brands");
   const x = hans[7]?.html ?? "";
   assert.ok(x.indexOf("sys__base-top") < x.indexOf("sys__base-more"), "the foundation's second row sits under the three");
   assert.equal((x.match(/<li>/g) ?? []).length, 12, "all twelve modules stand on the base");
@@ -84,7 +84,7 @@ test("the three languages really differ, and each uses its own script", () => {
   assert.ok(hans.includes(opening("西顶", "待填写")));
   // The three brands sit side by side as 2, each with its name in the other script.
   assert.ok(hans.includes('<span class="bp__name">西顶艺术</span><span class="bp__alt">XIDING ARTS</span>'));
-  assert.ok(en.includes('<span class="bp__name">Xiding Education</span><span class="bp__alt">西顶教育</span>'));
+  assert.ok(en.includes('<span class="bp__name">Xiding Insights</span><span class="bp__alt">西顶新知</span>'));
   assert.ok(hans.includes('<span class="bp__name">西顶时光</span><span class="bp__alt">XIDING LIFESTYLE</span>'));
   for (const html of [en, hant, hans]) assert.ok(!/人生|>Life</.test(html), "life is no longer one of the things");
   // The logo is artwork and keeps 西顶 in every language; the words around it follow the reader's script.
@@ -102,7 +102,7 @@ test("the site gives each brand its field, its three services and its three line
   for (const w of ["ART / CULTURE", "私享定制", "以艺术连接文化，", "战略咨询", "以人才驱动未来。", "会员生活", "以社群丰富生活。"]) assert.ok(hans.includes(w), w);
   const en = renderSite("en", { deck: "", members: "" }, "2026-11-13");
   assert.ok(en.includes("Art · Education · Lifestyle") && en.includes("Bespoke experiences") && en.includes("Community that enriches life."));
-  assert.ok(hans.includes("西顶艺术　西顶教育　西顶时光"), "the footer names the three brands");
+  assert.ok(hans.includes("西顶艺术　西顶新知　西顶时光"), "the footer names the three brands");
 });
 
 test("lines that were cut stay cut, on the deck and on the site", () => {
@@ -185,6 +185,6 @@ test("copy text: the introduction in one language, whole, with nothing cut", asy
     assert.ok(text.includes("https://example.org/#calendar"), `${locale}: the events link`);
     assert.ok(!/[ \t]$/m.test(text), `${locale}: no trailing spaces`);
     if (locale === "en") assert.ok(!text.includes("　"), "en: plain spaces only");
-    else assert.ok(!/[A-Za-z]{4,}/.test(text.replace(/https?:\S+|xidingmiao\.com|A2A|AI/g, "")), `${locale}: no English words`);
+    else assert.ok(!/[A-Za-z]{4,}/.test(text.replace(/https?:\S+|xidingmiao\.com|example\.org|A2A|AI/g, "")), `${locale}: no English words`);
   }
 });

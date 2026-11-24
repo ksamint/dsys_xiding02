@@ -119,3 +119,70 @@ test("a saved or imported design is taken only in the shape the editor writes: n
     assert.ok(svg.includes("&lt;img"), `${layout}: the name is drawn as text`);
   }
 });
+
+test("one list of brands: the back's name row, the portrait's pillars and their services read the same list, which agrees with the design system", () => {
+  const read = (f: string): string => readFileSync(`cards/xiding-card/${f}`, "utf8");
+  const o = cardOutlines(readFileSync("brand/xiding-guangren-vi/brand-assets/logo-lockup-teal.svg", "utf8"));
+  const people = JSON.parse(read("people.sample.json")) as unknown[];
+  const ctx: Record<string, unknown> = { VI: o.geometry, PEOPLE_INIT: people, SNAP_WASM_B64: "", document: { createElement: () => ({ getContext: () => null }) } };
+  runInNewContext(`${stripTypeScriptTypes(read("src/card.ts"))}\n;globalThis.__b = { CARD_BRANDS, BRANDS };`, ctx);
+  const card = JSON.parse(JSON.stringify((ctx.__b as { CARD_BRANDS: unknown }).CARD_BRANDS)) as { zh: string; en: string; services: string[] }[];
+  assert.deepEqual(JSON.parse(JSON.stringify((ctx.__b as { BRANDS: unknown }).BRANDS)), card.map((b) => b.zh), "the back's row is the list's names");
+
+  // the design system's brand table, id by id (design-system/components/src/xiding.ts)
+  const ds = readFileSync("design-system/components/src/xiding.ts", "utf8");
+  const table = [...ds.matchAll(/\{ id: "(\w+)", zh: "([^"]+)", en: "([^"]+)", latin: "[^"]*", word: "[^"]*", field: "[^"]*", services: \[([^\]]*)\]/g)]
+    .map((m) => ({ id: m[1]!, zh: m[2]!, en: m[3]!, services: [...m[4]!.matchAll(/"([^"]+)"/g)].map((s) => s[1]!) }));
+  assert.ok(table.length >= 3, "the design system's brand table was found");
+  const ids = ["arts", "academy"];
+  assert.equal(card.length, ids.length, "the card shows two brands");
+  card.forEach((b, i) => {
+    const ref = table.find((t) => t.id === ids[i]);
+    assert.ok(ref, `the design system has a brand ${ids[i]}`);
+    assert.equal(b.zh, ref.zh, `brand ${i + 1}: name`);
+    assert.equal(b.en, ref.en, `brand ${i + 1}: English name`);
+    assert.deepEqual(b.services, ref.services, `brand ${i + 1}: services are the design system's`);
+  });
+
+  // nothing else in the card states a brand: the portrait takes the list, and no source or page text has an old name
+  const portrait = read("src/portrait.ts");
+  assert.ok(/const PILLARS: Pillar\[\] = CARD_BRANDS;/.test(portrait), "the pillars are the card's list");
+  assert.ok(!/zh: "西顶(艺术|新知|教育|学院|时光)"/.test(portrait), "no brand is typed again in the portrait");
+  for (const f of ["page.html", "src/card.ts", "src/main.ts", "src/portrait.ts", "src/store.ts"]) {
+    const t = read(f);
+    for (const old of ["西顶学院", "Xiding Academy", "西顶教育", "Xiding Education", "Xiding Xinzhi", "XIDING XINZHI"]) assert.ok(!t.includes(old), `${f} still says ${old}`);
+  }
+});
+
+test("the portrait's QR code decodes to its address, and the caption under it is read from that address", async () => {
+  const m = page.match(/const QR = (\{[^\n]*\});/);
+  assert.ok(m, "the page carries its QR code");
+  const qr = JSON.parse(m[1]!) as { url: string; n: number; d: string };
+  assert.ok(/^https:\/\/[a-z0-9.-]+\/?/.test(qr.url), "the code leads to an https address");
+  // draw the code's modules, with the four-module quiet zone, and read it back as a scanner would
+  const scale = 6, size = (qr.n + 8) * scale, px = new Uint8ClampedArray(size * size * 4).fill(255);
+  for (const d of qr.d.matchAll(/M(\d+) (\d+)h1v1h-1z/g)) {
+    const x0 = (Number(d[1]) + 4) * scale, y0 = (Number(d[2]) + 4) * scale;
+    for (let y = y0; y < y0 + scale; y++) for (let x = x0; x < x0 + scale; x++) { const i = (y * size + x) * 4; px[i] = px[i + 1] = px[i + 2] = 0; }
+  }
+  // jsQR is CommonJS: its types say the module, its default export is the function
+  const jsQR = ((await import("jsqr")) as unknown as { default: (d: Uint8ClampedArray, w: number, h: number) => { data: string } | null }).default;
+  assert.equal(jsQR(px, size, size)?.data, qr.url, "a scanner reads the address the page says");
+  // the caption is not typed: it takes the host from the code
+  const portrait = readFileSync("cards/xiding-card/src/portrait.ts", "utf8");
+  assert.ok(/const QR_HOST = .*new URL\(QR\.url\)\.host/.test(portrait), "the caption's address comes from the code");
+  assert.ok(!/xidingmiao\.com|apuch\.cn/.test(portrait), "no address is typed in the portrait");
+});
+
+test("the public copy builds the card without the private people file or photo", async () => {
+  const { execFileSync } = await import("node:child_process");
+  const { mkdtempSync, readFileSync: read } = await import("node:fs");
+  const { tmpdir } = await import("node:os");
+  const { join: j } = await import("node:path");
+  const out = j(mkdtempSync(j(tmpdir(), "xd-card-")), "card.html");
+  execFileSync("node", ["--experimental-strip-types", "--no-warnings", "tools/build-card.ts", "brand/xiding-guangren-vi", "design-system/components/bundle.js", out,
+    "--people", "private/does-not-exist.json", "--photo", "private/photos/does-not-exist.webp"], { stdio: "pipe" });
+  const html = read(out, "utf8");
+  assert.ok(html.includes("const PHOTO_INIT = null;"), "no photo is built in");
+  assert.ok(html.includes("zhangsan@example.com"), "the sample people are used");
+});

@@ -35,12 +35,14 @@ function pushUndo(before: string, label = "编辑 Edit"): void {
   undoStack.push({ snap: before, label, at: Date.now() });
   if (undoStack.length > 200) undoStack.shift();
   redoStack.length = 0;
+  changeLog.push({ label, at: new Date().toISOString() });
   updateUndoButtons();
 }
 function undo(): void {
   const prev = undoStack.pop();
   if (prev === undefined) return;
   redoStack.push({ snap: editSnapshot(), label: prev.label, at: prev.at });
+  changeLog.pop();
   restoreEdit(prev.snap);
   fillForm();
   onEditChanged(true);
@@ -49,6 +51,7 @@ function redo(): void {
   const next = redoStack.pop();
   if (next === undefined) return;
   undoStack.push({ snap: editSnapshot(), label: next.label, at: next.at });
+  changeLog.push({ label: next.label, at: new Date().toISOString() });
   restoreEdit(next.snap);
   fillForm();
   onEditChanged(true);
@@ -158,6 +161,7 @@ function overlayOf(svg: SVGSVGElement): SVGGElement {
 }
 function drawOverlay(svg: SVGSVGElement, guides: Guides = { gx: null, gy: null }, marquee: DOMRect | null = null, label: { x: number; y: number; t: string } | null = null): void {
   const key = svg.dataset.key ?? "", ov = overlayOf(svg), u = 1 / pxPerMm(svg), hs = 9 * u, dash = `${f2(4 * u)} ${f2(3 * u)}`;
+  const { w: W, h: H } = sheetDims(key); // the portrait card is 54 × 96 by default
   let o = "";
   // reference lines: dotted, with a wide invisible grip
   const refs = refsOf(key), ext = BLEED + 1.5;
@@ -210,11 +214,18 @@ function redrawOverlays(): void {
 }
 
 /** The selected element under the point, if any: a click inside the selection keeps it, as in Canva. */
+/** An element can carry data-hit="x y w h": it is only hit inside that box (a picture shows only inside its frame). */
+function inHitArea(g: SVGGElement, pt: DOMPoint): boolean {
+  const h = g.dataset.hit;
+  if (!h) return true;
+  const [x, y, w, hh] = h.split(" ").map(Number) as [number, number, number, number];
+  return pt.x >= x && pt.x <= x + w && pt.y >= y && pt.y <= y + hh;
+}
 function hitSelected(svg: SVGSVGElement, key: string, pt: DOMPoint): SVGGElement | null {
   if (!sel || sel.svg !== svg) return null;
   for (const id of [...sel.ids].reverse()) {
     const g = groupOf(svg, id);
-    if (!g || !selectable(g, key)) continue;
+    if (!g || !selectable(g, key) || !inHitArea(g, pt)) continue;
     const b = currentBox(g, key);
     if (pt.x >= b.x && pt.x <= b.x + b.width && pt.y >= b.y && pt.y <= b.y + b.height) return g;
   }
@@ -223,7 +234,7 @@ function hitSelected(svg: SVGSVGElement, key: string, pt: DOMPoint): SVGGElement
 /** The topmost selectable element whose box holds the point. */
 function hitTest(svg: SVGSVGElement, key: string, pt: DOMPoint): SVGGElement | null {
   for (const g of [...svg.querySelectorAll<SVGGElement>("g[data-el]")].reverse()) {
-    if (!selectable(g, key)) continue;
+    if (!selectable(g, key) || !inHitArea(g, pt)) continue;
     const b = currentBox(g, key);
     if (pt.x >= b.x && pt.x <= b.x + b.width && pt.y >= b.y && pt.y <= b.y + b.height) return g;
   }
@@ -288,7 +299,9 @@ function attachEditor(svg: SVGSVGElement): void {
       else startDrag(svg, key, "scale", e, h[0] === "1" ? 1 : 0, h[1] === "1" ? 1 : 0);
       return;
     }
-    let g = e.shiftKey ? null : hitSelected(svg, key, pt);
+    // Ctrl/⌘-click picks the one element under the pointer, even inside a group (as in Figma)
+    const deep = e.ctrlKey || e.metaKey;
+    let g = e.shiftKey || deep ? null : hitSelected(svg, key, pt);
     g ??= target.closest<SVGGElement>("g[data-el]");
     // Like Canva, a click anywhere inside an element's box selects it, even between the dots of the mark.
     if (!g || !selectable(g, key)) g = hitTest(svg, key, pt);
@@ -300,8 +313,9 @@ function attachEditor(svg: SVGSVGElement): void {
       drag = newDrag(svg, key, "marquee", pt, { additive: keep });
       return;
     }
-    const unit = unitOf(key, g.dataset.el ?? "").filter((id) => { const x = groupOf(svg, id); return x ? selectable(x, key) : false; });
+    const unit = (deep ? [g.dataset.el ?? ""] : unitOf(key, g.dataset.el ?? "")).filter((id) => { const x = groupOf(svg, id); return x ? selectable(x, key) : false; });
     const current = sel && sel.svg === svg ? sel.ids : [];
+    if (deep) { setSelection(svg, key, unit); startDrag(svg, key, "move", e, 1, 1); return; }
     if (e.shiftKey) {
       // Shift-click adds the element (or its group) to the selection, or takes it out
       const has = unit.every((id) => current.includes(id));
@@ -365,6 +379,8 @@ function moveDrag(e: PointerEvent): void {
       const r = snapBox([B.x + mx, B.y + my, B.x + B.width + mx, B.y + B.height + my], d.key, d.targets, th);
       mx += r.dx; my += r.dy; guides = { gx: r.gx, gy: r.gy };
     }
+    // the portrait card, once its structure is locked, keeps each element inside its own area
+    if (d.key === PORTRAIT_KEY) [mx, my] = portraitClampMove(d.items, mx, my);
     for (const it of d.items) place(d, it, { ...it.o0, dx: it.o0.dx + mx, dy: it.o0.dy + my });
     label = { x: B.x + mx, y: B.y + my - 1, t: `${(B.x + mx).toFixed(1)}, ${(B.y + my).toFixed(1)} mm` };
   } else if (d.mode === "scale") {
@@ -421,13 +437,14 @@ function endDrag(): void {
   }
   if (d.mode === "ref" && d.ref) {
     // a line dragged off the card is removed
-    const refs = refsOf(d.key), v = (d.ref.axis === "x" ? refs.xs : refs.ys)[d.ref.i] ?? 0, lim = d.ref.axis === "x" ? W : H;
+    const refs = refsOf(d.key), v = (d.ref.axis === "x" ? refs.xs : refs.ys)[d.ref.i] ?? 0, lim = d.ref.axis === "x" ? sheetDims(d.key).w : sheetDims(d.key).h;
     if (v < -BLEED || v > lim + BLEED) {
       const next = { xs: [...refs.xs], ys: [...refs.ys] };
       (d.ref.axis === "x" ? next.xs : next.ys).splice(d.ref.i, 1);
       state.refLines = { ...state.refLines, [d.key]: next };
     }
   }
+  if (d.key === PORTRAIT_KEY && S.ptLock && (d.mode === "scale" || d.mode === "rotate")) portraitFit(d.svg, d.items.map((it) => it.id));
   if (d.before !== editSnapshot()) commit(d.before, false, DRAG_LABELS[d.mode]);
   else drawOverlay(d.svg);
 }
@@ -458,12 +475,22 @@ function onDoubleClick(svg: SVGSVGElement, key: string, e: MouseEvent): void {
   startTextEdit(svg, key, g.dataset.el ?? "", best);
 }
 let textEditor: HTMLInputElement | null = null;
+/** Whether a fill colour is light (type on a dark ground); anything not a hex colour counts as light. */
+function isLight(fill: string | null): boolean {
+  const m = (fill ?? "").trim().match(/^#([0-9a-f]{3}|[0-9a-f]{6})$/i);
+  if (!m) return true;
+  const h = m[1]!.length === 3 ? [...m[1]!].map((c) => c + c).join("") : m[1]!;
+  const [r, g, b] = [0, 2, 4].map((i) => parseInt(h.slice(i, i + 2), 16));
+  return 0.299 * r! + 0.587 * g! + 0.114 * b! > 150;
+}
 /** Open an input over one line of type; Enter or leaving keeps the change, Esc drops it. */
 function startTextEdit(svg: SVGSVGElement, key: string, id: string, index: number): void {
   const g = groupOf(svg, id), t = g?.querySelectorAll<SVGTextElement>("text")[index], host = svg.parentElement;
   if (!g || !t || !host) return;
   textEditor?.remove();
   setSelection(svg, key, [id]);
+  // the input is placed against the card's own box, so that box must be its containing block
+  if (getComputedStyle(host).position === "static") host.style.position = "relative";
   const r = t.getBoundingClientRect(), hr = host.getBoundingClientRect(), size = Number(t.getAttribute("font-size") ?? "2") * pxPerMm(svg) * (overrideOf(key, id).s || 1);
   const inp = document.createElement("input");
   inp.className = "text-edit";
@@ -473,6 +500,8 @@ function startTextEdit(svg: SVGSVGElement, key: string, id: string, index: numbe
     left: `${r.left - hr.left - 4}px`, top: `${r.top - hr.top - 4}px`, minWidth: `${Math.max(80, r.width + 24)}px`,
     font: `${t.getAttribute("font-weight") ?? "400"} ${size}px ${t.getAttribute("font-family") ?? SANS}`,
     color: t.getAttribute("fill") ?? "#F3F1E8",
+    // the overlay takes a ground the type reads on: the side's own, or on the portrait dark behind light type
+    background: key === PORTRAIT_KEY ? (isLight(t.getAttribute("fill")) ? (S.ptTheme === 1 ? "#000000" : "#404041") : "#FFFFFF") : key === BACK_KEY ? GB().bg : GF().bg,
   });
   host.appendChild(inp);
   textEditor = inp;
@@ -561,6 +590,7 @@ function selectAll(): void {
 function nudge(dx: number, dy: number): void {
   if (!sel) return;
   const before = editSnapshot();
+  if (sel.key === PORTRAIT_KEY) [dx, dy] = portraitClampMove(itemsFor(sel.svg, sel.key, sel.ids), dx, dy);
   for (const id of sel.ids) { const o = overrideOf(sel.key, id); setOverride(sel.key, id, { ...o, dx: o.dx + dx, dy: o.dy + dy }); }
   commit(before, false, "微移 Nudge");
 }
@@ -609,8 +639,8 @@ function alignSelected(how: string): void {
   if (!sel || !all || !units.length) return;
   let f: { l: number; c: number; r: number; t: number; m: number; b: number };
   if (units.length === 1) {
-    const onField = sel.key === "seal2:front" && all.x < S.fieldW;
-    f = onField ? { l: 3, c: S.fieldW / 2, r: S.fieldW - 3, t: M, m: H / 2, b: BASE } : { l: M, c: W / 2, r: W - M, t: M, m: H / 2, b: BASE };
+    const onField = sel.key === "seal2:front" && all.x < S.fieldW, dm = sheetDims(sel.key);
+    f = sel.key === PORTRAIT_KEY ? { l: dm.m, c: dm.w / 2, r: dm.w - dm.m, t: dm.m, m: dm.h / 2, b: dm.h - dm.m } : onField ? { l: 3, c: S.fieldW / 2, r: S.fieldW - 3, t: M, m: H / 2, b: BASE } : { l: M, c: W / 2, r: W - M, t: M, m: H / 2, b: BASE };
   } else {
     f = { l: all.x, c: all.x + all.width / 2, r: all.x + all.width, t: all.y, m: all.y + all.height / 2, b: all.y + all.height };
   }
@@ -647,6 +677,20 @@ function groupSelected(): void {
   const rest = groupsOf(sel.key).map((g) => g.filter((id) => !ids.includes(id))).filter((g) => g.length > 1);
   state.groups = { ...state.groups, [sel.key]: [...rest, ids] };
   commit(before, false, "编组 Group");
+}
+/** Take every group on a sheet apart, so each element moves on its own. */
+function ungroupAll(key: string): void {
+  if (!groupsOf(key).length) return;
+  const before = editSnapshot();
+  state.groups = { ...state.groups, [key]: [] };
+  commit(before, false, "全部取消编组 Ungroup all");
+}
+/** The portrait's default group again: the two pillars, their services and the axis. */
+function regroupPillars(): void {
+  const before = editSnapshot(), ids = ["pillar1", "pillar1List", "pillarAxis", "pillar2", "pillar2List"];
+  const rest = groupsOf(PORTRAIT_KEY).map((g) => g.filter((id) => !ids.includes(id))).filter((g) => g.length > 1);
+  state.groups = { ...state.groups, [PORTRAIT_KEY]: [...rest, ids] };
+  commit(before, false, "两栏编组 Group the pillars");
 }
 function ungroupSelected(): void {
   if (!sel) return;
@@ -706,7 +750,7 @@ function showAll(): void {
   commit(before, true, "显示全部 Show hidden");
 }
 function resetLayout(): void {
-  const before = editSnapshot(), keys = [`${state.logo}:front`, BACK_KEY], hit = (k: string): boolean => keys.some((p) => k.startsWith(`${p}:`));
+  const a = activeSheet(), before = editSnapshot(), keys = a?.key === PORTRAIT_KEY ? [PORTRAIT_KEY] : [`${state.logo}:front`, BACK_KEY], hit = (k: string): boolean => keys.some((p) => k.startsWith(`${p}:`));
   for (const k of Object.keys(state.ov)) if (hit(k)) delete state.ov[k];
   for (const k of Object.keys(state.locks)) if (hit(k)) delete state.locks[k];
   for (const k of Object.keys(state.texts)) if (hit(k)) delete state.texts[k];
@@ -762,7 +806,7 @@ function addRefLine(axis: "x" | "y"): void {
   const a = activeSheet();
   if (!a) return;
   const before = editSnapshot(), refs = refsOf(a.key), list = [...(axis === "x" ? refs.xs : refs.ys)];
-  let v = axis === "x" ? W / 2 : H / 2;
+  let v = axis === "x" ? sheetDims(a.key).w / 2 : sheetDims(a.key).h / 2;
   while (list.some((x) => Math.abs(x - v) < 0.5)) v += 4;
   list.push(v);
   state.refLines = { ...state.refLines, [a.key]: axis === "x" ? { xs: list, ys: [...refs.ys] } : { xs: [...refs.xs], ys: list } };
@@ -789,7 +833,7 @@ function renderLayers(): void {
       `<button type="button" class="layer__btn" data-eye="${esc(id)}" aria-pressed="${!o.hidden}" title="${o.hidden ? "Show" : "Hide"}" aria-label="${o.hidden ? "Show" : "Hide"} ${esc(name)}">${o.hidden ? "隐" : "显"}</button>` +
       `<button type="button" class="layer__btn" data-lock="${esc(id)}" aria-pressed="${locked}" title="${locked ? "Unlock" : "Lock"}" aria-label="${locked ? "Unlock" : "Lock"} ${esc(name)}">锁</button></li>`;
   }).join("");
-  host.innerHTML = `<p class="layers__side">${a.key === BACK_KEY ? "背面 · Back" : "正面 · Front"}</p><ul>${rows}</ul>`;
+  host.innerHTML = `<p class="layers__side">${a.key === BACK_KEY ? "背面 · Back" : a.key === PORTRAIT_KEY ? "竖版 · Portrait" : "正面 · Front"}</p><ul>${rows}</ul>`;
 }
 function onLayersClick(e: MouseEvent): void {
   const a = activeSheet(), t = e.target as Element;

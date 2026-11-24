@@ -30,7 +30,7 @@ bundle === buildBundle() ? ok("bundle.js matches components/src/xiding.ts") : fa
 /<\/script|<!--/i.test(bundle) ? fail("bundle.js contains </script or <!-- and cannot be inlined") : ok("bundle.js can be inlined");
 
 // 3. every asset the index names is in the repo at its recorded size
-interface AssetFile { name: string; blob: string; size: number; type: string }
+interface AssetFile { name: string; id?: string; kind?: string; variant?: string; tags?: string[]; blob: string; size: number; type: string }
 const index = JSON.parse(readFileSync(join(DS, "design-system.json"), "utf8")) as {
   groups: string[]; assetGroups: Record<string, { order: string[]; files: Record<string, AssetFile> }>;
 };
@@ -49,6 +49,22 @@ for (const [group, g] of Object.entries(index.assetGroups)) {
   if (!existsSync(join(DS, "assets", group, "README.md"))) fail(`asset group ${group} has no README.md`);
 }
 ok(`${assets} assets present at their recorded sizes`);
+
+// 3b. every asset has a stable id, a kind and search tags: `<group>.<kind>[.<variant>][.png]`, unique across the index
+const ids = new Map<string, string>();
+for (const [group, g] of Object.entries(index.assetGroups)) {
+  for (const f of Object.values(g.files)) {
+    const where = `${group}/${f.name}`;
+    if (!f.id || !/^[a-z0-9]+(\.[a-zA-Z0-9]+(-[a-zA-Z0-9]+)*)+$/.test(f.id)) { fail(`asset id missing or malformed: ${where} (${f.id ?? "none"})`); continue; }
+    if (!f.id.startsWith(`${group.toLowerCase()}.`)) fail(`asset id ${f.id} does not start with its group ${group.toLowerCase()}.`);
+    if (!f.kind || !f.id.startsWith(`${group.toLowerCase()}.${f.kind}`)) fail(`asset ${f.id}: kind ${f.kind ?? "none"} is not in its id`);
+    if (!f.tags || f.tags.length === 0 || new Set(f.tags).size !== f.tags.length) fail(`asset ${f.id}: tags missing or repeated`);
+    else if (!f.tags.includes(group.toLowerCase()) || !f.tags.includes(f.name.split(".").pop() ?? "")) fail(`asset ${f.id}: tags lack its group or format`);
+    const clash = ids.get(f.id);
+    clash ? fail(`asset id ${f.id} is on both ${clash} and ${where}`) : ids.set(f.id, where);
+  }
+}
+ok(`${ids.size} asset ids are unique and carry kind and tags`);
 
 // 4. components: a README, a preview with the card marker, only allowed external URLs
 const comps = readdirSync(join(DS, "components")).filter((d) => statSync(join(DS, "components", d)).isDirectory() && d !== "src" && d !== "lib");

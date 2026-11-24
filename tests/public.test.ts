@@ -6,7 +6,7 @@ import { existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, writeFil
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { createHash } from "node:crypto";
-import { exportPublic, redact, safeOutDir, scan } from "../tools/public-export.ts";
+import { exportPublic, leftover, redact, rewrite, safeOutDir, scan, type Manifest } from "../tools/public-export.ts";
 
 // Made-up "private" people: the checks below must hold for any list, so this file names no one real.
 // The fictional number and address are put together at run time, so this file's own text passes the export's scan.
@@ -129,4 +129,32 @@ test("public sync: one fresh commit in the other repository, none of this one's 
   assert.match(log[0] ?? "", /^Sync from private [0-9a-f]{7}$/);
   const files = execFileSync("git", ["--git-dir", bare, "ls-tree", "-r", "--name-only", "main"], { encoding: "utf8" }).split("\n");
   assert.ok(!files.some((f) => f.startsWith("private/")) && files.includes("PUBLIC_EXPORT.json") && files.includes("cards/xiding-card/src/card.ts"));
+});
+
+// The project's own addresses and the claude.ai links are built at run time, so this file carries none of them.
+const HOST = (n: string, tld: string): string => [n, tld].join(".");
+const ARTIFACT = ["https://claude", "ai/artifact/AbC123xyz"].join(".");
+test("public copy: own addresses become example.org, claude.ai links are dropped, nothing of either is left", () => {
+  const m = JSON.parse(readFileSync("public.manifest.json", "utf8")) as Manifest;
+  const text = [
+    `see https://${HOST("xiding.apuch", "cn")}/ and ${HOST("space.apuch", "cn")}/home/xiding and ${HOST("show01.opcglobal", "cn")}/xiding`,
+    `site ${HOST("xidingmiao", "com")}`, `<a href="${ARTIFACT}" target="_blank">the design system</a>`,
+    `| row | ${ARTIFACT} | note |`,
+  ].join("\n") + "\n";
+  const out = rewrite(text, m.rewrite);
+  assert.deepEqual(leftover(out, m.forbidden), [], "no own address or artifact link survives");
+  assert.match(out, /https:\/\/example\.org\//);
+  assert.match(out, /example\.org\/space/);
+  assert.match(out, /example\.org\/show/);
+  assert.match(out, /the design system/, "a link keeps its words");
+  assert.ok(!out.includes("| row |"), "a table row that was only a link is dropped");
+  assert.ok(leftover(text, m.forbidden).length >= 4, "the patterns do catch the originals");
+});
+test("public copy: the reference list stays valid JSON once the artifact links are dropped", () => {
+  const out = mkdtempSync(join(tmpdir(), "xd-public-"));
+  exportPublic(process.cwd(), out);
+  const links = JSON.parse(readFileSync(join(out, "design-system/assets/Reference/links.json"), "utf8")) as Record<string, { name: string; url: string }[]>;
+  const urls = Object.values(links).flat().map((l) => l.url);
+  assert.ok(urls.length > 0 && urls.every((u) => /^https:\/\//.test(u)));
+  assert.ok(!urls.some((u) => u.includes("claude.ai")));
 });

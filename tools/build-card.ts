@@ -8,11 +8,15 @@ import { execFileSync } from "node:child_process";
 import { readFileSync, writeFileSync, existsSync } from "node:fs";
 import { stripTypeScriptTypes } from "node:module";
 import { join } from "node:path";
+import qrcode from "qrcode-generator";
 import { cardOutlines } from "./card-geometry.ts";
 
 const args = process.argv.slice(2), pi = args.indexOf("--people");
 const peopleFile = pi >= 0 ? args[pi + 1] : undefined;
 if (pi >= 0) args.splice(pi, 2);
+// --photo <image>: the portrait card's layer-2 picture, built in as a data URL (private builds only; skipped when the file is absent)
+const phi = args.indexOf("--photo"), photoFile = phi >= 0 ? args[phi + 1] : undefined;
+if (phi >= 0) args.splice(phi, 2);
 const [viDir, bundleFile, outFile] = args;
 if (!viDir || !bundleFile || !outFile) throw new Error("usage: build-card.ts <vi-dir> <bundle.js> <out.html>");
 function must(cond: unknown, what: string): asserts cond {
@@ -47,13 +51,27 @@ const bundleSafe = bundle.slice(0, peopleAt) +
   bundle.slice(peopleEnd);
 
 // 4. the page script: the TypeScript sources, types stripped, in one function scope
-const SOURCES = ["card.ts", "snap.ts", "editor.ts", "store.ts", "export.ts", "main.ts"];
+const SOURCES = ["card.ts", "snap.ts", "editor.ts", "store.ts", "export.ts", "portrait.ts", "main.ts"];
 const stripped = SOURCES.map((f) => `// ---- ${f} ----\n` + stripTypeScriptTypes(readFileSync(join(CARD, "src", f), "utf8")));
 // 5. the people: private when the private file is there, the fictional samples otherwise
 const usePrivate = !!peopleFile && existsSync(peopleFile);
 const people = JSON.parse(readFileSync(usePrivate ? peopleFile! : join(CARD, "people.sample.json"), "utf8")) as Record<string, string>[];
 must(Array.isArray(people) && people.length > 0 && people.every((p) => typeof p.nameZh === "string"), "people list");
-const script = `(function () {\n"use strict";\nconst VI = ${JSON.stringify(outlines.geometry)};\nconst PEOPLE_INIT = ${JSON.stringify(people).replace(/</g, "\\u003c")};\nconst SNAP_WASM_B64 = "${wasmB64}";\n${stripped.join("\n")}\n})();`;
+// 5b. the QR code on the portrait card, to the website
+const QR_URL = "https://example.org/";
+const qr = qrcode(0, "M");
+qr.addData(QR_URL);
+qr.make();
+let qrPath = "";
+for (let r = 0; r < qr.getModuleCount(); r++) for (let c = 0; c < qr.getModuleCount(); c++) if (qr.isDark(r, c)) qrPath += `M${c} ${r}h1v1h-1z`;
+const qrData = { url: QR_URL, n: qr.getModuleCount(), d: qrPath };
+const PHOTO_TYPES: Record<string, string> = { webp: "image/webp", jpg: "image/jpeg", jpeg: "image/jpeg", png: "image/png" };
+const photoType = photoFile ? PHOTO_TYPES[photoFile.split(".").pop()?.toLowerCase() ?? ""] : undefined;
+// like --people, the photo is private: where the file is not there (the public copy) the card is built without it
+const usePhoto = !!photoFile && existsSync(photoFile);
+if (usePhoto) must(photoType, `--photo ${photoFile} must be a .webp, .jpg or .png`);
+const photoInit = usePhoto && photoFile && photoType ? `data:${photoType};base64,${readFileSync(photoFile).toString("base64")}` : null;
+const script = `(function () {\n"use strict";\nconst QR = ${JSON.stringify(qrData)};\nconst PHOTO_INIT = ${JSON.stringify(photoInit)};\nconst VI = ${JSON.stringify(outlines.geometry)};\nconst PEOPLE_INIT = ${JSON.stringify(people).replace(/</g, "\\u003c")};\nconst SNAP_WASM_B64 = "${wasmB64}";\n${stripped.join("\n")}\n})();`;
 for (const [name, text] of [["script", script], ["bundle", bundleSafe]] as const) must(!/<\/script/i.test(text), `${name} contains </script`);
 // "<!--" or "<script" inside a script can change how the HTML parser finds its end; the page script spells tags in pieces.
 must(!/<!--|<script/i.test(script), "the page script contains <!-- or <script");
