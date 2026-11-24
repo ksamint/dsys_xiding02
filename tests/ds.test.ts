@@ -2,6 +2,8 @@
 // every way a preview could load from another host.
 import { test } from "node:test";
 import assert from "node:assert/strict";
+import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
+import { join } from "node:path";
 import { loadTokens, validate } from "../tools/tokens.ts";
 
 test("tokens: a value that could close a rule, a comment or the <style> is refused", () => {
@@ -45,7 +47,7 @@ test("retired: the three lines of work, the three pillars and the value line are
   const plain = <T>(v: T): T => JSON.parse(JSON.stringify(v)) as T; // the bundle's arrays come from another realm
   assert.deepEqual(plain([...new Set(X.BRANDS.map((b) => b.level))]), ["整体", "牌子"]);
   assert.deepEqual(plain(X.BRAND_DETAILS.map((b) => b.id)), ["arts", "academy", "lifestyle"]);
-  assert.deepEqual(plain(X.SCENES.map((s) => s.id)), ["arts", "academy", "lifestyle", "root"]);
+  assert.deepEqual(plain(X.SCENES.map((s) => s.id)), ["arts", "academy", "lifestyle"]);
   const names = X.kit().map((a) => a.name);
   for (const n of ["xiding-name-zhixing", "xiding-name-meicheng", "xiding-name-liyu", "xiding-pillar-mei", "xiding-pillar-zhi", "xiding-pillar-li"]) assert.ok(!names.some((x) => x.startsWith(n + "-") || x === n), n);
   assert.ok(names.includes("xiding-pillar-arts") && names.includes("xiding-pillar-lifestyle"));
@@ -67,4 +69,21 @@ test("retired: the H5 screens, FieldBlock, the h5-* tokens and the parts only th
   for (const cls of ["xd-h5", "xd-fieldblock", "xd-tabbar", "xd-memcard", "xd-item", "xd-list", "xd-cta", "xd-band", "xd-stone", "xd-loose", "xd-note", "xd-poem", "xd-held", "xd-picks", "xd-slots", "xd-days", "xd-monthhead", "xd-event", "xd-rows", "--h5-"])
     assert.ok(!css.includes(cls), `bundle.css still has ${cls}`);
   assert.ok(css.includes(".xd-dot {") && existsSync("design-system/components/Cover/preview.html"), "the dots and the other components stay");
+});
+
+test("the brand is 西顶新知 everywhere: no source, document or generated page uses a former brand name", () => {
+  // the three words 艺术 · 教育 · 生活方式 are the line under 西顶文化 and stay; only the brand's name changed
+  const OLD = ["西顶教育", "西頂教育", "西顶学院", "西頂學院", "Xiding Education", "XIDING EDUCATION", "Xiding Academy", "XIDING ACADEMY", "Xiding Xinzhi", "XIDING XINZHI", "三个牌子", "三個牌子", "谁能驾驭 AI"];
+  const roots = ["AGENTS.md", "CLAUDE.md", "NOTICE", "README.md", "cards", "design-system", "docs", "showcase", "src", "scripts", "tools"];
+  const skip = new Set(["node_modules", "target", "out", "dist", ".git"]);
+  const hits: string[] = [];
+  const walk = (p: string): void => {
+    const st = statSync(p);
+    if (st.isDirectory()) { for (const n of readdirSync(p)) if (!skip.has(n)) walk(join(p, n)); return; }
+    if (!/\.(md|json|html|css|js|ts|svg|txt)$/.test(p) && !/^(NOTICE|LICENSE)$/.test(p) || st.size > 2 * 1024 * 1024) return;
+    const t = readFileSync(p, "utf8");
+    for (const w of OLD) if (t.includes(w)) hits.push(`${p}: ${w}`);
+  };
+  for (const r of roots) if (existsSync(r)) walk(r);
+  assert.deepEqual(hits, [], "old brand names remain");
 });

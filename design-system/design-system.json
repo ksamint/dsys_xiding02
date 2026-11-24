@@ -41,84 +41,266 @@
    "files": {
     "xiding-mark-teal-dot.svg": {
      "name": "xiding-mark-teal-dot.svg",
+     "id": "logos.mark.teal-dot",
+     "kind": "mark",
+     "variant": "teal-dot",
+     "tags": [
+      "logos",
+      "mark",
+      "svg",
+      "teal",
+      "dot",
+      "青绿",
+      "标识",
+      "点"
+     ],
      "blob": "19e28459304509e22acec332de85db0a",
      "size": 2647,
      "type": "image/svg+xml"
     },
     "xiding-mark-ink-dot.svg": {
      "name": "xiding-mark-ink-dot.svg",
+     "id": "logos.mark.ink-dot",
+     "kind": "mark",
+     "variant": "ink-dot",
+     "tags": [
+      "logos",
+      "mark",
+      "svg",
+      "ink",
+      "dot",
+      "墨",
+      "标识",
+      "点"
+     ],
      "blob": "11be58a9186040fbd22d3659eec4602a",
      "size": 2647,
      "type": "image/svg+xml"
     },
     "xiding-mark-night-dot.svg": {
      "name": "xiding-mark-night-dot.svg",
+     "id": "logos.mark.night-dot",
+     "kind": "mark",
+     "variant": "night-dot",
+     "tags": [
+      "logos",
+      "mark",
+      "svg",
+      "night",
+      "dot",
+      "夜",
+      "标识",
+      "点"
+     ],
      "blob": "2aaeaf9e9e37c511996ac2d0dcc92a64",
      "size": 2647,
      "type": "image/svg+xml"
     },
     "xiding-mark-tealInk-ring.svg": {
      "name": "xiding-mark-tealInk-ring.svg",
+     "id": "logos.mark.tealInk-ring",
+     "kind": "mark",
+     "variant": "tealInk-ring",
+     "tags": [
+      "logos",
+      "mark",
+      "svg",
+      "tealInk",
+      "ring",
+      "青绿墨",
+      "标识",
+      "环"
+     ],
      "blob": "bbf26793be4806d413fcd2676f8b1b81",
      "size": 3887,
      "type": "image/svg+xml"
     },
     "xiding-mark-ink-ring.svg": {
      "name": "xiding-mark-ink-ring.svg",
+     "id": "logos.mark.ink-ring",
+     "kind": "mark",
+     "variant": "ink-ring",
+     "tags": [
+      "logos",
+      "mark",
+      "svg",
+      "ink",
+      "ring",
+      "墨",
+      "标识",
+      "环"
+     ],
      "blob": "33dd49bebd2bc8d68fcd68751321123d",
      "size": 3887,
      "type": "image/svg+xml"
     },
     "xiding-mark-night-ring.svg": {
      "name": "xiding-mark-night-ring.svg",
+     "id": "logos.mark.night-ring",
+     "kind": "mark",
+     "variant": "night-ring",
+     "tags": [
+      "logos",
+      "mark",
+      "svg",
+      "night",
+      "ring",
+      "夜",
+      "标识",
+      "环"
+     ],
      "blob": "2963616befde977a0914741f79b9ddd4",
      "size": 3887,
      "type": "image/svg+xml"
     },
     "xiding-mark-ink-point.svg": {
      "name": "xiding-mark-ink-point.svg",
+     "id": "logos.mark.ink-point",
+     "kind": "mark",
+     "variant": "ink-point",
+     "tags": [
+      "logos",
+      "mark",
+      "svg",
+      "ink",
+      "point",
+      "墨",
+      "标识"
+     ],
      "blob": "2ba17bff0a80a5e84cadb1bb31b7e5a2",
      "size": 2607,
      "type": "image/svg+xml"
     },
     "xiding-mark-night-point.svg": {
      "name": "xiding-mark-night-point.svg",
+     "id": "logos.mark.night-point",
+     "kind": "mark",
+     "variant": "night-point",
+     "tags": [
+      "logos",
+      "mark",
+      "svg",
+      "night",
+      "point",
+      "夜",
+      "标识"
+     ],
      "blob": "3a5b54a3a220d125f2b64b025c14b828",
      "size": 2607,
      "type": "image/svg+xml"
     },
     "xiding-mark-ink-dot-transparent.svg": {
      "name": "xiding-mark-ink-dot-transparent.svg",
+     "id": "logos.mark.ink-dot-transparent",
+     "kind": "mark",
+     "variant": "ink-dot-transparent",
+     "tags": [
+      "logos",
+      "mark",
+      "svg",
+      "ink",
+      "dot",
+      "transparent",
+      "墨",
+      "标识",
+      "点",
+      "透明"
+     ],
      "blob": "4d783b5fba7aecc9ae326bd421d79ce8",
      "size": 2576,
      "type": "image/svg+xml"
     },
     "xiding-mark-night-dot-transparent.svg": {
      "name": "xiding-mark-night-dot-transparent.svg",
+     "id": "logos.mark.night-dot-transparent",
+     "kind": "mark",
+     "variant": "night-dot-transparent",
+     "tags": [
+      "logos",
+      "mark",
+      "svg",
+      "night",
+      "dot",
+      "transparent",
+      "夜",
+      "标识",
+      "点",
+      "透明"
+     ],
      "blob": "b387ec85c452faf7172a798bf9b109ea",
      "size": 2576,
      "type": "image/svg+xml"
     },
     "xiding-mark-tealInk-dot-transparent.svg": {
      "name": "xiding-mark-tealInk-dot-transparent.svg",
+     "id": "logos.mark.tealInk-dot-transparent",
+     "kind": "mark",
+     "variant": "tealInk-dot-transparent",
+     "tags": [
+      "logos",
+      "mark",
+      "svg",
+      "tealInk",
+      "dot",
+      "transparent",
+      "青绿墨",
+      "标识",
+      "点",
+      "透明"
+     ],
      "blob": "53456313a1a2a7f5eb0844ea07bb5a73",
      "size": 2576,
      "type": "image/svg+xml"
     },
     "xiding-avatar-teal.svg": {
      "name": "xiding-avatar-teal.svg",
+     "id": "logos.avatar.teal",
+     "kind": "avatar",
+     "variant": "teal",
+     "tags": [
+      "logos",
+      "avatar",
+      "svg",
+      "teal",
+      "青绿",
+      "头像"
+     ],
      "blob": "3d2cf5a68c255bb6424e098a82f231f7",
      "size": 10386,
      "type": "image/svg+xml"
     },
     "xiding-avatar-teal.png": {
      "name": "xiding-avatar-teal.png",
+     "id": "logos.avatar.teal.png",
+     "kind": "avatar",
+     "variant": "teal",
+     "tags": [
+      "logos",
+      "avatar",
+      "png",
+      "teal",
+      "青绿",
+      "头像"
+     ],
      "blob": "b8525478886c7fb0ad7b5812fd4198cf",
      "size": 33887,
      "type": "image/png"
     },
     "xiding-mark-teal-dot.png": {
      "name": "xiding-mark-teal-dot.png",
+     "id": "logos.mark.teal-dot.png",
+     "kind": "mark",
+     "variant": "teal-dot",
+     "tags": [
+      "logos",
+      "mark",
+      "png",
+      "teal",
+      "dot",
+      "青绿",
+      "标识",
+      "点"
+     ],
      "blob": "9e44724be061cab14af8d3f8a8ff5756",
      "size": 35009,
      "type": "image/png"
@@ -134,50 +316,140 @@
     "xiding-wordmark-zh-teal.svg",
     "xiding-name-wenhua-black.svg",
     "xiding-name-yishu-black.svg",
-    "xiding-name-jiaoyu-black.svg",
+    "xiding-name-xinzhi-black.svg",
     "xiding-name-shiguang-black.svg"
    ],
    "files": {
     "xiding-wordmark-zh-black.svg": {
      "name": "xiding-wordmark-zh-black.svg",
+     "id": "wordmarks.wordmark-zh.black",
+     "kind": "wordmark-zh",
+     "variant": "black",
+     "tags": [
+      "wordmarks",
+      "wordmark-zh",
+      "svg",
+      "black",
+      "黑",
+      "中文字标"
+     ],
      "blob": "985ea66136fac4f78e09c83d3a2b2a48",
      "size": 1399,
      "type": "image/svg+xml"
     },
     "xiding-wordmark-zh-white.svg": {
      "name": "xiding-wordmark-zh-white.svg",
+     "id": "wordmarks.wordmark-zh.white",
+     "kind": "wordmark-zh",
+     "variant": "white",
+     "tags": [
+      "wordmarks",
+      "wordmark-zh",
+      "svg",
+      "white",
+      "白",
+      "中文字标"
+     ],
      "blob": "e69239647c0eb893e492d5d83f6a4f38",
      "size": 1482,
      "type": "image/svg+xml"
     },
     "xiding-wordmark-zh-teal.svg": {
      "name": "xiding-wordmark-zh-teal.svg",
+     "id": "wordmarks.wordmark-zh.teal",
+     "kind": "wordmark-zh",
+     "variant": "teal",
+     "tags": [
+      "wordmarks",
+      "wordmark-zh",
+      "svg",
+      "teal",
+      "青绿",
+      "中文字标"
+     ],
      "blob": "7b899a49e17d511244bcc156cfa25325",
      "size": 1398,
      "type": "image/svg+xml"
     },
     "xiding-name-wenhua-black.svg": {
      "name": "xiding-name-wenhua-black.svg",
+     "id": "wordmarks.name.wenhua-black",
+     "kind": "name",
+     "variant": "wenhua-black",
+     "tags": [
+      "wordmarks",
+      "name",
+      "svg",
+      "wenhua",
+      "black",
+      "西顶文化",
+      "xiding",
+      "黑",
+      "品牌名"
+     ],
      "blob": "1a986d0f9eb4b2db541771b7f9d631f1",
      "size": 2515,
      "type": "image/svg+xml"
     },
     "xiding-name-yishu-black.svg": {
      "name": "xiding-name-yishu-black.svg",
+     "id": "wordmarks.name.yishu-black",
+     "kind": "name",
+     "variant": "yishu-black",
+     "tags": [
+      "wordmarks",
+      "name",
+      "svg",
+      "yishu",
+      "black",
+      "西顶艺术",
+      "xiding arts",
+      "黑",
+      "品牌名"
+     ],
      "blob": "ba517faaa35f6dd425b775e1ceb59348",
      "size": 4578,
      "type": "image/svg+xml"
     },
-    "xiding-name-jiaoyu-black.svg": {
-     "name": "xiding-name-jiaoyu-black.svg",
-     "blob": "e0ec5d1eed5e223726c8cc4612057a72",
-     "size": 6347,
-     "type": "image/svg+xml"
-    },
     "xiding-name-shiguang-black.svg": {
      "name": "xiding-name-shiguang-black.svg",
+     "id": "wordmarks.name.shiguang-black",
+     "kind": "name",
+     "variant": "shiguang-black",
+     "tags": [
+      "wordmarks",
+      "name",
+      "svg",
+      "shiguang",
+      "black",
+      "西顶时光",
+      "xiding lifestyle",
+      "黑",
+      "品牌名"
+     ],
      "blob": "86d474f8585a69e7754164b44b5368ca",
      "size": 2582,
+     "type": "image/svg+xml"
+    },
+    "xiding-name-xinzhi-black.svg": {
+     "name": "xiding-name-xinzhi-black.svg",
+     "id": "wordmarks.name.xinzhi-black",
+     "kind": "name",
+     "variant": "xinzhi-black",
+     "tags": [
+      "wordmarks",
+      "name",
+      "svg",
+      "xinzhi",
+      "black",
+      "西顶新知",
+      "xiding insights",
+      "insights",
+      "黑",
+      "品牌名"
+     ],
+     "blob": "0f6a5d79adb51f26bfbc9e8d929a17ef",
+     "size": 5711,
      "type": "image/svg+xml"
     }
    }
@@ -195,30 +467,85 @@
    "files": {
     "xiding-pillars-light.svg": {
      "name": "xiding-pillars-light.svg",
-     "blob": "1ba84b0e0b4c6716d562153defec6901",
-     "size": 79641,
+     "id": "pillars.pillars.light",
+     "kind": "pillars",
+     "variant": "light",
+     "tags": [
+      "pillars",
+      "svg",
+      "light",
+      "三柱"
+     ],
+     "blob": "0ca626bb01d0ae16b40496a1cfe6ba2f",
+     "size": 79002,
      "type": "image/svg+xml"
     },
     "xiding-pillars-dark.svg": {
      "name": "xiding-pillars-dark.svg",
-     "blob": "03a3a83d9febb70e9251600f7aaf65d4",
-     "size": 79640,
+     "id": "pillars.pillars.dark",
+     "kind": "pillars",
+     "variant": "dark",
+     "tags": [
+      "pillars",
+      "svg",
+      "dark",
+      "三柱"
+     ],
+     "blob": "b96c9d20d4a6adc8b867e11493c9f493",
+     "size": 79001,
      "type": "image/svg+xml"
     },
     "xiding-pillar-arts.svg": {
      "name": "xiding-pillar-arts.svg",
+     "id": "pillars.pillar.arts",
+     "kind": "pillar",
+     "variant": "arts",
+     "tags": [
+      "pillars",
+      "pillar",
+      "svg",
+      "arts",
+      "西顶艺术",
+      "xiding arts",
+      "单柱"
+     ],
      "blob": "edf847d2ce1c1d4b9e62a625520fa880",
      "size": 6683,
      "type": "image/svg+xml"
     },
     "xiding-pillar-academy.svg": {
      "name": "xiding-pillar-academy.svg",
-     "blob": "ee776b3902cdf3467197c98d2b331cc6",
-     "size": 10019,
+     "id": "pillars.pillar.academy",
+     "kind": "pillar",
+     "variant": "academy",
+     "tags": [
+      "pillars",
+      "pillar",
+      "svg",
+      "academy",
+      "西顶新知",
+      "xiding insights",
+      "insights",
+      "单柱"
+     ],
+     "blob": "71b10c2db92adc9be7305e1fad1df952",
+     "size": 9380,
      "type": "image/svg+xml"
     },
     "xiding-pillar-lifestyle.svg": {
      "name": "xiding-pillar-lifestyle.svg",
+     "id": "pillars.pillar.lifestyle",
+     "kind": "pillar",
+     "variant": "lifestyle",
+     "tags": [
+      "pillars",
+      "pillar",
+      "svg",
+      "lifestyle",
+      "西顶时光",
+      "xiding lifestyle",
+      "单柱"
+     ],
      "blob": "65911a0dc99dc80acf1b3ab6c3696f2c",
      "size": 9832,
      "type": "image/svg+xml"
@@ -234,8 +561,18 @@
    "files": {
     "xiding-card-front.svg": {
      "name": "xiding-card-front.svg",
-     "blob": "51dc4bbf9ce5dc0580bd25fc941d1e35",
-     "size": 10381,
+     "id": "cards.card.front",
+     "kind": "card",
+     "variant": "front",
+     "tags": [
+      "cards",
+      "card",
+      "svg",
+      "front",
+      "名片"
+     ],
+     "blob": "7cea63de406efb1a0d6250d8581d6074",
+     "size": 9745,
      "type": "image/svg+xml"
     }
    }
@@ -250,14 +587,34 @@
    "files": {
     "xiding-intro-architecture-light.svg": {
      "name": "xiding-intro-architecture-light.svg",
-     "blob": "ca32cb6732b130c8e19fe90e0617fcf5",
-     "size": 81112,
+     "id": "intro.intro.architecture-light",
+     "kind": "intro",
+     "variant": "architecture-light",
+     "tags": [
+      "intro",
+      "svg",
+      "architecture",
+      "light",
+      "介绍图"
+     ],
+     "blob": "90181b684f97ebe5b86ff81b6bbe896e",
+     "size": 76851,
      "type": "image/svg+xml"
     },
     "xiding-intro-steps-light.svg": {
      "name": "xiding-intro-steps-light.svg",
-     "blob": "31f1b3dda4ab80060e872942848f1010",
-     "size": 78904,
+     "id": "intro.intro.steps-light",
+     "kind": "intro",
+     "variant": "steps-light",
+     "tags": [
+      "intro",
+      "svg",
+      "steps",
+      "light",
+      "介绍图"
+     ],
+     "blob": "1c0a6782efc22030da800ebc1cfc0967",
+     "size": 75293,
      "type": "image/svg+xml"
     }
    }
@@ -289,78 +646,206 @@
    "files": {
     "chinese-wordmark-ivory.svg": {
      "name": "chinese-wordmark-ivory.svg",
+     "id": "vi.chinese-wordmark.ivory",
+     "kind": "chinese-wordmark",
+     "variant": "ivory",
+     "tags": [
+      "vi",
+      "chinese-wordmark",
+      "svg",
+      "ivory",
+      "象牙",
+      "中文字标"
+     ],
      "blob": "",
      "size": 82095,
      "type": "image/svg+xml"
     },
     "chinese-wordmark-sand.svg": {
      "name": "chinese-wordmark-sand.svg",
+     "id": "vi.chinese-wordmark.sand",
+     "kind": "chinese-wordmark",
+     "variant": "sand",
+     "tags": [
+      "vi",
+      "chinese-wordmark",
+      "svg",
+      "sand",
+      "沙",
+      "中文字标"
+     ],
      "blob": "",
      "size": 82092,
      "type": "image/svg+xml"
     },
     "chinese-wordmark-teal.svg": {
      "name": "chinese-wordmark-teal.svg",
+     "id": "vi.chinese-wordmark.teal",
+     "kind": "chinese-wordmark",
+     "variant": "teal",
+     "tags": [
+      "vi",
+      "chinese-wordmark",
+      "svg",
+      "teal",
+      "青绿",
+      "中文字标"
+     ],
      "blob": "",
      "size": 82092,
      "type": "image/svg+xml"
     },
     "chinese-wordmark-white.svg": {
      "name": "chinese-wordmark-white.svg",
+     "id": "vi.chinese-wordmark.white",
+     "kind": "chinese-wordmark",
+     "variant": "white",
+     "tags": [
+      "vi",
+      "chinese-wordmark",
+      "svg",
+      "white",
+      "白",
+      "中文字标"
+     ],
      "blob": "",
      "size": 82092,
      "type": "image/svg+xml"
     },
     "chinese-wordmark.svg": {
      "name": "chinese-wordmark.svg",
+     "id": "vi.chinese-wordmark",
+     "kind": "chinese-wordmark",
+     "tags": [
+      "vi",
+      "chinese-wordmark",
+      "svg",
+      "中文字标"
+     ],
      "blob": "",
      "size": 111271,
      "type": "image/svg+xml"
     },
     "color-palette.svg": {
      "name": "color-palette.svg",
+     "id": "vi.color-palette",
+     "kind": "color-palette",
+     "tags": [
+      "vi",
+      "color-palette",
+      "svg",
+      "色板"
+     ],
      "blob": "",
      "size": 111317,
      "type": "image/svg+xml"
     },
     "english-wordmark.svg": {
      "name": "english-wordmark.svg",
+     "id": "vi.english-wordmark",
+     "kind": "english-wordmark",
+     "tags": [
+      "vi",
+      "english-wordmark",
+      "svg",
+      "英文字标"
+     ],
      "blob": "",
      "size": 111310,
      "type": "image/svg+xml"
     },
     "logo-lockup-ivory.svg": {
      "name": "logo-lockup-ivory.svg",
+     "id": "vi.logo-lockup.ivory",
+     "kind": "logo-lockup",
+     "variant": "ivory",
+     "tags": [
+      "vi",
+      "logo-lockup",
+      "svg",
+      "ivory",
+      "象牙",
+      "标识组合"
+     ],
      "blob": "",
      "size": 198731,
      "type": "image/svg+xml"
     },
     "logo-lockup-sand.svg": {
      "name": "logo-lockup-sand.svg",
+     "id": "vi.logo-lockup.sand",
+     "kind": "logo-lockup",
+     "variant": "sand",
+     "tags": [
+      "vi",
+      "logo-lockup",
+      "svg",
+      "sand",
+      "沙",
+      "标识组合"
+     ],
      "blob": "",
      "size": 198728,
      "type": "image/svg+xml"
     },
     "logo-lockup-teal.svg": {
      "name": "logo-lockup-teal.svg",
+     "id": "vi.logo-lockup.teal",
+     "kind": "logo-lockup",
+     "variant": "teal",
+     "tags": [
+      "vi",
+      "logo-lockup",
+      "svg",
+      "teal",
+      "青绿",
+      "标识组合"
+     ],
      "blob": "",
      "size": 198728,
      "type": "image/svg+xml"
     },
     "logo-lockup-white.svg": {
      "name": "logo-lockup-white.svg",
+     "id": "vi.logo-lockup.white",
+     "kind": "logo-lockup",
+     "variant": "white",
+     "tags": [
+      "vi",
+      "logo-lockup",
+      "svg",
+      "white",
+      "白",
+      "标识组合"
+     ],
      "blob": "",
      "size": 198728,
      "type": "image/svg+xml"
     },
     "logo-lockup.svg": {
      "name": "logo-lockup.svg",
+     "id": "vi.logo-lockup",
+     "kind": "logo-lockup",
+     "tags": [
+      "vi",
+      "logo-lockup",
+      "svg",
+      "标识组合"
+     ],
      "blob": "",
      "size": 111239,
      "type": "image/svg+xml"
     },
     "logo-symbol.svg": {
      "name": "logo-symbol.svg",
+     "id": "vi.logo-symbol",
+     "kind": "logo-symbol",
+     "tags": [
+      "vi",
+      "logo-symbol",
+      "svg",
+      "标识符号"
+     ],
      "blob": "",
      "size": 111248,
      "type": "image/svg+xml"

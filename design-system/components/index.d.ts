@@ -35,9 +35,9 @@ export interface MarkProps {
 export interface SubBrandProps extends MarkProps {
   /** wide: 西顶 spans dot rows B–E, the Latin line sits on row G, the brand row on row H. stacked: brand row under the Latin line. Default wide. */
   layout?: 'stacked' | 'wide';
-  /** The Latin line. Default "XIDING"; "XIDING EDUCATION" is fitted to the width of 西顶. */
+  /** The Latin line. Default "XIDING"; "XIDING INSIGHTS" is fitted to the width of 西顶. */
   latin?: string;
-  /** Sub-brand names in Chinese, joined by the pair dot: ['西顶教育'] or ['西顶艺术', '西顶教育', '西顶时光']. */
+  /** Sub-brand names in Chinese, joined by the pair dot: ['西顶新知'] or ['西顶艺术', '西顶新知', '西顶时光']. */
   brands?: string[];
 }
 
@@ -100,7 +100,7 @@ export interface BusinessCardProps {
   frontLayout?: 'mark' | 'lockup';
   /** Default left. */
   backLayout?: 'left' | 'center';
-  /** Sub-brands under the logo, separated by spaces. Default "西顶艺术　西顶教育　西顶时光"; empty hides the row. */
+  /** Sub-brands under the logo, separated by spaces. Default "西顶艺术　西顶新知　西顶时光"; empty hides the row. */
   brands?: string;
   /** Show the trim and 4 mm safe-area guides. */
   guides?: boolean;
@@ -147,8 +147,8 @@ declare global {
       BRAND_DETAILS: { id: BrandId; zh: string; en: string; latin: string; word: string; field: string; services: string[]; lines: string[] }[];
       /** 西顶文化 in three words: 艺术 · 教育 · 生活方式. */
       TAGLINE: string;
-      /** The scene menu by brand, as the IP document lists it; the last row (担当) stands on the ground ink, id root. */
-      SCENES: { brand: string; id: BrandId | 'root'; scenes: string[]; use: string }[];
+      /** The scene menu by brand, as the IP document lists it. */
+      SCENES: { brand: string; id: BrandId; scenes: string[]; use: string }[];
       /** The steps of the introduction, as lines of text. */
       STEPS: string[][];
       /** The website, as printed on the card. */

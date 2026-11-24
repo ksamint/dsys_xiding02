@@ -18,7 +18,7 @@ export const brand = {
   /** 西顶文化: the one short name Xiding goes by to the outside, over its three brands. In English, Xiding. */
   org: t("Xiding", "西頂文化", "西顶文化"),
   arts: t("Xiding Arts", "西頂藝術", "西顶艺术"),
-  academy: t("Xiding Education", "西頂教育", "西顶教育"),
+  academy: t("Xiding Insights", "西頂新知", "西顶新知"),
   /** 西顶时光 (Xiding Lifestyle): the third brand, membership and the life around it. */
   lifestyle: t("Xiding Lifestyle", "西頂時光", "西顶时光"),
   /** The three brands in three words. */
@@ -28,7 +28,7 @@ export const brand = {
     "北京市海淀區曙光街道西頂路西頂廟",
     "北京市海淀区曙光街道西顶路西顶庙",
   ),
-  web: "xidingmiao.com",
+  web: "example.org",
   year: "2026",
 } as const;
 
@@ -91,8 +91,7 @@ export const values = {
   ] satisfies readonly Value[],
 } as const;
 
-/* 2 — what we do: the three brands, in the words of the public introduction
-   (https://claude.ai/artifact/EmhEzgmXoCQuTV1GL5VRHV, built from the member-app repository's about page). */
+/* 2 — what we do: the three brands, in the words of the public introduction. */
 export interface Brand {
   readonly id: "arts" | "academy" | "lifestyle";
   readonly name: L;
@@ -134,7 +133,7 @@ export const brands = {
     {
       id: "academy",
       name: brand.academy,
-      latin: "XIDING EDUCATION",
+      latin: "XIDING INSIGHTS",
       field: "EDUCATION / LEARNING",
       ink: "academy",
       services: [t("Learning and executive education", "課程研修", "课程研修"), t("Strategy consulting", "戰略諮詢", "战略咨询"), t("Talent development", "人才發展", "人才发展")],

@@ -51,6 +51,23 @@ section > header p { margin: 0; max-width: 66ch; color: var(--muted); }
 .check input { width: 18px; height: 18px; accent-color: var(--teal-text); margin: 0; }
 
 /* stage */
+[hidden]:not([hidden=until-found i]) { display: none !important; }
+/* inside the showcase the frame follows the page's height, so the card and its panel get fixed sizes, not the window's */
+.is-embedded .pt-panel > div { width: min(100%, 460px); }
+.is-embedded .pt-side { position: static; max-height: 780px; }
+.view-bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px 20px; }
+.view-bar__end { display: flex; gap: 16px; }
+/* foldable sections: the header carries the control; a folded section keeps its header and hides the rest */
+.wrap > section > header { position: relative; padding-right: 116px; min-height: 40px; cursor: pointer; }
+.fold-btn { position: absolute; right: 0; top: 12px; display: inline-flex; align-items: center; gap: 6px; min-height: 34px; padding: 0 10px; border: 1px solid var(--line); border-radius: 3px; background: var(--surface); color: var(--ink); font: 600 13px/1 var(--font-sans); cursor: pointer; }
+.fold-btn:hover { border-color: var(--ink); }
+.fold-btn svg { width: 12px; height: 12px; transition: transform .18s; }
+.fold-btn[aria-expanded="false"] svg { transform: rotate(-90deg); }
+.wrap > section.is-folded:not(.pt-focus) { gap: 0; }
+.wrap > section.is-folded:not(.pt-focus) > :not(header) { display: none !important; }
+.wrap > section.is-folded > header { border-top-color: var(--line); }
+.wrap > section.is-folded > header h2 { color: var(--muted); }
+.view-switch { width: min(100%, 480px); }
 .stage { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px 40px; }
 .side { margin: 0; display: grid; gap: 12px; align-content: start; min-width: 0; }
 .side svg { display: block; width: 100%; height: auto; max-width: 100%; box-shadow: var(--shadow-card); }
@@ -118,7 +135,7 @@ footer a { color: var(--teal-text); }
 <style>
 .fields-wrap { display: grid; gap: 12px; }
 .fields-h { margin: 0; font: 700 17px/1.3 var(--font-serif); letter-spacing: .04em; }
-.fields { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 14px; }
+.fields { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
 @media (max-width: 720px) { .fields { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 .alts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
 .alt { margin: 0; display: grid; gap: 10px; min-width: 0; }
@@ -219,8 +236,19 @@ footer a { color: var(--teal-text); }
 .hist { display: grid; gap: 12px; }
 .hist__list { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; }
 .hist__empty { margin: 0; font-size: 14px; color: var(--muted); grid-column: 1 / -1; }
+.hist__more { margin: 0; grid-column: 1 / -1; }
+.ver.is-archived { opacity: .6; }
 .ver { display: grid; gap: 8px; padding: 10px; border: 1px solid var(--line); border-radius: 4px; background: var(--paper); min-width: 0; }
 .ver svg { display: block; width: 100%; height: auto; }
+.ver__thumbs { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 1.2fr); gap: 8px; align-items: start; }
+.ver__thumbs svg[data-vport] { box-shadow: 0 1px 3px rgba(0,0,0,.18); background: #fff; }
+.ver__pending { color: var(--teal-text); font-weight: 600; }
+.ver__log { font-size: 12.5px; }
+.ver__log summary { cursor: pointer; color: var(--muted); }
+.ver__log ol { margin: 6px 0 0; padding-left: 18px; display: grid; gap: 3px; max-height: 180px; overflow-y: auto; }
+.ver__log li { display: flex; justify-content: space-between; gap: 8px; }
+.ver__log li small { color: var(--muted); white-space: nowrap; }
+.pt-save { grid-template-columns: minmax(0, 1fr); }
 .ver b { font-size: 14px; overflow-wrap: anywhere; }
 .ver small { font-size: 12px; color: var(--muted); }
 .ver__btns { display: flex; gap: 8px; }
@@ -238,6 +266,140 @@ footer a { color: var(--teal-text); }
 .size.ink-panel { border: 0; }
 .size.ink-panel span { color: #C9C6BC; }
 .size.ink-panel b { color: #F3F1E8; }
+/* portrait card */
+/* the portrait canvas takes the whole row, as large as the window's height allows, so it can be edited fully */
+.pt-wrap { display: grid; grid-template-columns: minmax(0, 1fr) minmax(300px, 380px); gap: 24px; align-items: start; }
+.pt-side { position: sticky; top: 12px; max-height: calc(100vh - 24px); overflow-y: auto; overscroll-behavior: contain; }
+@media (max-width: 900px) { .pt-wrap { grid-template-columns: minmax(0, 1fr); } .pt-side { position: static; max-height: none; overflow: visible; } }
+.pt { display: grid; grid-template-columns: minmax(0, 1fr); }
+.pt-adjust { grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; }
+.pt-adjust .adjust__head { grid-column: 1 / -1; }
+.pt-side { display: grid; gap: 14px; min-width: 0; align-content: start; }
+/* the portrait panel, kept quiet: text links, short Chinese labels, one section at a time */
+.pt-link { border: 0; background: none; padding: 4px 2px; font: 500 13px/1.3 var(--font-sans); color: var(--teal-text); cursor: pointer; }
+.pt-link:hover:not(:disabled) { text-decoration: underline; text-underline-offset: 3px; }
+.pt-link:disabled { color: var(--muted); cursor: default; }
+.pt-link.file-btn { position: relative; display: inline-block; }
+.pt-links { display: flex; flex-wrap: wrap; gap: 4px 16px; margin: 0; }
+.pt-bar__end { margin-left: auto; display: flex; align-items: center; gap: 14px; }
+.pt-selbar { display: grid; gap: 2px; }
+.pt-selbar .pt-status:empty { display: none; }
+.pt-savebar { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding-bottom: 12px; border-bottom: 1px solid var(--line); }
+.pt-status { font-size: 12.5px; color: var(--muted); }
+.pt-status:empty { display: none; }
+.pt-saveas { display: flex; gap: 8px; flex: 1 1 100%; }
+.pt-saveas[hidden] { display: none; }
+.pt-saveas input { flex: 1 1 auto; min-width: 0; font: 400 13px/1.3 var(--font-sans); padding: 7px 9px; border: 1px solid var(--line); border-radius: 3px; background: var(--paper); color: var(--ink); }
+.pt-tabs { display: flex; gap: 18px; border-bottom: 1px solid var(--line); }
+.pt-tabs button { border: 0; background: none; padding: 6px 0 9px; margin-bottom: -1px; font: 600 14px/1 var(--font-sans); color: var(--muted); cursor: pointer; border-bottom: 2px solid transparent; }
+.pt-tabs button[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--ink); }
+.pt-panel-tab { display: grid; gap: 14px; align-content: start; }
+.pt-panel-tab[hidden] { display: none; }
+.pt-h { margin: 4px 0 0; font: 600 12px/1.3 var(--font-sans); letter-spacing: .12em; color: var(--muted); }
+.pt-field { display: grid; grid-template-columns: 48px minmax(0, 1fr); align-items: center; gap: 10px; }
+.pt-field .seg span { min-height: 34px; font-size: 13px; }
+.pt-sugg-row { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
+.pt-sugg-row #pt-suggest { font-size: 12.5px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.pt-small { min-height: 28px; font-size: 12.5px; color: var(--muted); }
+.pt-lib summary { cursor: pointer; font: 600 13px/1.3 var(--font-sans); color: var(--muted); padding: 4px 0; }
+.pt-lib[open] { display: grid; gap: 10px; }
+.pt-side .sl { gap: 8px; }
+.pt-side .sl label { font-size: 12.5px; }
+.pt-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; position: relative; }
+.pt-person { flex: 0 1 auto; }
+.pt-person span { min-height: 34px; padding-inline: 12px; font-size: 13px; }
+/* the export panel drops from the bar, over the canvas */
+#pt-section { position: relative; }
+.pt-export { position: absolute; right: 16px; z-index: 50; width: min(340px, calc(100% - 32px)); display: grid; gap: 10px; padding: 14px 16px; background: var(--paper); border: 1px solid var(--line); border-radius: 4px; box-shadow: 0 8px 24px rgba(0,0,0,.18); }
+.pt-export[hidden] { display: none; }
+.pt-export .pt-links { align-items: center; }
+.pt-x-people { display: grid; grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); gap: 0 12px; }
+.pt-x-people .check, .pt-export .check { min-height: 32px; font-size: 13px; }
+.pt-size { flex: 0 1 360px; }
+.pt-view { flex: 0 1 300px; }
+.pt-presets { display: flex; flex-wrap: wrap; gap: 6px; }
+.pt-presets .is-on { background: var(--ink); color: var(--surface); }
+.pt-content { display: grid; gap: 10px; }
+.pt-cgroup { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 0 12px; }
+.pt-cgroup b { grid-column: 1 / -1; font-size: 12px; letter-spacing: .06em; color: var(--muted); padding-top: 4px; }
+.pt-cgroup .check { min-height: 32px; font-size: 13px; }
+.pt-cfield { grid-column: 1 / -1; }
+.pt-focus .pt-cgroup { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.pt-dirs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.pt-focus .pt-dirs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.pt-dir { display: grid; gap: 4px; padding: 6px; border: 1px solid var(--line); border-radius: 4px; background: var(--paper); color: var(--ink); cursor: pointer; text-align: left; font: inherit; min-width: 0; }
+.pt-dir svg { display: block; width: 100%; height: auto; box-shadow: 0 1px 3px rgba(0,0,0,.18); background: #fff; }
+.pt-dir b { font-size: 12px; font-weight: 600; text-align: center; }
+.pt-dir small { font-size: 11.5px; color: var(--muted); }
+.pt-dir.is-on { border-color: var(--ink); box-shadow: inset 0 0 0 1px var(--ink); }
+.pt-dir:hover { border-color: var(--ink); }
+.pt-l1s { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.pt-rules { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+/* a line's styles, at the pointer */
+.pt-picker { position: fixed; z-index: 60; display: grid; gap: 2px; min-width: 150px; padding: 8px; background: var(--paper); color: var(--ink); border: 1px solid var(--line); border-radius: 4px; box-shadow: 0 8px 24px rgba(0,0,0,.2); }
+.pt-picker .pt-h { margin: 0 4px 4px; }
+.pt-picker button { display: flex; align-items: center; gap: 10px; min-height: 36px; padding: 4px 8px; border: 0; border-radius: 3px; background: none; color: inherit; font: 500 13px/1.2 var(--font-sans); text-align: left; cursor: pointer; }
+.pt-picker button:hover, .pt-picker button:focus-visible { background: var(--surface); }
+.pt-picker button.is-on { box-shadow: inset 0 0 0 1px var(--ink); }
+.pt-picker svg { flex: none; color: var(--ink); }
+.pt-dir svg circle { pointer-events: none; }
+.pt-combos { display: grid; grid-template-columns: minmax(80px, 120px) repeat(5, minmax(0, 1fr)); gap: 10px 12px; align-items: start; }
+.pt-combos[hidden] { display: none; }
+.pt-combo-head b { font-size: 13px; }
+.pt-combo-row { display: grid; gap: 2px; align-self: center; }
+.pt-combo-row b { font-size: 13px; }
+.pt-combo-row small { font-size: 11.5px; color: var(--muted); }
+.pt-focus .pt-combos { grid-column: 1 / -1; overflow: auto; max-height: 60vh; }
+@media (max-width: 720px) { .pt-combos { grid-template-columns: minmax(60px, 80px) repeat(5, minmax(0, 1fr)); gap: 6px; } }
+.pt-focus .pt-l1s { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+@media (max-width: 720px) { .pt-dirs { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.pt-row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; }
+.pt-row .seg { flex: 1 1 260px; }
+.pt-lbl { font-size: 13px; font-weight: 600; }
+.pt-sugg { margin: 0; font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.pt-sugg b { color: var(--ink); }
+.pt-structure { display: grid; gap: 12px; }
+.pt-structs { display: grid; gap: 8px; }
+.pt-struct { display: grid; gap: 2px 10px; grid-template-columns: minmax(0, 1fr) auto; align-items: center; padding: 8px 10px; border: 1px solid var(--line); border-radius: 4px; background: var(--paper); }
+.pt-struct.is-on { border-color: var(--ink); box-shadow: inset 0 0 0 1px var(--ink); }
+.pt-struct b { font-size: 13px; overflow-wrap: anywhere; }
+.pt-struct small { grid-column: 1; font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.pt-struct span { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 6px; }
+.pt-sid { grid-column: 1 / -1; font-size: 11.5px; color: var(--muted); overflow-wrap: anywhere; user-select: all; }
+.seg input:disabled + span { opacity: .45; }
+.pt-zoom { display: none; align-items: center; gap: 6px; }
+.pt-zoom output { min-width: 4.5em; text-align: center; font-variant-numeric: tabular-nums; font-size: 14px; }
+/* one-screen editing: the section fills the window; the card zooms in its own scrolling canvas, the panel beside it */
+body.pt-focus-on { overflow: hidden; }
+#pt-section.pt-focus { position: fixed; inset: 0; z-index: 40; margin: 0; background: var(--paper); display: grid; grid-template-rows: auto minmax(0, 1fr); gap: 12px;
+  padding: max(12px, env(safe-area-inset-top, 0px)) max(16px, env(safe-area-inset-right, 0px)) max(12px, env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px)); }
+.pt-focus > header, .pt-focus .pt-size { display: none; }
+.pt-focus .pt-zoom { display: flex; }
+.pt-focus #pt-focus { margin-left: auto; }
+.pt-focus .pt-wrap { grid-template-columns: minmax(0, 1fr) minmax(280px, 360px); min-height: 0; height: 100%; gap: 16px; }
+.pt-focus .pt-stage { min-height: 0; height: 100%; overflow: auto; border: 1px solid var(--line); border-radius: 4px; background: var(--surface); padding: 16px; box-sizing: border-box; overscroll-behavior: contain; }
+.pt-focus .pt-side { position: static; max-height: none; min-height: 0; height: 100%; overflow-y: auto; overscroll-behavior: contain; }
+.pt-focus .pt-adjust { grid-template-columns: minmax(0, 1fr); padding: 16px; }
+.pt-focus .pt-panel { justify-items: stretch; }
+.pt-focus .pt-panel > div { width: var(--pt-w, 100%); max-width: none; margin-inline: auto; }
+@media (max-width: 720px) {
+  .pt-focus .pt-wrap { grid-template-columns: minmax(0, 1fr); grid-template-rows: minmax(0, 1fr) minmax(0, 38%); }
+  .pt-focus .pt-stage { padding: 8px; }
+}
+@media (max-width: 720px) { .pt-adjust { grid-template-columns: minmax(0, 1fr); } }
+#portrait-sheet [data-pt-handles] .pt-grip { opacity: .9; }
+#portrait-sheet [data-pt-handles]:hover .pt-grip { opacity: 1; }
+.pt-panel { margin: 0; display: grid; gap: 10px; min-width: 0; align-content: start; }
+.pt-panel { justify-items: center; }
+.pt-panel > div { width: 100%; min-width: 0; }
+/* the card keeps its own proportions and is never taller than the window; one-screen editing sets its own width */
+.pt-panel > div { width: min(100%, calc((100vh - 140px) * var(--pt-ratio, 0.6))); }
+.pt-panel svg { display: block; width: 100%; height: auto; box-shadow: var(--shadow-card); }
+.pt-panel figcaption { text-align: center; }
+.guides .pt-panel svg { box-shadow: none; }
+.pt-panel figcaption { display: grid; gap: 2px; font-size: 13px; color: var(--muted); }
+.pt-panel figcaption b { color: var(--ink); font-weight: 600; }
+.pt-tools { display: flex; flex-wrap: wrap; gap: 10px; }
 .inks { display: flex; flex-wrap: wrap; gap: 8px 18px; font-size: 13px; color: var(--muted); }
 .inks span { display: inline-flex; align-items: center; gap: 7px; }
 .inks i { width: 12px; height: 12px; border-radius: 50%; box-shadow: inset 0 0 0 1px rgba(0,0,0,.2); }
@@ -251,15 +413,142 @@ footer a { color: var(--teal-text); }
 
 <div class="wrap">
   <header>
-    <div class="eyebrow">西顶设计系统 v1.8 · BusinessCard · 90 × 54 mm</div>
+    <div class="eyebrow">西顶设计系统 v1.8 · BusinessCard · 横版 90 × 54 mm · 竖版 54 × 96 mm (9:16)</div>
     <h1>西頂廣仁宮 名片</h1>
-    <p class="lede">One card on <b>vi-charcoal</b>, both sides in <b>vi-ivory</b>. The back carries the brand: the whole dot mark and 西顶艺术 · 西顶教育 · 西顶时光. The front carries the person in one of three layouts, G, H or I. Click any element on the large cards to move it, drag a corner to resize it, and use the sliders for the whole layout. Save a version to keep it.</p>
+    <p class="lede">One set of people, one list of brands and one set of saved versions serve both cards. The landscape card is one charcoal card, both sides in <b>vi-ivory</b>; its back carries the whole dot mark and <span data-brands=" · "></span>. The portrait card is built structure first, then content. Click any element on a large card to move it, drag a corner to resize it, and use the sliders for the whole layout. Save a version to keep it.</p>
   </header>
 
-  <section aria-label="Card">
+  <div class="view-bar">
+    <div class="seg view-switch" id="view-switch" role="radiogroup" aria-label="Cards shown">
+      <label><input type="radio" name="view" value="all"><span>全部 · All</span></label>
+      <label><input type="radio" name="view" value="landscape"><span>横版 · Landscape</span></label>
+      <label><input type="radio" name="view" value="portrait" checked><span>竖版 · Portrait</span></label>
+    </div>
+    <span class="view-bar__end"><button type="button" class="pt-link" id="fold-all">全部收起 · Fold all</button><button type="button" class="pt-link" id="unfold-all">全部展开 · Unfold all</button></span>
+  </div>
+  <section aria-label="People" id="people-section" class="people">
+    <header><h2>人员<small>People, shared by both cards</small></h2></header>
     <div class="controls">
       <div class="ctl"><span id="l-person">人 · Person</span>
         <div class="seg" role="radiogroup" aria-labelledby="l-person" id="seg-person"></div></div>
+    </div>
+    <form class="edit" id="edit" autocomplete="off">
+      <label for="e-nameZh">姓名<input id="e-nameZh" name="nameZh"></label>
+      <label for="e-nameEn">Name<input id="e-nameEn" name="nameEn"></label>
+      <label for="e-company">机构<input id="e-company" name="company"></label>
+      <label for="e-titleEn">Title<input id="e-titleEn" name="titleEn"></label>
+      <label for="e-titleZh">职务<input id="e-titleZh" name="titleZh"></label>
+      <label for="e-phone">M · 电话<input id="e-phone" name="phone" inputmode="tel"></label>
+      <label for="e-email">E · 邮箱<input id="e-email" name="email" inputmode="email"></label>
+      <label for="e-web">W · 网址<input id="e-web" name="web"></label>
+      <label for="e-address">A · 地址<input id="e-address" name="address"></label>
+      <p>The three people are the cards the design system already holds, each under 西顶文化. Edit any line to try a name or title; an empty field hides it. Saving a version keeps these lines with it.</p>
+    </form>
+  </section>
+
+  <section aria-label="Portrait card" id="pt-section">
+    <header><h2>竖版名片<small>Portrait card</small></h2>
+      <p>先定结构，再排内容。</p></header>
+    <div class="pt-bar">
+      <div class="seg pt-view" role="radiogroup" aria-label="Step">
+        <label title="Structure"><input type="radio" name="ptView" value="structure"><span>结构</span></label>
+        <label title="Content"><input type="radio" name="ptView" value="content" checked><span>内容</span></label>
+      </div>
+      <div class="seg pt-person" id="pt-person" role="radiogroup" aria-label="Person"></div>
+      <div class="pt-zoom" role="group" aria-label="Zoom">
+        <button type="button" class="ib" id="pt-zout" aria-label="Zoom out">−</button>
+        <output id="pt-zval" aria-live="polite">100%</output>
+        <button type="button" class="ib" id="pt-zin" aria-label="Zoom in">+</button>
+        <button type="button" class="pt-link" id="pt-zfit" title="Fit">适应</button>
+      </div>
+      <span class="pt-bar__end">
+        <button type="button" class="pt-link" id="pt-to-landscape" title="Back to all cards">返回</button>
+        <button type="button" class="pt-link" id="pt-safe" aria-pressed="false" title="Where platform buttons cover a full-screen image">安全区</button>
+        <button type="button" class="pt-link" id="pt-handles" aria-pressed="false">隐藏边界</button>
+        <button type="button" class="pt-link" id="pt-export-btn" aria-expanded="false" aria-controls="pt-export" title="Export cards">导出</button>
+        <button type="button" class="btn btn--sm" id="pt-focus" aria-pressed="false" title="Edit in one screen">全屏</button>
+      </span>
+    </div>
+    <div class="pt-export" id="pt-export" hidden>
+      <p class="pt-links"><b class="pt-h">选择人员</b><button type="button" class="pt-link" id="pt-x-all">全选</button><button type="button" class="pt-link" id="pt-x-none">清空</button></p>
+      <div class="pt-x-people" id="pt-x-people"></div>
+      <p class="pt-links"><b class="pt-h">格式</b>
+        <label class="check" title="1080 px wide, for WeChat, 小红书, 视频号 and stories"><input type="checkbox" id="pt-x-png" checked><span>PNG 1080</span></label>
+        <label class="check"><input type="checkbox" id="pt-x-pdf"><span>PDF 印刷</span></label>
+        <label class="check"><input type="checkbox" id="pt-x-svg"><span>SVG</span></label></p>
+      <p class="pt-links"><button type="button" class="btn btn--sm" id="pt-x-go">导出 ZIP</button><span class="pt-status" id="pt-x-msg" role="status"></span></p>
+    </div>
+    <div class="pt-wrap" id="pt-wrap">
+      <div class="pt-stage" id="pt-stage"><div class="pt" id="portrait"></div></div>
+      <div class="pt-side">
+        <div class="pt-savebar">
+          <button type="button" class="btn btn--sm" id="pt-v-update" title="Save">保存</button>
+          <button type="button" class="pt-link" id="pt-v-saveas" title="Save as a new version">另存</button>
+          <span class="pt-status" id="pt-v-last" role="status"></span>
+          <div class="pt-saveas" id="pt-saveas" hidden><input id="v-label-pt" maxlength="60" placeholder="版本名称" aria-label="Version name"><button type="button" class="btn btn--sm" id="pt-v-save">确定</button></div>
+          <span class="pt-status" id="pt-v-msg"></span>
+          <span class="pt-status" id="pt-v-restored" hidden><button type="button" class="pt-link" id="pt-v-discard" title="Discard the restored adjustments">放弃恢复</button></span>
+        </div>
+        <div class="pt-selbar" id="pt-selbar">
+          <span class="pt-status" id="pt-sel-label"></span>
+          <p class="pt-links"><button type="button" class="pt-link" id="pt-sel-group" title="Group the selection (Ctrl/⌘ + G)">编组</button><button type="button" class="pt-link" id="pt-sel-ungroup" title="Ungroup (Ctrl/⌘ + Shift + G)">取消编组</button><button type="button" class="pt-link" id="pt-ungroup-all" title="Take every group on the card apart">全部取消编组</button><button type="button" class="pt-link" id="pt-regroup" title="The two pillars, their services and the axis as one group">恢复两栏编组</button></p>
+        </div>
+        <nav class="pt-tabs" role="tablist" aria-label="Panels">
+          <button type="button" role="tab" data-tab="layout" aria-selected="true">版式</button>
+          <button type="button" role="tab" data-tab="structure" aria-selected="false">结构</button>
+          <button type="button" role="tab" data-tab="content" aria-selected="false">内容</button>
+          <button type="button" role="tab" data-tab="tune" aria-selected="false">细调</button>
+        </nav>
+        <div class="pt-panel-tab" data-pt-tab="layout" role="tabpanel">
+          <div class="pt-dirs" id="pt-dirs"></div>
+          <div id="pt-l1-box"><h4 class="pt-h">第一层</h4><div class="pt-dirs pt-l1s" id="pt-l1s"></div></div>
+          <div id="pt-rules-box"><h4 class="pt-h">线型</h4><div class="pt-dirs pt-rules" id="pt-rules"></div></div>
+          <p class="pt-links"><button type="button" class="pt-link" id="pt-auto" title="Fit layout and type to the structure">自适应</button><button type="button" class="pt-link" id="pt-show-all" aria-expanded="false" aria-controls="pt-combos" title="Every layout with every layer-1 treatment">全部组合</button></p>
+        </div>
+        <div class="pt-panel-tab" data-pt-tab="structure" role="tabpanel" hidden>
+          <div class="pt-field"><span class="pt-lbl">色调</span><div class="seg" role="radiogroup" aria-label="Theme"><label title="Standard"><input type="radio" name="ptTheme" value="0" checked><span>标准</span></label><label title="The whole card #000, everything on it white"><input type="radio" name="ptTheme" value="1"><span>纯黑</span></label><label title="The whole card vi-charcoal, everything on it white"><input type="radio" name="ptTheme" value="2"><span>墨</span></label><label title="Black for screens: text at 87 % and 60 % white"><input type="radio" name="ptTheme" value="3"><span>屏显</span></label></div></div>
+          <div class="pt-field"><span class="pt-lbl">比例</span><div class="seg" role="radiogroup" aria-label="Proportion system"><label><input type="radio" name="ptRatio" value="0" checked><span>黄金</span></label><label><input type="radio" name="ptRatio" value="1"><span>白银</span></label><label><input type="radio" name="ptRatio" value="2"><span>2:3</span></label><label><input type="radio" name="ptRatio" value="3"><span>三分</span></label></div></div>
+          <div class="pt-sugg-row"><div id="pt-suggest"></div><span class="pt-presets" id="pt-apply"><button type="button" class="pt-link" data-apply="all" title="Apply the suggestion">应用</button></span></div>
+          <div class="pt-field"><span class="pt-lbl">照片</span><div class="seg" role="radiogroup" aria-label="Photos in layer 2"><label><input type="radio" name="ptPhotos" value="1" checked><span>一张</span></label><label><input type="radio" name="ptPhotos" value="2"><span>两张</span></label></div></div>
+          <div class="pt-field"><span class="pt-lbl">右侧</span><div class="seg" role="radiogroup" aria-label="Layer 1 right side"><label><input type="radio" name="ptL1Dark" value="0"><span>白</span></label><label><input type="radio" name="ptL1Dark" value="1" checked><span>墨</span></label></div></div>
+          <div class="pt-field"><span class="pt-lbl">中轴</span><div class="seg" role="radiogroup" aria-label="Axis between the pillars"><label><input type="radio" name="ptAxisStyle" value="0" checked><span>实线</span></label><label><input type="radio" name="ptAxisStyle" value="1"><span>单点</span></label><label><input type="radio" name="ptAxisStyle" value="2"><span>双点</span></label><label><input type="radio" name="ptAxisStyle" value="3"><span>一大三点</span></label></div></div>
+          <div class="pt-field"><span class="pt-lbl">层线</span><div class="seg" role="radiogroup" aria-label="Lines between layers"><label><input type="radio" name="ptLineStyle" value="0" checked><span>细线</span></label><label><input type="radio" name="ptLineStyle" value="1"><span>点线</span></label><label><input type="radio" name="ptLineStyle" value="2"><span>双点线</span></label><label><input type="radio" name="ptLineStyle" value="3"><span>无</span></label></div></div>
+          <div class="pt-field"><span class="pt-lbl">二维码</span><div class="seg" role="radiogroup" aria-label="QR position"><label><input type="radio" name="ptQRPos" value="0"><span>右栏</span></label><label><input type="radio" name="ptQRPos" value="1" checked><span>居中</span></label></div></div>
+          <div class="pt-field"><span class="pt-lbl">码色</span><div class="seg" role="radiogroup" aria-label="QR polarity on a dark card"><label title="Dark modules on a white tile: every scanner reads it"><input type="radio" name="ptQRInv" value="0"><span>标准</span></label><label title="White modules on the dark ground"><input type="radio" name="ptQRInv" value="1" checked><span>反白</span></label></div></div>
+          <label class="check pt-small" for="pt-rlines"><input type="checkbox" id="pt-rlines"> 内容视图显示比例线</label>
+          <details class="pt-lib"><summary>结构库</summary>
+            <div class="pt-saveas"><input id="pt-sname" type="text" placeholder="结构名称" aria-label="Structure name"><button type="button" class="btn btn--sm" id="pt-save-struct" title="Save structure">保存</button><button type="button" class="pt-link" id="pt-lock" aria-pressed="false">锁定</button></div>
+            <div class="pt-saveas"><input id="pt-sid-in" type="text" placeholder="结构 ID" aria-label="Structure ID"><button type="button" class="pt-link" id="pt-sid-use" title="Use by ID">使用</button></div>
+            <span class="pt-status" id="pt-msg"></span>
+            <div class="pt-structs" id="pt-structs"></div>
+          </details>
+        </div>
+        <div class="pt-panel-tab" data-pt-tab="content" role="tabpanel" hidden>
+          <p class="pt-links"><button type="button" class="pt-link" id="pt-minimal" title="Minimal">精简</button><button type="button" class="pt-link" id="pt-all" title="All">全部</button><button type="button" class="pt-link" id="pt-optimise" title="Fit into areas">收进范围</button></p>
+          <div class="pt-content" id="pt-content"></div>
+          <div class="pt-pic" id="pt-pic"><h4 class="pt-h">照片</h4>
+            <div class="sl">
+              <label for="pt-pic-s"><span>缩放 <output id="pt-pic-so">100%</output></span><input type="range" id="pt-pic-s" min="0.5" max="4" step="0.01" value="1"></label>
+              <label for="pt-pic-r"><span>旋转 <output id="pt-pic-ro">0°</output></span><input type="range" id="pt-pic-r" min="-180" max="180" step="0.5" value="0"></label>
+            </div>
+            <p class="pt-links"><button type="button" class="pt-link" id="pt-pic-reset" title="Reset picture">重置</button>
+              <label class="pt-link file-btn" title="Replace the site photo">换照片<input type="file" id="ph-site" accept="image/*"></label>
+              <label class="pt-link file-btn" title="Second photo">第二张<input type="file" id="ph-art" accept="image/*"></label></p>
+          </div>
+        </div>
+        <div class="pt-panel-tab" data-pt-tab="tune" role="tabpanel" hidden>
+          <h4 class="pt-h">尺寸</h4><div class="pt-presets" id="pt-presets"></div><div class="sl" id="sl-pt-shape"></div>
+          <h4 class="pt-h">边界</h4><div class="sl" id="sl-pt-border"></div>
+          <h4 class="pt-h">字与标志</h4><div class="sl" id="sl-pt-name"></div>
+        </div>
+      </div>
+    </div>
+    <div class="pt-combos" id="pt-combos" hidden></div>
+  </section>
+
+  <section aria-label="Card" id="ls-section">
+    <header><h2>横版名片<small>Landscape card</small></h2></header>
+    <div class="controls">
       <div class="ctl"><span id="l-inks">色 · Inks</span>
         <div class="seg" role="radiogroup" aria-labelledby="l-inks">
           <label><input type="radio" name="inks" id="i-2" value="2"><span>双色 Two</span></label>
@@ -283,6 +572,19 @@ footer a { color: var(--teal-text); }
           <label><input type="radio" name="field" id="fl-teal" value="teal"><span>青</span></label>
           <label><input type="radio" name="field" id="fl-mauve" value="mauve"><span>灰紫</span></label>
           <label><input type="radio" name="field" id="fl-goldInk" value="goldInk"><span>金·墨</span></label>
+          <label><input type="radio" name="field" id="fl-charcoal" value="charcoal"><span>墨</span></label>
+        </div></div>
+      <div class="ctl"><span id="l-ground">正面底色 · Front ground</span>
+        <div class="seg" role="radiogroup" aria-labelledby="l-ground">
+          <label><input type="radio" name="ground" id="gr-charcoal" value="charcoal" checked><span>墨</span></label>
+          <label><input type="radio" name="ground" id="gr-tealDeep" value="tealDeep"><span>深青</span></label>
+          <label><input type="radio" name="ground" id="gr-white" value="white"><span>白</span></label>
+        </div></div>
+      <div class="ctl"><span id="l-groundBack">背面底色 · Back ground</span>
+        <div class="seg" role="radiogroup" aria-labelledby="l-groundBack">
+          <label><input type="radio" name="groundBack" id="gb-charcoal" value="charcoal" checked><span>墨</span></label>
+          <label><input type="radio" name="groundBack" id="gb-tealDeep" value="tealDeep"><span>深青</span></label>
+          <label><input type="radio" name="groundBack" id="gb-white" value="white"><span>白</span></label>
         </div></div>
       <label class="check" for="guides"><input type="checkbox" id="guides"> 参考线 · trim, 4 mm safe area, 2 mm bleed</label>
     </div>
@@ -368,6 +670,13 @@ footer a { color: var(--teal-text); }
           <button type="button" class="btn btn--ghost" id="reset">恢复默认 · Reset to defaults</button>
         </fieldset>
       </div>
+    </div>
+    <div class="fields-wrap"><h3 class="fields-h">H · 色块 Field colours</h3><div class="fields" id="fields"></div></div>
+  </section>
+
+  <section aria-label="Versions and export" id="common-section">
+    <header><h2>版本与导出<small>Versions and export, for both cards</small></h2></header>
+    <div class="adjust">
       <div class="xport">
         <b class="save__label">导出 · Export</b>
         <div class="pos__btns">
@@ -382,27 +691,16 @@ footer a { color: var(--teal-text); }
       </div>
       <div class="save">
         <label for="v-label" class="save__label">版本名称 · Version name</label>
-        <div class="save__row"><input id="v-label" maxlength="60" placeholder="例如 金色 · 标志加大"><button type="button" class="btn" id="v-save">保存版本 · Save version</button></div>
+        <div class="save__row"><input id="v-label" maxlength="60" placeholder="例如 金色 · 标志加大"><button type="button" class="btn" id="v-save">保存为新版本 · Save as new</button><button type="button" class="btn btn--ghost" id="v-update" hidden>更新当前版本 · Update</button></div>
         <p class="save__msg" id="v-msg" role="status"></p>
+        <p class="save__msg" id="v-last"></p>
+        <p class="save__msg" id="v-restored" hidden><button type="button" class="btn btn--ghost btn--sm" id="v-discard">放弃恢复的调整 · Discard restored adjustments</button></p>
       </div>
       <div class="hist">
         <h3>历史版本 · Version history</h3>
         <div id="hist" class="hist__list"><p class="hist__empty">正在读取历史版本 · Loading saved versions…</p></div>
       </div>
     </div>
-    <div class="fields-wrap"><h3 class="fields-h">H · 色块 Field colours</h3><div class="fields" id="fields"></div></div>
-    <form class="edit" id="edit" autocomplete="off">
-      <label for="e-nameZh">姓名<input id="e-nameZh" name="nameZh"></label>
-      <label for="e-nameEn">Name<input id="e-nameEn" name="nameEn"></label>
-      <label for="e-company">机构<input id="e-company" name="company"></label>
-      <label for="e-titleEn">Title<input id="e-titleEn" name="titleEn"></label>
-      <label for="e-titleZh">职务<input id="e-titleZh" name="titleZh"></label>
-      <label for="e-phone">M · 电话<input id="e-phone" name="phone" inputmode="tel"></label>
-      <label for="e-email">E · 邮箱<input id="e-email" name="email" inputmode="email"></label>
-      <label for="e-web">W · 网址<input id="e-web" name="web"></label>
-      <label for="e-address">A · 地址<input id="e-address" name="address"></label>
-      <p>The three people are the cards the design system already holds, each under 西顶文化. Edit any line to try a name or title; an empty field hides it. Saving a version keeps these lines with it.</p>
-    </form>
   </section>
 
   <section>
@@ -451,13 +749,13 @@ footer a { color: var(--teal-text); }
       <p>Before is the system's own <code>Xiding.card()</code>, drawn live from the v1.8 bundle. After is this card at the same size. The 6 mm margin, the type sizes and the contact block are the system's.</p></header>
     <div class="compare" id="compare"></div>
     <ul class="changes">
-      <li><b>Two jobs, two sides</b><span>The back is the brand: the whole dot mark and 西顶艺术 · 西顶教育 · 西顶时光, nothing else. The front is the person.</span></li>
+      <li><b>Two jobs, two sides</b><span>The back is the brand: the whole dot mark and <span data-brands=" · "></span>, nothing else. The front is the person.</span></li>
       <li><b>Ground</b><span>A teal side and a white side become one charcoal ground, <code>vi-charcoal</code>, the field of the temple's nameplate.</span></li>
-      <li><b>Back</b><span>The VI's dot mark whole, 16 mm high, and 西顶艺术 · 西顶教育 · 西顶时光 at 2.8 mm, both in <code>vi-ivory</code>.</span></li>
+      <li><b>Back</b><span>The VI's dot mark whole, 16 mm high, and <span data-brands=" · "></span> at 2.8 mm, both in <code>vi-ivory</code>.</span></li>
       <li><b>Dots, front</b><span>The full mark, as rings (the system's Circle style) or as solid dots. Ring strokes at least 0.18 mm so they print.</span></li>
       <li><b>Lettering</b><span>西頂廣仁宮 in the VI's brush lettering, on the front only, next to the rings, with 西顶文化 directly under it. No English line.</span></li>
       <li><b>Person</b><span>Name at 6 mm; romanisation, CEO 首席执行官 and the contacts at 2.2 mm on 3.5 mm. The last line always sits 6 mm from the bottom edge.</span></li>
-      <li><b>Inks</b><span>Charcoal and ivory. The optional third, <code>vi-sand</code>, marks only the organisations: 西顶艺术, 西顶教育, 西顶时光, 西顶文化.</span></li>
+      <li><b>Inks</b><span>Charcoal and ivory. The optional third, <code>vi-sand</code>, marks only the organisations: <span data-brands=", "></span>, 西顶文化.</span></li>
     </ul>
   </section>
 
@@ -483,7 +781,7 @@ footer a { color: var(--teal-text); }
     </ul>
   </section>
 
-  <footer>Built on <a href="https://claude.ai/artifact/6rgrKNpvGvJoz7wXE3gX5o" target="_blank" rel="noopener">西顶设计系统 v1.8</a> and the 西頂廣仁宮 VI, <code>品牌形象-5.pdf</code> (2026-08-28).</footer>
+  <footer>Built on 西顶设计系统 v1.8 and the 西頂廣仁宮 VI, <code>品牌形象-5.pdf</code> (2026-08-28).</footer>
 </div>
 
 <script>

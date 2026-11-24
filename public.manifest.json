@@ -55,8 +55,77 @@
     "brand/xiding-guangren-vi/pages/page-1.jpg": "1a0d92aae47b0ca05973e40f1e045d7622c3a0c8d8879ee81d8054b7619a5155",
     "brand/xiding-guangren-vi/pages/page-2.jpg": "b40827b54d54209590ff353aac7a0eed097425860697f6fe77788c5553ced49f",
     "brand/xiding-guangren-vi/preview.jpg": "21e582e920869b9145d80f76313e631c915f71bd112ab6988df5188c5f7bde1f",
+    "cards/xiding-qr/web/photos/bell.jpg": "8932d122f269543dac012000be2099e90d859e1aa0f83f061bfbd16c3bf8ea4a",
+    "cards/xiding-qr/web/photos/ginkgo.jpg": "d91d017c93cf18c1326c964ddc4596788b9879c113f83de5efd31d86d7572113",
+    "cards/xiding-qr/web/photos/hall.jpg": "402fa1c9e68350885455ba454f9996b454f564045a6aefdd764a51ae54124464",
+    "cards/xiding-qr/web/photos/plaque.jpg": "05ee4d94c749ed66b9d693a98c928e396fad41ceb4c5f76939c6d46ebc7c5d3f",
+    "cards/xiding-qr/web/photos/ridge.jpg": "72c8289bec8f804736795390ebd2ab0dab1471941c8b875c40d1c40008334c34",
     "design-system/assets/Logos/xiding-avatar-teal.png": "7f2aa242d1265714fdee3fcece22593901cdae65748e09f99acd6fdfd90b4729",
     "design-system/assets/Logos/xiding-mark-teal-dot.png": "71eacaefba158faa18e3a4f942d3ef6d182943f5cc4e1fbec40543406eac29ef"
   },
-  "binariesNote": "Each binary was looked at by a person before it was listed: logos, the palette, the two brand-book pages and the preview (logo, palette, the temple nameplate; no contact details). Re-list a file only after looking at its new bytes. The brand-book PDF stays private until the licences of its embedded fonts (Times New Roman, Adobe Song Std) are confirmed."
+  "binariesNote": "Each binary was looked at by a person before it was listed: logos, the palette, the two brand-book pages and the preview (logo, palette, the temple nameplate; no contact details). Re-list a file only after looking at its new bytes. The brand-book PDF stays private until the licences of its embedded fonts (Times New Roman, Adobe Song Std) are confirmed.",
+  "rewrite": [
+    [
+      "<a href=\"https://claude\\.ai/artifact/\\w+\"[^>]*>([^<]*)</a>",
+      "$1"
+    ],
+    [
+      "\\(\\[https://claude\\.ai/artifact/\\w+\\]\\(https://claude\\.ai/artifact/\\w+\\), ",
+      "("
+    ],
+    [
+      "\\n\\s*\\(https://claude\\.ai/artifact/\\w+, built from the member-app repository's about page\\)\\.",
+      "."
+    ],
+    [
+      ",\\s*\\{[^{}]*\"url\": \"https://claude\\.ai/artifact/\\w+\"[^{}]*\\}",
+      ""
+    ],
+    [
+      "\\s+The public introduction:\\s*\\n",
+      "\n"
+    ],
+    [
+      "^[^\\n]{0,400}https://claude\\.ai/artifact/[^\\n]{0,400}\\n",
+      "",
+      "gm"
+    ],
+    [
+      "https://claude\\.ai/artifact/\\w+",
+      ""
+    ],
+    [
+      "space\\.apuch\\.cn/home/xiding",
+      "example.org/space"
+    ],
+    [
+      "show01\\.opcglobal\\.cn/xiding",
+      "example.org/show"
+    ],
+    [
+      "xiding\\.apuch\\.cn",
+      "example.org"
+    ],
+    [
+      "xidingmiao\\.com",
+      "example.org"
+    ],
+    [
+      "\\bxiding\\.cn\\b",
+      "example.org"
+    ]
+  ],
+  "forbidden": [
+    "claude\\.ai/artifact",
+    "apuch\\.cn",
+    "opcglobal\\.cn",
+    "xidingmiao\\.com",
+    "\\bxiding\\.cn\\b"
+  ],
+  "regenerate": [
+    "npm run build:tools",
+    "npm run build",
+    "npm run showcase"
+  ],
+  "rewriteNote": "Own addresses become example.org, claude.ai links are dropped, and what is derived from them (the cards' QR codes, the showcase) is rebuilt in the copy. Decided 2026-11-24: the public copy carries no addresses of the project and no artifact links."
 }

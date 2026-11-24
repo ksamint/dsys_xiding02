@@ -2,20 +2,8 @@
  "xiding": [
   {
    "name": "官网",
-   "url": "https://xidingmiao.com",
+   "url": "https://example.org",
    "note": "From the business card. Check that it is live before printing it."
-  },
-  {
-   "name": "设计系统",
-   "url": "https://claude.ai/artifact/WgHhHAPoCHpg47YycRq7vk"
-  },
-  {
-   "name": "标识与名片工具",
-   "url": "https://claude.ai/artifact/JpxJihqg9dsw8qCPxqgdCx"
-  },
-  {
-   "name": "IP 体系文档",
-   "url": "https://claude.ai/artifact/WmZ3Y3Ur3hMcEAEeApcUnz"
   }
  ],
  "fonts": [

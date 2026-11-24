@@ -5,10 +5,13 @@
 // mainland mobile number, any staff email, also behind HTML entities, %-escapes and \u escapes. A binary file (an
 // image, a PDF, a font, WebAssembly) is published only when the manifest lists it with its SHA-256, so a person has
 // looked at it; its bytes are scanned for private values as well. Nothing in private/ is copied.
+// The copy also carries none of the project's own addresses and no claude.ai links: the manifest's `rewrite` rules
+// replace or drop them in every text file after the scan, `forbidden` fails the export if one is left, and `regenerate`
+// rebuilds what is derived from them (the card pages with their QR codes, the showcase) inside the copy.
 // Usage: node --experimental-strip-types public-export.ts <out-dir>     (out/<name> or a folder outside the repository)
 import { createHash } from "node:crypto";
 import { execFileSync } from "node:child_process";
-import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync, readdirSync, rmSync, symlinkSync, writeFileSync } from "node:fs";
 import { dirname, isAbsolute, join, relative, resolve, sep } from "node:path";
 import { pathToFileURL } from "node:url";
 
@@ -24,6 +27,13 @@ export interface Manifest {
   /** Every binary file the copy may carry, with the SHA-256 of the reviewed bytes. */
   binaries?: Record<string, string>;
   binariesNote?: string;
+  /** [pattern, replacement, flags] applied in order to every text file once it has been scanned: the project's own
+      addresses become example.org, claude.ai links are dropped. */
+  rewrite?: [string, string, string?][];
+  /** Patterns that must not be left in any text file after the rewrite (the export fails if one is). */
+  forbidden?: string[];
+  /** Commands run inside the copy, with this repository's node_modules, to rebuild what the rewrite changed. */
+  regenerate?: string[];
 }
 type Person = Record<string, string>;
 
@@ -109,6 +119,16 @@ export function scan(file: string, text: string, real: Person[], generic = true)
   return out;
 }
 
+/** Apply the manifest's rewrite rules to a text. */
+export function rewrite(text: string, rules: [string, string, string?][] = []): string {
+  let out = text;
+  for (const [pattern, to, flags] of rules) out = out.replace(new RegExp(pattern, flags ?? "g"), to);
+  return out;
+}
+/** The patterns still present in a text. */
+export function leftover(text: string, patterns: string[] = []): string[] {
+  return patterns.filter((p) => new RegExp(p).test(text));
+}
 /** Where a copy may be written: under out/ in the repository, or anywhere outside it, and never above it. */
 export function safeOutDir(root: string, outDir: string): string {
   const base = resolve(root), out = resolve(outDir);
@@ -121,7 +141,7 @@ export function safeOutDir(root: string, outDir: string): string {
 }
 const sha256 = (b: Buffer): string => createHash("sha256").update(b).digest("hex");
 
-export function exportPublic(root: string, outDir: string): { files: number; redacted: string[]; commit: string } {
+export function exportPublic(root: string, outDir: string, opts: { regenerate?: boolean } = {}): { files: number; redacted: string[]; commit: string } {
   const m = JSON.parse(readFileSync(join(root, "public.manifest.json"), "utf8")) as Manifest;
   const samples = JSON.parse(readFileSync(join(root, m.redactWith), "utf8")) as Person[];
   const privPath = join(root, m.privatePeople);
@@ -153,14 +173,40 @@ export function exportPublic(root: string, outDir: string): { files: number; red
     text = clean;
     if (!m.overrides && f === "README.md") text = `> ${m.readmeNote}\n\n` + text;
     findings.push(...scan(f, text, real));
-    writeFileSync(dest, text);
+    writeFileSync(dest, rewrite(text, m.rewrite));
   }
   for (const f of Object.keys(reviewed)) if (!files.includes(f)) findings.push({ file: f, what: "listed in binaries but not published (remove it from the list)", sample: "" });
   for (const [dest, src] of overrides) {
     const text = readFileSync(join(root, src), "utf8");
     findings.push(...scan(dest, text, real));
     mkdirSync(dirname(join(out, dest)), { recursive: true });
-    writeFileSync(join(out, dest), text);
+    writeFileSync(join(out, dest), rewrite(text, m.rewrite));
+  }
+  // what the rewrite changed is rebuilt inside the copy (the cards' QR codes, the showcase that embeds them), then the
+  // rebuilt files are scanned as well
+  if (opts.regenerate && m.regenerate?.length) {
+    const nm = join(root, "node_modules");
+    must(existsSync(nm), "regenerate needs this repository's node_modules (run npm ci)");
+    symlinkSync(nm, join(out, "node_modules"), "dir");
+    try {
+      for (const cmd of m.regenerate) execFileSync("sh", ["-c", cmd], { cwd: out, stdio: "inherit" });
+    } finally {
+      for (const d of ["node_modules", "out", "dist", ".qr-build"]) rmSync(join(out, d), { recursive: true, force: true });
+      rmSync(join(out, "cards/xiding-card/engine/target"), { recursive: true, force: true });
+    }
+    for (const f of ["showcase/index.html", ...m.regenerate.length ? [] : []]) {
+      const t = readFileSync(join(out, f), "utf8");
+      findings.push(...scan(f, t, real));
+    }
+  }
+  // no own address and no claude.ai link may be left in any text file
+  const walk = (d: string): string[] => readdirSync(d, { withFileTypes: true }).flatMap((e) => (e.isDirectory() ? walk(join(d, e.name)) : [join(d, e.name)]));
+  for (const file of walk(out)) {
+    const rel = relative(out, file);
+    if (BINARY.test(rel) || rel === "package-lock.json") continue;
+    const bytes = readFileSync(file);
+    if (bytes.includes(0)) continue;
+    for (const p of leftover(bytes.toString("utf8"), m.forbidden)) findings.push({ file: rel, what: `an address the copy must not carry (${p})`, sample: "" });
   }
   if (findings.length) {
     rmSync(out, { recursive: true, force: true });
@@ -177,7 +223,7 @@ export function exportPublic(root: string, outDir: string): { files: number; red
 
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
   const outDir = process.argv[2];
-  if (!outDir) throw new Error("usage: public-export.ts <out-dir>");
-  const r = exportPublic(process.cwd(), outDir);
+  if (!outDir) throw new Error("usage: public-export.ts <out-dir> [--no-regenerate]");
+  const r = exportPublic(process.cwd(), outDir, { regenerate: !process.argv.includes("--no-regenerate") });
   console.log(`public copy written: ${outDir} (${r.files} files from ${r.commit.slice(0, 7)}; redacted: ${r.redacted.join(", ") || "none"})`);
 }

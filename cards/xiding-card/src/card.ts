@@ -12,7 +12,8 @@ const SANS = "'Instrument Sans', 'Noto Sans SC', 'PingFang SC', 'Helvetica Neue'
 const MARK_ASPECT = 844 / 1356;
 
 type Layout = "grid" | "seal2" | "axis";
-type FieldKey = "gold" | "red" | "teal" | "mauve" | "goldInk";
+type FieldKey = "gold" | "red" | "teal" | "mauve" | "goldInk" | "charcoal";
+type GroundKey = "charcoal" | "tealDeep" | "white";
 type ContactKind = "phone" | "email" | "web" | "address";
 
 interface Person {
@@ -23,6 +24,8 @@ interface Settings {
   fieldW: number; markH: number; zhW: number; logoGap: number; logoY: number;
   name: number; small: number; lead: number; co: number; iconD: number;
   backMark: number; backY: number; brand: number;
+  /** the portrait card: teal block width, layer 1 and 2 heights, margin, line between photos, where the photos split, mark, name size and offsets */
+  ptW: number; ptH: number; ptK1: number; ptK2: number; ptK3: number; ptQR: number; ptCL3: number; ptL1Dark: number; ptQRPos: number; ptDir: number; ptGrid: number; ptL1Style: number; ptTheme: number; ptPhotos: number; ptRatio: number; ptLock: number; ptBlock: number; ptL1: number; ptL2: number; ptMargin: number; ptGap: number; ptSplit: number; ptMark: number; ptName: number; ptNameX: number; ptNameY: number; ptFoot: number; ptAxis: number; ptAxisStyle: number; ptLineStyle: number; ptFootStyle: number; ptQRInv: number; ptPadY: number;
   icons: boolean; crop: boolean; align: boolean;
 }
 /** A move and uniform scale applied to one element on top of its layout, as the editor leaves it. */
@@ -33,7 +36,7 @@ interface Extra { id: string; src: string; label: string }
 /** Reference lines a person adds to a sheet, in mm. */
 interface RefLines { xs: number[]; ys: number[] }
 interface CardState {
-  person: number; inks: 2 | 3; logo: Layout; rings: boolean; field: FieldKey; guides: boolean;
+  person: number; inks: 2 | 3; logo: Layout; rings: boolean; field: FieldKey; ground: GroundKey; groundBack: GroundKey; guides: boolean;
   data: Person[]; ov: Record<string, Override>;
   /** per sheet ("seal2:front", "back"…): the groups of element ids that move as one */
   groups: Record<string, string[][]>;
@@ -50,6 +53,12 @@ interface CardState {
 const DEFAULTS: Settings = {
   fieldW: 36, markH: 21, zhW: 26, logoGap: 4.4, logoY: 0, name: 6, small: 2.2, lead: 3.5, co: 2.6, iconD: 2.8,
   backMark: 16, backY: 0, brand: 2.8, icons: false, crop: false, align: false,
+  // 2:3 by default; two photos; golden section for suggestions (index into PT_RATIOS); structure unlocked
+  // type scale per layer (1 = the drawn sizes) and the QR size, set by 自适应优化 or by hand
+  // The default portrait is the owner's saved version 数字名片 · 9:16 · 1080×1920 · 竖屏/视频号 (2026-11-18): one pure-black
+  // ground for the whole card (ptTheme 3), 54 × 96 mm, no photo layer, dotted rules, the QR and address centred under the
+  // pillars; PT_DEFAULT_OV below holds what the owner moved, resized and hid.
+  ptW: 54, ptH: 96, ptK1: 1.13, ptK2: 0.7, ptK3: 1.2, ptQR: 15, ptCL3: 0, ptL1Dark: 1, ptQRPos: 1, ptDir: 4, ptGrid: 8, ptL1Style: 4, ptTheme: 3, ptPhotos: 1, ptRatio: 0, ptLock: 1, ptBlock: 20.6, ptL1: 31, ptL2: 0, ptMargin: 4.5, ptGap: 0.6, ptSplit: 22.5, ptMark: 8.5, ptName: 4.6, ptNameX: 0, ptNameY: 0, ptFoot: 0, ptAxis: 0, ptAxisStyle: 3, ptLineStyle: 1, ptFootStyle: -1, ptQRInv: 0, ptPadY: 8,
 };
 /**
  * The people on the cards. The build supplies them: private/people.json in the private repository,
@@ -57,7 +66,17 @@ const DEFAULTS: Settings = {
  * from its own store when it opens; see loadPeople in store.ts.
  */
 const PEOPLE: Person[] = PEOPLE_INIT.map((p) => ({ ...p }));
-const BRANDS = ["西顶艺术", "西顶教育", "西顶时光"];
+/**
+ * The brands the card shows, in this order: ONE list that the back's name row, the portrait's two pillars and the
+ * services under them all read, so the card cannot say two things. The design system's brand table
+ * (design-system/components/src/xiding.ts) is the reference; tests/card.test.ts checks this list against it.
+ */
+interface BrandDef { zh: string; en: string; services: string[] }
+const CARD_BRANDS: BrandDef[] = [
+  { zh: "西顶艺术", en: "Xiding Arts", services: ["艺术策展", "品牌共创", "私享定制"] },
+  { zh: "西顶新知", en: "Xiding Insights", services: ["课程研修", "战略咨询", "人才发展"] },
+];
+const BRANDS = CARD_BRANDS.map((b) => b.zh);
 
 interface Field { bg: string; ink: string; accent: string; zh: string; en: string }
 /** ink: the logo's colour on the field; accent: 西顶文化 and the icon dots on charcoal (the field colour where it reads at 3:1 or more). */
@@ -67,7 +86,35 @@ const FIELDS: Record<FieldKey, Field> = {
   teal: { bg: "#559895", ink: "#F3F1E8", accent: "#559895", zh: "青", en: "Teal" },
   mauve: { bg: "#8A7E84", ink: "#F3F1E8", accent: "#F3F1E8", zh: "灰紫", en: "Mauve" },
   goldInk: { bg: "#C3A585", ink: "#404041", accent: "#C3A585", zh: "金·墨", en: "Gold, charcoal logo" },
+  // the brand's black is the VI's coal, vi-charcoal, with the logo in ivory
+  charcoal: { bg: "#404041", ink: "#F3F1E8", accent: "#F3F1E8", zh: "墨", en: "Charcoal" },
 };
+/**
+ * The card's ground, chosen for the front and the back on their own. ink: the logo, name and contacts on it;
+ * sub: 西顶文化 and the brand row with three inks (falls back to ink where sand would not read).
+ * charcoal is the VI's own; tealDeep is the brand teal's dark version (the VI teal's hue at 19% lightness;
+ * ivory 10.0:1, sand 4.9:1); white is brand-white, with type in the brand's black, which is vi-charcoal (10.1:1).
+ */
+interface Ground { bg: string; ink: string; sub: string; token: string; zh: string; en: string }
+const GROUNDS: Record<GroundKey, Ground> = {
+  charcoal: { bg: "#404041", ink: "#F3F1E8", sub: "#C3A585", token: "vi-charcoal", zh: "墨", en: "Charcoal" },
+  tealDeep: { bg: "#223F3E", ink: "#F3F1E8", sub: "#C3A585", token: "vi-teal-deep", zh: "深青", en: "Deep teal" },
+  white: { bg: "#FFFFFF", ink: "#404041", sub: "#404041", token: "brand-white", zh: "白", en: "White" },
+};
+const GF = (): Ground => GROUNDS[state.ground];
+const GB = (): Ground => GROUNDS[state.groundBack];
+const groundBg = (): string => GF().bg;
+/** WCAG contrast ratio of two #RRGGBB colours. */
+function contrast(a: string, b: string): number {
+  const L = (h: string): number => {
+    const c = [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16) / 255).map((v) => (v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4));
+    return 0.2126 * c[0]! + 0.7152 * c[1]! + 0.0722 * c[2]!;
+  };
+  const [x, y] = [L(a), L(b)].sort((p, q) => q - p) as [number, number];
+  return (x + 0.05) / (y + 0.05);
+}
+/** The field's accent where it reads on the front ground at 3:1 or more; the ground's own ink otherwise. */
+const fieldAccent = (F: Field): string => (contrast(F.accent, groundBg()) >= 3 ? F.accent : GF().ink);
 const LAYOUTS: Record<Layout, { zh: string; en: string }> = {
   grid: { zh: "点阵为格", en: "Grid" },
   seal2: { zh: "印", en: "Seal" },
@@ -76,9 +123,32 @@ const LAYOUTS: Record<Layout, { zh: string; en: string }> = {
 
 // The live settings and state. The editor and the controls change them, then call render().
 const S: Settings = { ...DEFAULTS };
+/** What the default portrait moves, resizes and hides, as the owner left it in the saved version 数字名片 · 9:16. */
+const PT_DEFAULT_OV: Record<string, Override> = Object.fromEntries([
+  ["portrait:address", { dx: 0, dy: 3.87, s: 1 }],
+  ["portrait:company", { dx: -2.0, dy: -4.29, s: 1 }],
+  ["portrait:email", { dx: 18.1, dy: -3.93, s: 1 }],
+  ["portrait:mark", { dx: 0.29, dy: -3.02, s: 1.663, r: 0 }],
+  ["portrait:name", { dx: -2.0, dy: -4.29, s: 1 }],
+  ["portrait:nameEn", { dx: 0, dy: 0, s: 1, hidden: true }],
+  ["portrait:phone", { dx: 18.1, dy: -3.54, s: 1 }],
+  ["portrait:pillar1En", { dx: 0, dy: 0, s: 1, hidden: true }],
+  ["portrait:pillar1List", { dx: -5.13, dy: 0, s: 1 }],
+  ["portrait:pillar2En", { dx: 0, dy: 0, s: 1, hidden: true }],
+  ["portrait:pillar2List", { dx: 4.96, dy: 0, s: 1 }],
+  ["portrait:qr", { dx: 0, dy: 3.87, s: 1 }],
+  ["portrait:qrCaption", { dx: 0, dy: 3.87, s: 1 }],
+  ["portrait:role", { dx: -2.0, dy: -4.29, s: 1 }],
+  ["portrait:roleZh", { dx: 0, dy: 0, s: 1, hidden: true }],
+  ["portrait:solutions", { dx: 0, dy: 0, s: 1, hidden: true }],
+  ["portrait:tab-art", { dx: 0, dy: 0, s: 1, hidden: true }],
+  ["portrait:tab-site", { dx: 0, dy: 0, s: 1, hidden: true }],
+  ["portrait:web", { dx: 0, dy: 0, s: 1, hidden: true }],
+]);
 const state: CardState = {
-  person: 0, inks: 3, logo: "seal2", rings: false, field: "gold", guides: false,
-  data: PEOPLE.map((p) => ({ ...p })), ov: {}, groups: {}, locks: {}, texts: {}, extras: {}, refLines: {},
+  person: 0, inks: 3, logo: "seal2", rings: false, field: "gold", ground: "charcoal", groundBack: "charcoal", guides: false,
+  // the two pillars, their services and the axis between them move and scale as one
+  data: PEOPLE.map((p) => ({ ...p })), ov: { ...PT_DEFAULT_OV }, groups: { portrait: [] }, locks: {}, texts: {}, extras: {}, refLines: {},
 };
 
 const f2 = (n: number): string => String(Math.round(n * 1000) / 1000);
@@ -182,7 +252,7 @@ const ICONS: Record<ContactKind, string> = {
 function icon(kind: ContactKind, cx: number, cy: number, d: number, dot: string): string {
   const g = d * 0.62, k = g / 24;
   return `<circle cx="${f2(cx)}" cy="${f2(cy)}" r="${f2(d / 2)}" fill="${dot}"/>` +
-    `<g transform="translate(${f2(cx - g / 2)} ${f2(cy - g / 2)}) scale(${f2(k)})" fill="none" stroke="${C.charcoal}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${ICONS[kind]}</g>`;
+    `<g transform="translate(${f2(cx - g / 2)} ${f2(cy - g / 2)}) scale(${f2(k)})" fill="none" stroke="${groundBg()}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${ICONS[kind]}</g>`;
 }
 
 /** Contact items, in card order, skipping the empty ones. */
@@ -224,12 +294,13 @@ const groundRect = (fill: string): string =>
   `<rect x="${-BLEED}" y="${-BLEED}" width="${W + 2 * BLEED}" height="${H + 2 * BLEED}" fill="${fill}"/>`;
 const role = (p: Person): string => [p.titleEn.trim(), p.titleZh.trim()].filter(Boolean).join(" ");
 
-// ---- the back: the whole mark and the three brands ----
+// ---- the back: the whole mark and the card's brands ----
 function back(inks: 2 | 3): string {
   const h = S.backMark, w = h * MARK_ASPECT, top = 23.5 + S.backY - h / 2;
-  return el("ground", "底色 Ground", groundRect(C.charcoal), true) +
-    el("backMark", "标志 Logo", viMark(W / 2 - w / 2, top, h, C.ivory)) +
-    el("brands", "西顶艺术 · 西顶教育 · 西顶时光", nameRow(BRANDS, W / 2, BASE, S.brand, inks === 3 ? C.sand : C.ivory));
+  const G = GB();
+  return el("ground", "底色 Ground", groundRect(G.bg), true) +
+    el("backMark", "标志 Logo", viMark(W / 2 - w / 2, top, h, G.ink)) +
+    el("brands", BRANDS.join(" · "), nameRow(BRANDS, W / 2, BASE, S.brand, inks === 3 ? G.sub : G.ink));
 }
 
 // ---- H 印 Seal: a field in a VI colour holding the full mark and 西頂廣仁宮; the person on charcoal ----
@@ -238,27 +309,27 @@ function layoutH(): { mh: number; zw: number; zhH: number; top: number; cx: numb
   return { mh: S.markH, zw, zhH, top: (H - total) / 2 + S.logoY, cx: S.fieldW / 2, textX: S.fieldW + 6 };
 }
 function frontSeal(p: Person, inks: 2 | 3, rings: boolean, fieldKey: FieldKey): string {
-  const F = FIELDS[fieldKey], L = layoutH(), fg = C.ivory, mw = L.mh * MARK_ASPECT, nb = M + INK_TOP * S.name;
+  const F = FIELDS[fieldKey], L = layoutH(), fg = GF().ink, acc = fieldAccent(F), mw = L.mh * MARK_ASPECT, nb = M + INK_TOP * S.name;
   const eb = nb + Math.max(4.6, S.name * 0.9) + (S.co - S.small) * INK_TOP;
   const co = p.company.trim();
-  return el("ground", "底色 Ground", groundRect(C.charcoal), true) +
+  return el("ground", "底色 Ground", groundRect(groundBg()), true) +
     el("field", "色块 Field", `<rect x="${-BLEED}" y="${-BLEED}" width="${S.fieldW + BLEED}" height="${H + 2 * BLEED}" fill="${F.bg}"/>`, true) +
     el("mark", "标志 Logo", fullMark(L.cx - mw / 2, L.top, L.mh, F.ink, rings)) +
     el("lettering", "西頂廣仁宮", zh(L.cx - L.zw / 2, L.top + L.mh + S.logoGap, L.zw, F.ink)) +
     el("name", "姓名 Name", p.nameZh.trim() ? text(p.nameZh.trim(), L.textX, nb, S.name, { family: SERIF, weight: 600, spacing: 0.1, fill: fg }) : "") +
     // 西顶文化 takes the line under the name, where the romanisation stood; H carries no English name
-    (co ? el("company", "西顶文化", text(co, L.textX, eb, S.co, { family: SERIF, weight: 600, spacing: 0.3, fill: F.accent })) : "") +
+    (co ? el("company", "西顶文化", text(co, L.textX, eb, S.co, { family: SERIF, weight: 600, spacing: 0.3, fill: acc })) : "") +
     el("role", "职务 Title", role(p) ? text(role(p), L.textX, eb + S.lead, S.small, { fill: fg }) : "") +
-    el("contacts", "联系方式 Contacts", contactColumn(p, L.textX, fg, F.accent).svg);
+    el("contacts", "联系方式 Contacts", contactColumn(p, L.textX, fg, acc).svg);
 }
 
 // ---- G 点阵为格 Grid: the full mark the height of the type area; each line of type sits on one of its rows ----
 function frontGrid(p: Person, inks: 2 | 3, rings: boolean): string {
-  const fg = C.ivory, org = inks === 3 ? C.sand : C.ivory, h = (BASE - M) * Math.min(1, S.markH / DEFAULTS.markH);
+  const fg = GF().ink, org = inks === 3 ? GF().sub : GF().ink, h = (BASE - M) * Math.min(1, S.markH / DEFAULTS.markH);
   const y0 = M + S.logoY, R = (i: number): number => rowY(y0, h, i), x = M + h * MARK_ASPECT + 6;
   const zhH = (R(1) - R(0)) * (S.zhW / DEFAULTS.zhW), co = p.company.trim();
   const nm = ((R(4) - R(3)) / INK_TOP) * (S.name / DEFAULTS.name), mid = (y: number, size: number): number => y + size * 0.36;
-  let s = el("ground", "底色 Ground", groundRect(C.charcoal), true) +
+  let s = el("ground", "底色 Ground", groundRect(groundBg()), true) +
     el("mark", "标志 Logo", fullMark(M, y0, h, fg, rings)) +
     el("lettering", "西頂廣仁宮", zh(x, R(0), (zhH / VI.zhH) * VI.zhW, fg)) +
     (co ? el("company", "西顶文化", text(co, x, mid(R(2), S.co), S.co, { family: SERIF, weight: 600, spacing: 0.3, fill: org })) : "") +
@@ -275,13 +346,13 @@ function frontGrid(p: Person, inks: 2 | 3, rings: boolean): string {
 
 // ---- I 中轴 Axis: everything on the card's vertical centre line, the organisation first, then the person ----
 function frontAxis(p: Person, inks: 2 | 3, rings: boolean): string {
-  const fg = C.ivory, org = inks === 3 ? C.sand : C.ivory, cx = W / 2;
+  const fg = GF().ink, org = inks === 3 ? GF().sub : GF().ink, cx = W / 2;
   const mh = 11 * (S.markH / DEFAULTS.markH), mw = mh * MARK_ASPECT, top = M + S.logoY;
   const zw = 24 * (S.zhW / DEFAULTS.zhW), zy = top + mh + 2.4 * (S.logoGap / DEFAULTS.logoGap), zH = zhHeight(zw);
   const coSize = S.co * (2.2 / DEFAULTS.co), cb = zy + zH + 1.8 + INK_TOP * coSize, co = p.company.trim();
   const ns = S.name * 0.9, nb = cb + 3.6 + INK_TOP * ns, small = S.small * 0.95, tiny = S.small * 0.91;
   const subLine = [p.nameEn.trim(), role(p)].filter(Boolean).join("  ·  ");
-  return el("ground", "底色 Ground", groundRect(C.charcoal), true) +
+  return el("ground", "底色 Ground", groundRect(groundBg()), true) +
     el("mark", "标志 Logo", fullMark(cx - mw / 2, top, mh, fg, rings)) +
     el("lettering", "西頂廣仁宮", zh(cx - zw / 2, zy, zw, fg)) +
     (co ? el("company", "西顶文化", text(co, cx + 0.15 * coSize, cb, coSize, { family: SERIF, weight: 600, spacing: 0.3, anchor: "middle", fill: org })) : "") +
@@ -303,7 +374,13 @@ function line(x1: number, y1: number, x2: number, y2: number, col: string, dash 
   return `<line x1="${f2(x1)}" y1="${f2(y1)}" x2="${f2(x2)}" y2="${f2(y2)}" stroke="${col}" stroke-width=".14"${dash ? ` stroke-dasharray="${dash}"` : ""}/>`;
 }
 /** The fixed lines a layout is built on: card edges, margins, centre lines, and for H the field's edge and axis. */
+/** The sheet a key names: the landscape card, or the portrait card (its own size, portrait.ts). */
+const PORTRAIT_KEY = "portrait";
+function sheetDims(key: string): { w: number; h: number; m: number } {
+  return key === PORTRAIT_KEY ? { w: S.ptW, h: S.ptH, m: S.ptMargin } : { w: W, h: H, m: M };
+}
 function layoutLines(key: string): { xs: number[]; ys: number[] } {
+  if (key === PORTRAIT_KEY) return portraitLines();
   const xs = [0, M, W / 2, W - M, W], ys = [0, M, H / 2, BASE, H];
   if (key === "seal2:front") { xs.push(S.fieldW, S.fieldW / 2, S.fieldW + 6); }
   return { xs, ys };

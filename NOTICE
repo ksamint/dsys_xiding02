@@ -12,12 +12,14 @@ Copyright 2026 西顶文化 (Xiding). All rights reserved except as stated below
 2. Brand and content: all rights reserved
    Not licensed under the Apache License or any other licence. They may be viewed here; they may not be copied,
    adapted or used without written permission from 西顶文化:
-   - the names and marks 西顶, 西頂, Xiding, XIDING, 西顶文化, 西顶艺术, 西顶教育, 西顶时光, Xiding Arts,
-     Xiding Education, Xiding Lifestyle, 西頂廣仁宮, Xiding Guangren Temple, and the dot mark, in any form;
+   - the names and marks 西顶, 西頂, Xiding, XIDING, 西顶文化, 西顶艺术, 西顶新知, 西顶时光, Xiding Arts,
+     Xiding Insights, Xiding Lifestyle, 西頂廣仁宮, Xiding Guangren Temple, and the dot mark, in any form;
    - brand/ (the visual identity of 西頂廣仁宮: logos, wordmarks, palette, brand-book pages and text);
    - design-system/ apart from the component code listed above: tokens, assets, previews, the brand book
      (intro.md, voice.md, README.md), decisions and references;
    - showcase/;
+   - the photographs and outlined marks of the QR share card (cards/xiding-qr/web/photos/, web/src/mark-data.ts,
+     web/src/wordmark-data.ts);
    - the words, photographs, picture briefs and artwork of the introduction (src/shared/content.ts, catalog.ts,
      events.ts, photo.ts, the copy in src/deck, src/site, src/onepager) and docs/.
    Section 6 of the Apache License applies: it grants no permission to use these trade names or trademarks.

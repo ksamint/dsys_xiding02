@@ -25,6 +25,7 @@
     "tools/**/*.ts",
     "tests/card.test.ts",
     "tests/ds.test.ts",
-    "tests/public.test.ts"
+    "tests/public.test.ts",
+    "tests/qr.test.ts"
   ]
 }
